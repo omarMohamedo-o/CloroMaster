@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # SQL Server Database
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - chloromaster-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - chloromaster-network
+
+  # API Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=ChloroMasterDB;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true
+      - Jwt__Key=YourSuperSecretKeyHereMakeItLongAndSecure123!@#
+      - Jwt__Issuer=https://chloromaster.com
+      - Jwt__Audience=https://chloromaster.com
+    depends_on:
+      - sqlserver
+      - redis
+    networks:
+      - chloromaster-network
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  sqlserver_data:
+  redis_data:
+
+networks:
+  chloromaster-network:
+    driver: bridge
