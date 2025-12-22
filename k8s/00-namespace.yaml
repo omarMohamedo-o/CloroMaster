@@ -1,0 +1,10 @@
+# ==========================================
+# Namespace for ChloroMaster Application
+# ==========================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chloromaster
+  labels:
+    name: chloromaster
+    environment: production

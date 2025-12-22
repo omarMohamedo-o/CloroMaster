@@ -1,0 +1,304 @@
+# ==========================================
+# ChloroMaster - Unified Docker Compose
+# ==========================================
+# Profiles:
+#   default: Frontend + Backend (SQLite) + Nginx
+#   dev: Add SQL Server + Redis for backend development
+#   monitoring: Add Prometheus + Grafana for monitoring
+#
+# Usage:
+#   docker compose up -d                    # Production stack
+#   docker compose --profile dev up -d      # With SQL Server + Redis
+#   docker compose --profile monitoring up -d  # With monitoring
+#   docker compose --profile dev --profile monitoring up -d  # Everything
+# ==========================================
+
+services:
+  # ==========================================
+  # Frontend Service (React Application)
+  # ==========================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+    image: chloromaster/frontend:latest
+    container_name: chloromaster-frontend
+    restart: unless-stopped
+    networks:
+      - chloromaster-network
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # Backend API Service (.NET 8)
+  # ==========================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: final
+    image: chloromaster/backend:latest
+    container_name: chloromaster-backend
+    restart: unless-stopped
+    networks:
+      - chloromaster-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__DefaultConnection=Data Source=/app/data/chloromaster.db
+    volumes:
+      - backend_data:/app/data:rw
+      - backend_logs:/app/logs:rw
+    user: "1001:1001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # Nginx Reverse Proxy & Load Balancer
+  # ==========================================
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: chloromaster/nginx:latest
+    container_name: chloromaster-nginx
+    restart: unless-stopped
+    ports:
+      - "80:8080"
+      - "443:8443"
+    networks:
+      - chloromaster-network
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /var/run:size=2M,mode=1777
+      - /var/cache/nginx:size=128M,mode=1777
+      - /var/log/nginx:size=32M,mode=1777
+      - /tmp:size=64M,mode=1777
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+      - CHOWN
+      - SETUID
+      - SETGID
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 256M
+        reservations:
+          cpus: '0.15'
+          memory: 128M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # Development Services (SQL Server + Redis)
+  # Profile: dev
+  # ==========================================
+  sqlserver:
+    profiles: ["dev"]
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: chloromaster-sqlserver
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - chloromaster-network
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Passw0rd' -Q 'SELECT 1'
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis:
+    profiles: ["dev"]
+    image: redis:7-alpine
+    container_name: chloromaster-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - chloromaster-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+  # ==========================================
+  # Monitoring Services (Prometheus + Grafana)
+  # Profile: monitoring
+  # ==========================================
+  prometheus:
+    profiles: ["monitoring"]
+    build:
+      context: ./monitoring/prometheus
+      dockerfile: Dockerfile
+    image: chloromaster/prometheus:latest
+    container_name: chloromaster-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
+    networks:
+      - chloromaster-network
+    depends_on:
+      - backend
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  grafana:
+    profiles: ["monitoring"]
+    build:
+      context: ./monitoring/grafana
+      dockerfile: Dockerfile
+    image: chloromaster/grafana:latest
+    container_name: chloromaster-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - chloromaster-network
+    depends_on:
+      - prometheus
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ==========================================
+# Networks Configuration
+# ==========================================
+networks:
+  chloromaster-network:
+    name: chloromaster-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1
+    driver_opts:
+      com.docker.network.bridge.name: br-chloromaster
+      com.docker.network.bridge.enable_ip_masquerade: "true"
+      com.docker.network.driver.mtu: "1500"
+
+# ==========================================
+# Volumes Configuration
+# ==========================================
+volumes:
+  backend_data:
+    name: chloromaster-backend-data
+    driver: local
+  backend_logs:
+    name: chloromaster-backend-logs
+    driver: local
+  nginx_cache:
+    name: chloromaster-nginx-cache
+    driver: local
+  sqlserver_data:
+    name: chloromaster-sqlserver-data
+    driver: local
+  redis_data:
+    name: chloromaster-redis-data
+    driver: local
+  prometheus_data:
+    name: chloromaster-prometheus-data
+    driver: local
+  grafana_data:
+    name: chloromaster-grafana-data
+    driver: local

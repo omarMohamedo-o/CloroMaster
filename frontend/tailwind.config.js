@@ -4,7 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: '#40E0D0'
+        brand: '#00778a',
+        'brand-dark': '#002e35',
+        'brand-medium': '#005f6b',
+        'brand-light': '#36c7c7',
+        'brand-secondary': '#a8f0f0'
       }
     }
   },

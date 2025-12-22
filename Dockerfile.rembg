@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install rembg and dependencies
+RUN pip install --no-cache-dir rembg[gpu] pillow
+
+# Copy the script
+COPY remove_service_backgrounds.py /app/
+
+# Set the entrypoint
+ENTRYPOINT ["python", "remove_service_backgrounds.py"]

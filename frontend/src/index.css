@@ -8,10 +8,165 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 body {
-  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for animations */
+.transform-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize will-change for animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* English typography enhancements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+h1 {
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+strong,
+b,
+.font-bold {
+  font-weight: 700;
+  letter-spacing: 0.005em;
+}
+
+/* Arabic font support with enhanced readability */
+html[lang="ar"] body {
+  font-family: 'Cairo', 'Tajawal', 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  letter-spacing: 0.025em;
+  word-spacing: 0.12em;
+  line-height: 1.8;
+}
+
+/* Arabic headings - different sizes need different spacing */
+html[lang="ar"] h1 {
+  letter-spacing: 0.045em !important;
+  word-spacing: 0.2em !important;
+  line-height: 1.5 !important;
+  font-weight: 700;
+}
+
+html[lang="ar"] h2 {
+  letter-spacing: 0.04em !important;
+  word-spacing: 0.18em !important;
+  line-height: 1.6 !important;
+  font-weight: 700;
+}
+
+html[lang="ar"] h3 {
+  letter-spacing: 0.035em !important;
+  word-spacing: 0.16em !important;
+  line-height: 1.7 !important;
+  font-weight: 700;
+}
+
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6 {
+  letter-spacing: 0.03em !important;
+  word-spacing: 0.15em !important;
+  line-height: 1.75 !important;
+  font-weight: 700;
+}
+
+/* Arabic paragraphs with comfortable reading spacing */
+html[lang="ar"] p {
+  line-height: 2.1 !important;
+  letter-spacing: 0.025em;
+  word-spacing: 0.12em;
+}
+
+/* Keep logo text spacing tight in Arabic mode - same as English */
+html[lang="ar"] .leading-tight p {
+  line-height: 1 !important;
+}
+
+/* Keep logo heading spacing same as English */
+html[lang="ar"] .leading-tight h1,
+html[lang="ar"] .leading-tight h3 {
+  letter-spacing: -0.01em !important;
+  word-spacing: normal !important;
+  line-height: 1 !important;
+}
+
+/* Arabic bold text - critical for preventing overlap */
+html[lang="ar"] strong,
+html[lang="ar"] b,
+html[lang="ar"] .font-bold,
+html[lang="ar"] .font-semibold {
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.15em !important;
+  font-weight: 700 !important;
+}
+
+/* Large text classes need extra spacing */
+html[lang="ar"] .text-xl {
+  line-height: 1.7 !important;
+  letter-spacing: 0.035em;
+}
+
+html[lang="ar"] .text-2xl {
+  line-height: 1.6 !important;
+  letter-spacing: 0.04em;
+}
+
+html[lang="ar"] .text-3xl,
+html[lang="ar"] .text-4xl {
+  line-height: 1.5 !important;
+  letter-spacing: 0.045em;
+}
+
+html[lang="ar"] .text-5xl,
+html[lang="ar"] .text-6xl {
+  line-height: 1.4 !important;
+  letter-spacing: 0.05em;
+}
+
+/* RTL adjustments */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row-reverse;
 }
 
 /* Custom scrollbar */
@@ -50,48 +205,111 @@ body {
   @apply bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg;
 }
 
-/* Custom animations */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(64, 224, 208, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(64, 224, 208, 0.6);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
 /* Gradient text utilities */
 .gradient-text {
   @apply text-transparent bg-clip-text bg-gradient-to-r from-brand to-emerald-500;
 }
 
-/* GPU/compositor hints for smoother motion */
-.will-change-transform {
-  will-change: transform, opacity;
-  transform: translateZ(0);
+/* ================================
+   🎨 SMOOTH ANIMATION SYSTEM
+   Following UX Best Practices
+   ================================ */
+
+/* Base animation utilities */
+.smooth-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
 }
 
-/* Prevent 3D rendering artifacts on icons/images during transforms */
-.backface-hidden {
+.smooth-reveal.aos-animate {
+  opacity: 1;
+}
+
+/* Direction-based animations */
+.reveal-up {
+  transform: translateY(40px);
+}
+
+.reveal-up.aos-animate {
+  transform: translateY(0);
+}
+
+.reveal-left {
+  transform: translateX(-50px);
+}
+
+.reveal-left.aos-animate {
+  transform: translateX(0);
+}
+
+.reveal-right {
+  transform: translateX(60px);
+}
+
+.reveal-right.aos-animate {
+  transform: translateX(0);
+}
+
+.reveal-fade {
+  opacity: 0;
+}
+
+.reveal-fade.aos-animate {
+  opacity: 1;
+}
+
+/* Performance-optimized animations */
+.animate-smooth {
+  will-change: transform, opacity;
+  transform: translateZ(0);
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+}
+
+/* Easing functions - UX optimized */
+.ease-smooth {
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ease-natural {
+  transition-timing-function: ease-out;
+}
+
+/* Hover effects - subtle and purposeful */
+.hover-lift {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .smooth-reveal,
+  .reveal-up,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Glass morphism effect */
@@ -138,4 +356,81 @@ body {
 /* Loading spinner */
 .spinner {
   @apply w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin;
+}
+
+/* Floating animation for subtle motion (respects reduced motion) */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Subtle pulse for call-to-action elements */
+@keyframes cta-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 6px 18px rgba(64, 224, 208, 0.12);
+  }
+
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(64, 224, 208, 0.16);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 6px 18px rgba(64, 224, 208, 0.12);
+  }
+}
+
+.cta-pulse {
+  animation: cta-pulse 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .float-slow,
+  .cta-pulse {
+    animation: none !important;
+  }
+}
+
+/* Button hover animation - apply to interactive CTAs */
+.btn-hover-animate {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1), filter 260ms;
+  transform-origin: center;
+}
+
+.btn-hover-animate:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 18px 40px rgba(16, 185, 129, 0.12), 0 6px 18px rgba(0, 0, 0, 0.06);
+  filter: drop-shadow(0 8px 24px rgba(16, 185, 129, 0.06));
+}
+
+.btn-hover-animate:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .btn-hover-animate,
+  .btn-hover-animate:hover,
+  .btn-hover-animate:active {
+    transform: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
 }

@@ -2,9 +2,31 @@
 
 A modern, professional website for ChloroMaster - Sustainable Design and Eco Consulting Services, built with React frontend and .NET 9 backend.
 
+## 📚 Documentation
+
+### 🚀 Getting Started
+
+- **[Docker Compose Guide](DOCKER_COMPOSE_GUIDE.md)** ⭐ - Choose the right docker-compose file
+- **[Kubernetes Guide](KUBERNETES_GUIDE.md)** - Complete K8s deployment guide
+- **[Admin Dashboard Guide](ADMIN_DASHBOARD_GUIDE.md)** 🔐 - Access and manage your admin panel
+
+### 📖 Reference
+
+- **[Architecture Overview](ARCHITECTURE.md)** - System design and components
+- **[Docker Guide](DOCKER.md)** - Container setup and configuration
+- **[Database Migrations](MIGRATIONS.md)** - Migration management and best practices
+- **[Deployment Checklist](DEPLOYMENT_CHECKLIST.md)** - Production deployment steps
+
+### 🔧 Advanced
+
+- **[Custom Metrics HPA](k8s/CUSTOM_METRICS_HPA.md)** - Advanced auto-scaling guide
+- **[K8s Implementation](K8S_IMPLEMENTATION.md)** - Complete K8s setup details
+- **[Project Status](PROJECT_STATUS.md)** - Current implementation status
+
 ## 🏗️ Architecture Overview
 
 ### Frontend (React)
+
 - **Framework**: React 18 with modern hooks
 - **Styling**: Tailwind CSS with custom design system
 - **Animations**: Framer Motion for smooth, professional animations
@@ -12,6 +34,7 @@ A modern, professional website for ChloroMaster - Sustainable Design and Eco Con
 - **Responsive**: Mobile-first design with dark mode support
 
 ### Backend (.NET 9)
+
 - **Framework**: .NET 9 with ASP.NET Core 8
 - **Architecture**: Clean Architecture with layered approach
 - **Database**: SQL Server with Entity Framework Core
@@ -23,18 +46,21 @@ A modern, professional website for ChloroMaster - Sustainable Design and Eco Con
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - **.NET 9 SDK** - [Download here](https://dotnet.microsoft.com/download/dotnet/9.0)
 - **Node.js 18+** - [Download here](https://nodejs.org/)
 - **Docker Desktop** - [Download here](https://www.docker.com/products/docker-desktop)
 - **SQL Server** (or use Docker)
 
 ### 1. Clone and Setup
+
 ```bash
 git clone <repository-url>
 cd CloroMaster
 ```
 
 ### 2. Start Backend
+
 ```bash
 cd backend
 
@@ -51,6 +77,7 @@ dotnet run --project src/ChloroMaster.API
 ```
 
 ### 3. Start Frontend
+
 ```bash
 cd frontend
 npm install
@@ -58,9 +85,10 @@ npm start
 ```
 
 ### 4. Access Applications
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:5000
-- **API Documentation**: http://localhost:5000/swagger
+
+- **Frontend**: <http://localhost:3000>
+- **Backend API**: <http://localhost:5000>
+- **API Documentation**: <http://localhost:5000/swagger>
 - **Database**: localhost:1433 (SQL Server)
 
 ## 🏛️ Project Structure
@@ -90,6 +118,7 @@ CloroMaster/
 ## 🔧 Backend Architecture
 
 ### Layer Structure
+
 1. **API Layer** (`ChloroMaster.API`)
    - Controllers and middleware
    - Configuration and dependency injection
@@ -111,6 +140,7 @@ CloroMaster/
    - Business rules and validation
 
 ### Key Features
+
 - **JWT Authentication**: Secure API access with role-based authorization
 - **Entity Framework**: Code-first database approach with migrations
 - **AutoMapper**: Clean object mapping between layers
@@ -123,6 +153,7 @@ CloroMaster/
 ## 🎨 Frontend Architecture
 
 ### Component Structure
+
 - **Navbar**: Navigation with dark mode toggle
 - **Hero**: Main landing section with animated statistics
 - **ServicesGrid**: Interactive services showcase with filtering
@@ -131,6 +162,7 @@ CloroMaster/
 - **Footer**: Company links and social media
 
 ### Key Features
+
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Dark Mode**: Toggle between light and dark themes
 - **Animations**: Smooth animations using Framer Motion
@@ -141,46 +173,55 @@ CloroMaster/
 ## 🗄️ Database Schema
 
 ### Core Entities
+
 - **Users**: Authentication and user management
 - **Contacts**: Contact form submissions
 - **Services**: Company service catalog
 
 ### Sample Data
+
 The application includes seed data for:
-- Default admin user (admin@chloromaster.com / Admin123!)
+
+- Default admin user (<admin@chloromaster.com> / Admin123!)
 - Sample services (Sustainable Design, Eco Consulting, Green Technology)
 
 ## 🔐 Authentication & Security
 
 ### JWT Configuration
-- **Issuer**: https://chloromaster.com
-- **Audience**: https://chloromaster.com
+
+- **Issuer**: <https://chloromaster.com>
+- **Audience**: <https://chloromaster.com>
 - **Expiry**: 60 minutes (configurable)
 - **Algorithm**: HMAC-SHA256
 
 ### Role-Based Access
+
 - **Admin**: Full access to all endpoints
 - **User**: Limited access to public endpoints
 
 ## 📧 Email Service
 
 ### Configuration
+
 - **SMTP Server**: Gmail (configurable)
 - **Port**: 587 (TLS)
 - **Authentication**: Username/password or app password
 
 ### Email Types
+
 - **Contact Notifications**: Admin and user confirmations
 - **Welcome Emails**: User registration confirmations
 
 ## 🐳 Docker Support
 
 ### Services
+
 - **API**: .NET 9 application
 - **SQL Server**: Database server
 - **Redis**: Caching (optional)
 
 ### Commands
+
 ```bash
 # Start all services
 docker compose up -d
@@ -198,12 +239,14 @@ docker compose up -d --build
 ## 🧪 Testing
 
 ### Backend Testing
+
 ```bash
 cd backend
 dotnet test
 ```
 
 ### Frontend Testing
+
 ```bash
 cd frontend
 npm test
@@ -212,11 +255,13 @@ npm test
 ## 📊 Monitoring & Logging
 
 ### Logging
+
 - **Console**: Development logging
 - **File**: Daily rolling log files
 - **Structured**: JSON format for production
 
 ### Health Checks
+
 - **Database**: Connection status
 - **Services**: Service availability
 - **API**: Endpoint responsiveness
@@ -224,11 +269,13 @@ npm test
 ## 🚀 Deployment
 
 ### Backend Deployment
+
 1. Build Docker image: `docker build -t chloromaster-api .`
 2. Configure environment variables
 3. Deploy to container platform (Azure, AWS, etc.)
 
 ### Frontend Deployment
+
 1. Build production bundle: `npm run build`
 2. Deploy to static hosting (Netlify, Vercel, etc.)
 3. Configure API endpoint for production
@@ -236,12 +283,14 @@ npm test
 ## 🔧 Configuration
 
 ### Environment Variables
+
 - **API_URL**: Backend API endpoint
 - **JWT_KEY**: Secret key for JWT tokens
 - **SMTP_CREDENTIALS**: Email service configuration
 - **DATABASE_CONNECTION**: Database connection string
 
 ### Configuration Files
+
 - **appsettings.json**: Backend configuration
 - **config.js**: Frontend configuration
 - **docker-compose.yml**: Docker services configuration
@@ -261,25 +310,29 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🆘 Support
 
 For support and questions:
-- **Email**: info@chloromaster.com
+
+- **Email**: <info@chloromaster.com>
 - **Phone**: +20 3 486 0034
 - **Address**: 336 El Geish Road, Royal Plaza, Building D, Mezzanine floor, Gleem 21500, Alexandria, Egypt
 
 ## 🎯 Roadmap
 
 ### Phase 1 (Current)
+
 - ✅ Basic website with animations
 - ✅ Contact form integration
 - ✅ JWT authentication
 - ✅ Service catalog
 
 ### Phase 2 (Future)
+
 - 🔄 User dashboard
 - 🔄 Service booking system
 - 🔄 Payment integration
 - 🔄 Admin panel
 
 ### Phase 3 (Future)
+
 - 🔄 Mobile application
 - 🔄 Advanced analytics
 - 🔄 Multi-language support

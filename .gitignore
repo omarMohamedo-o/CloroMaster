@@ -1,2 +1,5 @@
 frontend/node_modules/
 backend/src/
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.github/instructions/snyk_rules.instructions.md

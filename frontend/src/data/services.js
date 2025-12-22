@@ -1,27 +1,17 @@
 const services = [
   {
     id: 1,
-    title: 'Sustainable Design',
-    category: 'Sustainable Design',
-    desc: 'Holistic design focused on energy efficiency, habitat protection, and long-term value. We create spaces that harmonize with nature while meeting modern business needs.'
+    title: 'Chlorine Systems',
+    category: 'Water Treatment',
+    desc: 'Design, installation, testing, and commissioning of advanced chlorination systems from 10 to 120 kg/hr capacity for drinking water and wastewater treatment plants.',
+    images: ['/images/services/Chlorine System Solutions/liquid-chlorine-trap-and-chlorine-gas-filter.png']
   },
   {
-    id: 3,
-    title: 'Eco Consulting',
-    category: 'Eco Consulting',
-    desc: 'Strategy and compliance roadmaps to reduce carbon footprint and meet sustainability goals. Expert guidance for your green transformation.'
-  },
-  {
-    id: 5,
-    title: 'Green Technology Integration',
-    category: 'Green Technology',
-    desc: 'Renewable energy systems, IoT monitoring, and efficiency optimization implementations for modern businesses.'
-  },
-  {
-    id: 7,
-    title: 'Solar Energy Systems',
-    category: 'Renewable Energy',
-    desc: 'Custom solar panel installations and energy storage solutions to power your business with clean, renewable energy.'
+    id: 2,
+    title: 'Electromechanical Works',
+    category: 'Engineering',
+    desc: 'Complete electromechanical installation and maintenance services for water treatment facilities, including pumps, valves, and control systems.',
+    images: ['/images/services/Chlorine System Solutions/Expansion-tube-with-rupture-disc.png']
   }
 ];
 

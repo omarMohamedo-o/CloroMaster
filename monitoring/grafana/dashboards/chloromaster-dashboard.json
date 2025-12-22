@@ -1,0 +1,258 @@
+{
+    "dashboard": {
+        "title": "ChloroMaster Website Metrics",
+        "uid": "chloromaster-web",
+        "timezone": "browser",
+        "editable": true,
+        "schemaVersion": 38,
+        "version": 1,
+        "refresh": "10s",
+        "panels": [
+            {
+                "id": 1,
+                "title": "Page Views (Total)",
+                "type": "stat",
+                "gridPos": {
+                    "x": 0,
+                    "y": 0,
+                    "w": 6,
+                    "h": 4
+                },
+                "targets": [
+                    {
+                        "expr": "sum(chloromaster_page_views_total)",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "value": null,
+                                    "color": "green"
+                                },
+                                {
+                                    "value": 100,
+                                    "color": "yellow"
+                                },
+                                {
+                                    "value": 500,
+                                    "color": "red"
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "id": 2,
+                "title": "Contact Form Submissions",
+                "type": "stat",
+                "gridPos": {
+                    "x": 6,
+                    "y": 0,
+                    "w": 6,
+                    "h": 4
+                },
+                "targets": [
+                    {
+                        "expr": "chloromaster_contact_submissions_total",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 3,
+                "title": "Emails Sent",
+                "type": "stat",
+                "gridPos": {
+                    "x": 12,
+                    "y": 0,
+                    "w": 6,
+                    "h": 4
+                },
+                "targets": [
+                    {
+                        "expr": "sum(chloromaster_emails_sent_total)",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "value": null,
+                                    "color": "blue"
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "id": 4,
+                "title": "Request Duration (p95)",
+                "type": "gauge",
+                "gridPos": {
+                    "x": 18,
+                    "y": 0,
+                    "w": 6,
+                    "h": 4
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(chloromaster_request_duration_seconds_bucket[5m])) by (le))",
+                        "refId": "A"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "unit": "s",
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "value": null,
+                                    "color": "green"
+                                },
+                                {
+                                    "value": 0.5,
+                                    "color": "yellow"
+                                },
+                                {
+                                    "value": 1,
+                                    "color": "red"
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            {
+                "id": 5,
+                "title": "Page Views Over Time",
+                "type": "timeseries",
+                "gridPos": {
+                    "x": 0,
+                    "y": 4,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "rate(chloromaster_page_views_total[5m])",
+                        "refId": "A",
+                        "legendFormat": "{{page}}"
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "title": "Request Duration Distribution",
+                "type": "timeseries",
+                "gridPos": {
+                    "x": 12,
+                    "y": 4,
+                    "w": 12,
+                    "h": 8
+                },
+                "targets": [
+                    {
+                        "expr": "histogram_quantile(0.50, sum(rate(chloromaster_request_duration_seconds_bucket[5m])) by (le))",
+                        "refId": "A",
+                        "legendFormat": "p50"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.90, sum(rate(chloromaster_request_duration_seconds_bucket[5m])) by (le))",
+                        "refId": "B",
+                        "legendFormat": "p90"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.95, sum(rate(chloromaster_request_duration_seconds_bucket[5m])) by (le))",
+                        "refId": "C",
+                        "legendFormat": "p95"
+                    },
+                    {
+                        "expr": "histogram_quantile(0.99, sum(rate(chloromaster_request_duration_seconds_bucket[5m])) by (le))",
+                        "refId": "D",
+                        "legendFormat": "p99"
+                    }
+                ],
+                "fieldConfig": {
+                    "defaults": {
+                        "unit": "s"
+                    }
+                }
+            },
+            {
+                "id": 7,
+                "title": "Service Views",
+                "type": "table",
+                "gridPos": {
+                    "x": 0,
+                    "y": 12,
+                    "w": 12,
+                    "h": 6
+                },
+                "targets": [
+                    {
+                        "expr": "topk(10, chloromaster_service_views_total)",
+                        "refId": "A",
+                        "format": "table",
+                        "instant": true
+                    }
+                ],
+                "transformations": [
+                    {
+                        "id": "organize",
+                        "options": {
+                            "excludeByName": {
+                                "Time": true
+                            },
+                            "renameByName": {
+                                "service_name": "Service",
+                                "Value": "Views"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "title": "API Calls by Endpoint",
+                "type": "timeseries",
+                "gridPos": {
+                    "x": 12,
+                    "y": 12,
+                    "w": 12,
+                    "h": 6
+                },
+                "targets": [
+                    {
+                        "expr": "sum by (endpoint) (rate(chloromaster_api_calls_total[5m]))",
+                        "refId": "A",
+                        "legendFormat": "{{endpoint}}"
+                    }
+                ]
+            }
+        ]
+    },
+    "overwrite": true
+}

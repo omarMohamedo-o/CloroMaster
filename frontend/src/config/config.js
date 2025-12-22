@@ -1,28 +1,29 @@
 const config = {
   // API Configuration
   api: {
-    baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
-    timeout: 10000,
+    baseURL: process.env.REACT_APP_API_URL || '/api',
+    timeout: 30000,
   },
-  
+
   // App Configuration
   app: {
     name: 'ChloroMaster',
-    description: 'Sustainable Design and Eco Consulting Services',
+    description: 'Engineering, Contracting & Supplies - Water Treatment & Chlorination Systems',
     version: '1.0.0',
   },
-  
+
   // Contact Configuration
   contact: {
-    email: 'info@chloromaster.com',
-    phone: '+20 3 486 0034',
-    address: '336 El Geish Road, Royal Plaza, Building D, Mezzanine floor, Gleem 21500, Alexandria, Egypt',
+    email: 'ChloroMaster@outlook.sa',
+    phone: '+20 12 22155310',
+    address: '58 Mahaliya 1 - Second District, Obour - Qalyubia',
+    addressLink: 'https://maps.google.com/?q=58+Mahaliya+1+Second+District+Obour+Qalyubia+Egypt',
     workingHours: {
-      weekdays: 'Monday - Friday: 9:00 AM - 6:00 PM',
+      weekdays: 'Sunday - Wednesday: 9:00 AM - 6:00 PM',
       saturday: 'Saturday: 9:00 AM - 2:00 PM',
     },
   },
-  
+
   // Features Configuration
   features: {
     darkMode: true,

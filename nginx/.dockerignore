@@ -1,0 +1,7 @@
+# Docker ignore file for nginx
+.git
+.gitignore
+README.md
+*.md
+.DS_Store
+*.log
