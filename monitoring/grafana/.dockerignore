@@ -1,0 +1,8 @@
+*.log
+*.tmp
+.git
+.gitignore
+README.md
+.DS_Store
+data/
+logs/

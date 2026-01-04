@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../app/routes';
 import { useLanguage } from '../../context/LanguageContext';
 import config from '../../config/config';
 
 const AdminDashboard = () => {
-    const { language } = useLanguage();
+    const { t } = useLanguage();
     const navigate = useNavigate();
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const AdminDashboard = () => {
         // Check authentication
         const token = localStorage.getItem('adminToken');
         if (!token) {
-            navigate('/admin/login');
+            navigate(PATHS.ADMIN_LOGIN);
             return;
         }
 
@@ -41,7 +42,7 @@ const AdminDashboard = () => {
     const handleLogout = () => {
         localStorage.removeItem('adminToken');
         localStorage.removeItem('adminUser');
-        navigate('/admin/login');
+        navigate(PATHS.ADMIN_LOGIN);
     };
 
     if (loading) {
@@ -50,7 +51,7 @@ const AdminDashboard = () => {
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
                     <p className="mt-4 text-gray-600">
-                        {language === 'ar' ? 'جاري التحميل...' : 'Loading...'}
+                        {t('admin.loading')}
                     </p>
                 </div>
             </div>
@@ -61,13 +62,13 @@ const AdminDashboard = () => {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
                 <div className="max-w-md w-full bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg">
-                    <h3 className="font-semibold mb-2">Error</h3>
+                    <h3 className="font-semibold mb-2">{t('admin.error')}</h3>
                     <p>{error}</p>
                     <button
                         onClick={fetchDashboardStats}
                         className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
                     >
-                        {language === 'ar' ? 'إعادة المحاولة' : 'Retry'}
+                        {t('admin.retry')}
                     </button>
                 </div>
             </div>
@@ -91,65 +92,44 @@ const AdminDashboard = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <header className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-900">
-                                {language === 'ar' ? 'لوحة التحكم' : 'Admin Dashboard'}
-                            </h1>
-                            <p className="text-sm text-gray-600">
-                                ChloroMaster Analytics
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <button
-                                onClick={() => navigate('/admin/submissions')}
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                            >
-                                {language === 'ar' ? 'الرسائل' : 'Submissions'}
-                            </button>
-                            <button
-                                onClick={handleLogout}
-                                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                            >
-                                {language === 'ar' ? 'تسجيل الخروج' : 'Logout'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <AdminHeader
+                title={t('admin.dashboard')}
+                subtitle={"ChloroMaster Analytics"}
+                actions={[
+                    { label: t('admin.submissions'), onClick: () => navigate(PATHS.ADMIN_SUBMISSIONS), className: 'px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors' },
+                    { label: t('admin.logout'), onClick: handleLogout }
+                ]}
+            />
 
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <StatCard
-                        title={language === 'ar' ? 'إجمالي الزوار' : 'Total Visitors'}
+                        title={t('admin.totalVisitors')}
                         value={stats.totalVisitors.toLocaleString()}
-                        subtitle={language === 'ar' ? `اليوم: ${stats.todayVisitors}` : `Today: ${stats.todayVisitors}`}
+                        subtitle={`${t('admin.today')}: ${stats.todayVisitors}`}
                         icon="👥"
                         color="border-blue-500"
                     />
 
                     <StatCard
-                        title={language === 'ar' ? 'إجمالي الرسائل' : 'Total Submissions'}
+                        title={t('admin.totalSubmissions')}
                         value={stats.totalSubmissions.toLocaleString()}
-                        subtitle={language === 'ar' ? `اليوم: ${stats.todaySubmissions}` : `Today: ${stats.todaySubmissions}`}
+                        subtitle={`${t('admin.today')}: ${stats.todaySubmissions}`}
                         icon="📧"
                         color="border-green-500"
                     />
 
                     <StatCard
-                        title={language === 'ar' ? 'رسائل غير مقروءة' : 'Unread Messages'}
+                        title={t('admin.unreadMessages')}
                         value={stats.unreadSubmissions}
                         icon="📬"
                         color="border-yellow-500"
                     />
 
                     <StatCard
-                        title={language === 'ar' ? 'معدل التحويل' : 'Conversion Rate'}
+                        title={t('admin.conversionRate')}
                         value={`${stats.conversionRate}%`}
                         icon="📊"
                         color="border-purple-500"
@@ -161,7 +141,7 @@ const AdminDashboard = () => {
                     {/* Top Traffic Sources */}
                     <div className="bg-white rounded-xl shadow-md p-6">
                         <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                            {language === 'ar' ? 'أهم مصادر الزيارات' : 'Top Traffic Sources'}
+                            {t('admin.topTrafficSources')}
                         </h2>
                         {stats.topTrafficSources && stats.topTrafficSources.length > 0 ? (
                             <div className="space-y-3">
@@ -186,7 +166,7 @@ const AdminDashboard = () => {
                             </div>
                         ) : (
                             <p className="text-gray-500 text-center py-8">
-                                {language === 'ar' ? 'لا توجد بيانات' : 'No data available'}
+                                {t('admin.noData')}
                             </p>
                         )}
                     </div>
@@ -194,7 +174,7 @@ const AdminDashboard = () => {
                     {/* Top Pages */}
                     <div className="bg-white rounded-xl shadow-md p-6">
                         <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                            {language === 'ar' ? 'الصفحات الأكثر زيارة' : 'Top Pages'}
+                            {t('admin.topPages')}
                         </h2>
                         {stats.topPages && stats.topPages.length > 0 ? (
                             <div className="space-y-2">
@@ -211,7 +191,7 @@ const AdminDashboard = () => {
                             </div>
                         ) : (
                             <p className="text-gray-500 text-center py-8">
-                                {language === 'ar' ? 'لا توجد بيانات' : 'No data available'}
+                                {t('admin.noData')}
                             </p>
                         )}
                     </div>
@@ -220,32 +200,32 @@ const AdminDashboard = () => {
                 {/* Quick Actions */}
                 <div className="bg-white rounded-xl shadow-md p-6">
                     <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                        {language === 'ar' ? 'إجراءات سريعة' : 'Quick Actions'}
+                        {t('admin.quickActions')}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <button
-                            onClick={() => navigate('/admin/submissions?filter=unread')}
+                            onClick={() => navigate(`${PATHS.ADMIN_SUBMISSIONS}?filter=unread`)}
                             className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
                         >
                             <div className="text-2xl mb-2">📬</div>
                             <h3 className="font-semibold text-gray-800">
-                                {language === 'ar' ? 'عرض الرسائل غير المقروءة' : 'View Unread Messages'}
+                                {t('admin.viewUnreadMessages')}
                             </h3>
                             <p className="text-sm text-gray-600 mt-1">
-                                {stats.unreadSubmissions} {language === 'ar' ? 'رسالة' : 'messages'}
+                                {stats.unreadSubmissions} {t('admin.messages')}
                             </p>
                         </button>
 
                         <button
-                            onClick={() => navigate('/admin/submissions')}
+                            onClick={() => navigate(PATHS.ADMIN_SUBMISSIONS)}
                             className="p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-all text-left"
                         >
                             <div className="text-2xl mb-2">📋</div>
                             <h3 className="font-semibold text-gray-800">
-                                {language === 'ar' ? 'جميع الرسائل' : 'All Submissions'}
+                                {t('admin.allSubmissions')}
                             </h3>
                             <p className="text-sm text-gray-600 mt-1">
-                                {stats.totalSubmissions} {language === 'ar' ? 'إجمالي' : 'total'}
+                                {stats.totalSubmissions} {t('admin.total')}
                             </p>
                         </button>
 
@@ -255,10 +235,10 @@ const AdminDashboard = () => {
                         >
                             <div className="text-2xl mb-2">🔄</div>
                             <h3 className="font-semibold text-gray-800">
-                                {language === 'ar' ? 'تحديث البيانات' : 'Refresh Data'}
+                                {t('admin.refreshData')}
                             </h3>
                             <p className="text-sm text-gray-600 mt-1">
-                                {language === 'ar' ? 'تحديث الإحصائيات' : 'Update statistics'}
+                                {t('admin.updateStatistics')}
                             </p>
                         </button>
                     </div>

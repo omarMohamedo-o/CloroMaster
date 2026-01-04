@@ -1,38 +1,36 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { scroller } from 'react-scroll';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+// AOS removed in favor of centralized framer-motion variants
 
-import { HeaderFooterLayout } from './routes';
+import { HeaderFooterLayout, PATHS } from './routes';
 import Hero from '../components/common/Hero';
 const ServicesGrid = lazy(() => import('../components/common/ServicesGrid'));
 const About = lazy(() => import('../pages/About'));
 const Clients = lazy(() => import('../pages/Clients'));
 const FAQ = lazy(() => import('../pages/FAQ'));
-const ContactForm = lazy(() => import('../components/common/ContactForm'));
 const ContactSection = lazy(() => import('../components/common/ContactSection'));
-const Footer = lazy(() => import('../components/layout/Footer'));
 const ServiceDetail = lazy(() => import('../pages/services/ServiceDetail'));
 const EquipmentDetail = lazy(() => import('../pages/equipment/EquipmentDetail'));
+const Videos = lazy(() => import('../pages/Videos'));
 const AdminLogin = lazy(() => import('../pages/admin/AdminLogin'));
 const AdminDashboard = lazy(() => import('../pages/admin/AdminDashboard'));
 const SubmissionsList = lazy(() => import('../pages/admin/SubmissionsList'));
 const SubmissionDetail = lazy(() => import('../pages/admin/SubmissionDetail'));
+const PrivacyPolicy = lazy(() => import('../pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('../pages/TermsOfService'));
 import { LanguageProvider, useLanguage } from '../context/LanguageContext';
+import { SearchProvider } from '../context/SearchContext';
+const SearchModal = lazy(() => import('../components/search/SearchModal'));
 
 function LoadingFallback() {
-    // This component is rendered inside LanguageProvider so useLanguage will be available.
-    try {
-        const { t } = useLanguage();
-        return (
-            <div className="h-screen flex items-center justify-center"><div className="text-brand text-xl">{t('common.loading')}</div></div>
-        );
-    } catch (e) {
-        return (
-            <div className="h-screen flex items-center justify-center"><div className="text-brand text-xl">Loading...</div></div>
-        );
-    }
+    // Always call hooks at the top level
+    const { t } = useLanguage();
+    return (
+        <div className="h-screen flex items-center justify-center">
+            <div className="text-brand text-xl">{t('common.loading')}</div>
+        </div>
+    );
 }
 
 export default function App() {
@@ -43,17 +41,7 @@ export default function App() {
         if (dark) root.classList.add('dark'); else root.classList.remove('dark');
     }, [dark]);
 
-    // Initialize AOS with smooth UX-focused settings
-    useEffect(() => {
-        AOS.init({
-            duration: 700,           // Standard duration for smooth feel
-            easing: 'ease-out',      // Natural easing
-            once: true,              // Animate only once
-            offset: 100,             // Trigger 100px before element in view
-            delay: 0,                // No global delay
-            disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches, // Respect user preferences
-        });
-    }, []);
+    // AOS removed — animations are centralized via framer-motion variants
 
     const toggleDark = () => setDark(d => !d);
 
@@ -91,22 +79,31 @@ export default function App() {
 
     return (
         <LanguageProvider>
-            <Router>
-                <ScrollToState />
-                <HeaderFooterLayout headerProps={{ darkMode: dark, toggleDark }}>
-                    <Suspense fallback={<LoadingFallback />}>
-                        <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/service/:serviceId" element={<ServiceDetail />} />
-                            <Route path="/equipment/:slug" element={<EquipmentDetail />} />
-                            <Route path="/admin/login" element={<AdminLogin />} />
-                            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                            <Route path="/admin/submissions" element={<SubmissionsList />} />
-                            <Route path="/admin/submissions/:id" element={<SubmissionDetail />} />
-                        </Routes>
-                    </Suspense>
-                </HeaderFooterLayout>
-            </Router>
+            <SearchProvider>
+                <Router>
+                    <ScrollToState />
+                    <HeaderFooterLayout headerProps={{ darkMode: dark, toggleDark }}>
+                        <Suspense fallback={<LoadingFallback />}>
+                            <Routes>
+                                <Route path={PATHS.HOME} element={<HomePage />} />
+                                <Route path={PATHS.SERVICE_PATTERN} element={<ServiceDetail />} />
+                                <Route path={PATHS.EQUIPMENT_PATTERN} element={<EquipmentDetail />} />
+                                <Route path={PATHS.VIDEOS} element={<Videos />} />
+                                <Route path={PATHS.PRIVACY} element={<PrivacyPolicy />} />
+                                <Route path={PATHS.TERMS} element={<TermsOfService />} />
+                                <Route path={PATHS.ADMIN_LOGIN} element={<AdminLogin />} />
+                                <Route path={PATHS.ADMIN_DASHBOARD} element={<AdminDashboard />} />
+                                <Route path={PATHS.ADMIN_SUBMISSIONS} element={<SubmissionsList />} />
+                                <Route path={PATHS.ADMIN_SUBMISSION_DETAIL_PATTERN} element={<SubmissionDetail />} />
+                            </Routes>
+                        </Suspense>
+                        {/* Search Modal */}
+                        <Suspense fallback={null}>
+                            <SearchModal />
+                        </Suspense>
+                    </HeaderFooterLayout>
+                </Router>
+            </SearchProvider>
         </LanguageProvider>
     );
 }

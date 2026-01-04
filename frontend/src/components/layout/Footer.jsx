@@ -1,15 +1,76 @@
-import React from 'react';
-import { FaLinkedin, FaFacebookF, FaInstagram, FaTwitter, FaArrowUp } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaLinkedin, FaFacebookF, FaInstagram, FaTwitter, FaArrowUp, FaWhatsapp, FaPhone } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { footerVariant } from '../../lib/animations';
+import formatPhoneForDisplay from '../../lib/formatPhone';
 import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../app/routes';
 import { scroller } from 'react-scroll';
 import config from '../../config/config';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Footer() {
+    const { t, language } = useLanguage();
+    const isRTL = typeof language === 'string' && language.toLowerCase().startsWith('ar');
     const navigate = useNavigate();
-    const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    const [showScrollTop, setShowScrollTop] = useState(false);
+
+    // Scroll-to-top - simple and direct
+    const scrollTop = () => {
+        // prefer a smooth scroll and do not immediately mutate scrollTop
+        // as that can cancel the animation in some browsers
+        try {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (e) {
+            // fallback
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }
+    };
+
+    useEffect(() => {
+        const listenerOptions = { passive: true };
+        const docListenerOptions = { passive: true, capture: true };
+
+        const handleScroll = () => {
+            // Get scroll position from all possible sources
+            const scrollY = Math.max(
+                window.pageYOffset || 0,
+                window.scrollY || 0,
+                document.documentElement?.scrollTop || 0,
+                document.body?.scrollTop || 0
+            );
+
+            // Determine whether the page is scrollable at all (content taller than viewport)
+            const maxScroll = Math.max((document.documentElement?.scrollHeight || 0) - (window.innerHeight || 0), 0);
+
+            // Show button if user scrolled a bit OR the page is scrollable (so it's available on first load)
+            setShowScrollTop(scrollY > 20 || maxScroll > 0);
+        };
+
+        // Listen on window and document to catch all scroll events
+        window.addEventListener('scroll', handleScroll, listenerOptions);
+        document.addEventListener('scroll', handleScroll, docListenerOptions);
+
+        // Also run on load and a couple of delayed ticks to catch layout shifts and lazy images
+        window.addEventListener('load', handleScroll, listenerOptions);
+        handleScroll();
+        const retry1 = setTimeout(handleScroll, 50);
+        const retry2 = setTimeout(handleScroll, 500);
+        const interval = setInterval(handleScroll, 1000);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll, listenerOptions);
+            document.removeEventListener('scroll', handleScroll, docListenerOptions);
+            window.removeEventListener('load', handleScroll, listenerOptions);
+            clearTimeout(retry1);
+            clearTimeout(retry2);
+            clearInterval(interval);
+        };
+    }, []);
 
     const goHome = (scrollTo) => {
-        if (window.location.pathname === '/') {
+        if (window.location.pathname === PATHS.HOME) {
             // already on home - use react-scroll scroller if available, else fallback to element scrolling
             setTimeout(() => {
                 try {
@@ -26,23 +87,31 @@ export default function Footer() {
                 else window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 50);
         } else {
-            navigate('/', { state: { scrollTo } });
+            navigate(PATHS.HOME, { state: { scrollTo } });
         }
     };
 
     return (
-        <footer className="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300">
-            <div className="container mx-auto px-6 py-12 max-w-7xl">
+        <motion.footer className="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={footerVariant}
+        >
+            <div className="container mx-auto px-6 py-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Logo & description */}
                     <div>
-                        <div className="flex items-center gap-3 mb-4">
-                            <img src="/images/chloromaster-logo.png" alt={config.app.name} className="w-12 h-12 object-contain block" />
+                        <div className="flex items-start justify-start mb-3">
+                            <button onClick={() => goHome()} aria-label="Home" className="p-0 bg-transparent border-0 cursor-pointer">
+                                <img src="/images/chloromaster-logo.png" alt={config.app.name} className="w-[120px] md:w-[140px] lg:w-[160px] h-auto object-contain" />
+                            </button>
                         </div>
 
-                        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md">Leading the green revolution with innovative sustainable solutions. We combine technology and nature to create a better future for all.</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{t('footer.description')}</p>
 
-                        <div className="flex items-center gap-3 mt-6">
+                        <div className="flex items-center gap-3">
+                            <a className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-white shadow-sm text-gray-700 hover:text-brand transition-colors" href={`https://wa.me/${config.contact.whatsapp}`} target="_blank" rel="noopener noreferrer" aria-label="whatsapp"><FaWhatsapp /></a>
                             <a className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-white shadow-sm text-gray-700 hover:text-brand transition-colors" href="#" aria-label="linkedin"><FaLinkedin /></a>
                             <a className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-white shadow-sm text-gray-700 hover:text-brand transition-colors" href="#" aria-label="facebook"><FaFacebookF /></a>
                             <a className="inline-flex items-center justify-center w-10 h-10 rounded-md bg-white shadow-sm text-gray-700 hover:text-brand transition-colors" href="#" aria-label="instagram"><FaInstagram /></a>
@@ -52,44 +121,70 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="text-teal-600 font-semibold mb-4">Quick Links</h4>
-                        <ul className="space-y-3 text-sm">
-                            <li><button onClick={() => goHome()} className="hover:underline">Home</button></li>
-                            <li><button onClick={() => goHome('services')} className="hover:underline">Services</button></li>
-                            <li><button onClick={() => goHome('about')} className="hover:underline">About</button></li>
-                            <li><button onClick={() => goHome('faq')} className="hover:underline">FAQ</button></li>
-                            <li><button onClick={() => goHome('contact')} className="hover:underline">Contact</button></li>
+                        <h4 className="text-brand-medium font-semibold mb-3">{t('footer.quickLinks')}</h4>
+                        <ul className="space-y-2 text-sm">
+                            <li><button onClick={() => goHome()} className="hover:underline">{t('nav.home')}</button></li>
+                            <li><button onClick={() => goHome('services')} className="hover:underline">{t('nav.services')}</button></li>
+                            <li><button onClick={() => goHome('about')} className="hover:underline">{t('nav.about')}</button></li>
+                            <li><button onClick={() => goHome('faq')} className="hover:underline">{t('nav.faq')}</button></li>
+                            <li><button onClick={() => goHome('contact')} className="hover:underline">{t('nav.contact')}</button></li>
                         </ul>
                     </div>
 
                     {/* Contact info */}
                     <div>
-                        <h4 className="text-teal-600 font-semibold mb-4">Contact Info</h4>
-                        <div className="text-sm space-y-3">
+                        <h4 className="text-brand-medium font-semibold mb-3">{t('footer.contactInfo')}</h4>
+                        <div className="text-sm space-y-2">
                             <div>{config.contact.address}</div>
-                            <div>{config.contact.phone}</div>
+                            <div className="space-y-2">
+                                <a href={`tel:${formatPhoneForDisplay(config.contact.phone).replace(/\s+/g, '')}`} className="flex items-center gap-2 hover:underline">
+                                    <FaPhone className="text-brand" />
+                                    <span dir="ltr">{formatPhoneForDisplay(config.contact.phone)}</span>
+                                </a>
+                                <a href={`https://wa.me/${config.contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:underline">
+                                    <FaWhatsapp className="text-brand" />
+                                    <span dir="ltr">{formatPhoneForDisplay(config.contact.phone2)}</span>
+                                </a>
+                            </div>
                             <div><a className="hover:underline" href={`mailto:${config.contact.email}`}>{config.contact.email}</a></div>
                         </div>
                     </div>
                 </div>
 
-                <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-6">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div className="text-sm">© {new Date().getFullYear()}. All rights reserved.</div>
+                <div className="border-t border-gray-200 dark:border-gray-800 mt-6 pt-4">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-3">
+                        <div className="text-sm">{t('footer.copyright')}</div>
 
                         <div className="flex items-center gap-6">
-                            <a href="/privacy" className="text-sm hover:underline">Privacy Policy</a>
-                            <a href="/terms" className="text-sm hover:underline">Terms of Service</a>
+                            <a href={PATHS.PRIVACY} className="text-sm hover:underline">{t('footer.privacy')}</a>
+                            <a href={PATHS.TERMS} className="text-sm hover:underline">{t('footer.terms')}</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Floating scroll-to-top button */}
-            <button onClick={scrollTop} aria-label="scroll to top" className="fixed right-6 bottom-6 w-10 h-10 rounded-md bg-teal-500 text-white shadow-lg flex items-center justify-center hover:bg-teal-600 transition-colors">
-                <FaArrowUp />
-            </button>
-        </footer>
+            {/* Floating scroll-to-top button recreated with robust detection */}
+            <AnimatePresence>
+                {showScrollTop && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.6 }}
+                        transition={{ duration: 0.16 }}
+                        className={isRTL ? 'fixed left-4 bottom-4 z-[100]' : 'fixed right-4 bottom-4 z-[100]'}
+                    >
+                        <button
+                            onClick={scrollTop}
+                            aria-label="scroll to top"
+                            title={t('common_ui.scrollTop') || 'Back to top'}
+                            className="w-10 h-10 rounded-lg bg-brand hover:bg-brand-medium text-white flex items-center justify-center shadow-md hover:shadow-lg transition-all"
+                        >
+                            <FaArrowUp className="text-sm" />
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.footer>
     );
 }
 

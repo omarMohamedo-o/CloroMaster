@@ -4,11 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Brand palette (derived from primary #00778a)
         brand: '#00778a',
-        'brand-dark': '#002e35',
+        'brand-dark': '#003c45',
         'brand-medium': '#005f6b',
-        'brand-light': '#36c7c7',
-        'brand-secondary': '#a8f0f0'
+        'brand-light': '#4fa7b3',
+        'brand-secondary': '#cfeff3'
       }
     }
   },

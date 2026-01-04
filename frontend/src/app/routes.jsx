@@ -19,3 +19,20 @@ export function HeaderFooterLayout({ children, headerProps }) {
 }
 
 export default HeaderFooterLayout;
+
+// Centralized route patterns and helpers
+export const PATHS = {
+    HOME: '/',
+    SERVICE_PATTERN: '/service/:serviceId',
+    SERVICE: (id) => `/service/${id}`,
+    EQUIPMENT_PATTERN: '/equipment/:slug',
+    EQUIPMENT: (slug) => `/equipment/${slug}`,
+    VIDEOS: '/videos',
+    PRIVACY: '/privacy',
+    TERMS: '/terms',
+    ADMIN_LOGIN: '/admin/login',
+    ADMIN_DASHBOARD: '/admin/dashboard',
+    ADMIN_SUBMISSIONS: '/admin/submissions',
+    ADMIN_SUBMISSION_DETAIL_PATTERN: '/admin/submissions/:id',
+    ADMIN_SUBMISSION_DETAIL: (id) => `/admin/submissions/${id}`,
+};

@@ -16,6 +16,8 @@ const config = {
   contact: {
     email: 'ChloroMaster@outlook.sa',
     phone: '+20 12 22155310',
+    phone2: '+20 12 78253701',
+    whatsapp: '+201278253701', // WhatsApp number without spaces
     address: '58 Mahaliya 1 - Second District, Obour - Qalyubia',
     addressLink: 'https://maps.google.com/?q=58+Mahaliya+1+Second+District+Obour+Qalyubia+Egypt',
     workingHours: {

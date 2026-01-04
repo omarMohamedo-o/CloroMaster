@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import AOS from 'aos';
 import translations from '../i18n/translations';
 
 const LanguageContext = createContext();
@@ -31,12 +30,8 @@ export const LanguageProvider = ({ children }) => {
         // Save to localStorage
         localStorage.setItem('language', language);
 
-        // Refresh AOS to re-calculate positions after language or direction changes
-        try {
-            if (AOS && typeof AOS.refresh === 'function') AOS.refresh();
-        } catch (e) {
-            // ignore if AOS not initialized yet
-        }
+        // AOS has been removed in favor of Framer Motion variants.
+        // If a different scroll animation lib needs refresh, handle here.
     }, [language, direction]);
 
     const toggleLanguage = () => {

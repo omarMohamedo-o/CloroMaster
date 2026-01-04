@@ -1,0 +1,10 @@
+node_modules/
+build/
+dist/
+coverage/
+*.config.js
+public/
+.eslintrc.json
+craco.config.js
+postcss.config.js
+tailwind.config.js

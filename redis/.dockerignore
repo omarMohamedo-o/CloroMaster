@@ -1,0 +1,6 @@
+*.log
+*.rdb
+*.aof
+dump.rdb
+appendonly.aof
+.DS_Store

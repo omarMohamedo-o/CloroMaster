@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "test": "ServiceList -> Service -> Back",
+      "pass": false,
+      "error": "net::ERR_CONNECTION_REFUSED at http://localhost:3003"
+    },
+    {
+      "test": "Equipment deep link -> Back to parent",
+      "pass": false,
+      "error": "net::ERR_CONNECTION_REFUSED at http://localhost:3003/equipment/drum-lifting-beam"
+    },
+    {
+      "test": "Admin submission detail -> Back to submissions",
+      "pass": false,
+      "error": "net::ERR_CONNECTION_REFUSED at http://localhost:3003/admin/submissions/1"
+    },
+    {
+      "test": "NotFound tests",
+      "pass": false,
+      "error": "net::ERR_CONNECTION_REFUSED at http://localhost:3003/service/does-not-exist"
+    }
+  ],
+  "logs": [
+    "Error test1: Error: net::ERR_CONNECTION_REFUSED at http://localhost:3003\n    at navigate (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:184:27)\n    at async Deferred.race (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/util/Deferred.js:36:20)\n    at async CdpFrame.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:150:25)\n    at async CdpPage.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/api/Page.js:572:20)\n    at async /home/omar/Projects/project/CloroMaster/frontend/e2e/back-button-test.js:26:9",
+    "Error test2: Error: net::ERR_CONNECTION_REFUSED at http://localhost:3003/equipment/drum-lifting-beam\n    at navigate (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:184:27)\n    at async Deferred.race (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/util/Deferred.js:36:20)\n    at async CdpFrame.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:150:25)\n    at async CdpPage.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/api/Page.js:572:20)\n    at async /home/omar/Projects/project/CloroMaster/frontend/e2e/back-button-test.js:55:9",
+    "Error test3: Error: net::ERR_CONNECTION_REFUSED at http://localhost:3003/admin/submissions/1\n    at navigate (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:184:27)\n    at async Deferred.race (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/util/Deferred.js:36:20)\n    at async CdpFrame.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:150:25)\n    at async CdpPage.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/api/Page.js:572:20)\n    at async /home/omar/Projects/project/CloroMaster/frontend/e2e/back-button-test.js:74:9",
+    "Error test4: Error: net::ERR_CONNECTION_REFUSED at http://localhost:3003/service/does-not-exist\n    at navigate (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:184:27)\n    at async Deferred.race (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/util/Deferred.js:36:20)\n    at async CdpFrame.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Frame.js:150:25)\n    at async CdpPage.goto (/home/omar/Projects/project/CloroMaster/frontend/node_modules/puppeteer-core/lib/cjs/puppeteer/api/Page.js:572:20)\n    at async /home/omar/Projects/project/CloroMaster/frontend/e2e/back-button-test.js:95:9"
+  ]
+}

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../app/routes';
 import { useLanguage } from '../../context/LanguageContext';
 import config from '../../config/config';
 
 const AdminLogin = () => {
-    const { language, translations } = useLanguage();
+    const { t } = useLanguage();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
@@ -50,7 +51,7 @@ const AdminLogin = () => {
             }));
 
             // Redirect to dashboard
-            navigate('/admin/dashboard');
+            navigate(PATHS.ADMIN_DASHBOARD);
         } catch (err) {
             setError(err.message || 'An error occurred. Please try again.');
         } finally {
@@ -66,13 +67,13 @@ const AdminLogin = () => {
                     <h1 className="text-4xl font-bold text-blue-600 mb-2">
                         ChloroMaster
                     </h1>
-                    <p className="text-gray-600">Admin Panel</p>
+                    <p className="text-gray-600">{t('admin.adminPanel')}</p>
                 </div>
 
                 {/* Login Card */}
                 <div className="bg-white rounded-2xl shadow-xl p-8">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                        {language === 'ar' ? 'تسجيل الدخول' : 'Admin Login'}
+                        {t('admin.login')}
                     </h2>
 
                     {error && (
@@ -87,7 +88,7 @@ const AdminLogin = () => {
                                 htmlFor="username"
                                 className="block text-sm font-medium text-gray-700 mb-2"
                             >
-                                {language === 'ar' ? 'اسم المستخدم' : 'Username'}
+                                {t('admin.username')}
                             </label>
                             <input
                                 type="text"
@@ -97,7 +98,7 @@ const AdminLogin = () => {
                                 onChange={handleChange}
                                 required
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder={language === 'ar' ? 'أدخل اسم المستخدم' : 'Enter username'}
+                                placeholder={t('admin.enterUsername')}
                                 disabled={loading}
                             />
                         </div>
@@ -107,7 +108,7 @@ const AdminLogin = () => {
                                 htmlFor="password"
                                 className="block text-sm font-medium text-gray-700 mb-2"
                             >
-                                {language === 'ar' ? 'كلمة المرور' : 'Password'}
+                                {t('admin.password')}
                             </label>
                             <input
                                 type="password"
@@ -117,7 +118,7 @@ const AdminLogin = () => {
                                 onChange={handleChange}
                                 required
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder={language === 'ar' ? 'أدخل كلمة المرور' : 'Enter password'}
+                                placeholder={t('admin.enterPassword')}
                                 disabled={loading}
                             />
                         </div>
@@ -127,18 +128,12 @@ const AdminLogin = () => {
                             disabled={loading}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {loading
-                                ? (language === 'ar' ? 'جاري تسجيل الدخول...' : 'Logging in...')
-                                : (language === 'ar' ? 'تسجيل الدخول' : 'Login')
-                            }
+                            {loading ? t('admin.loggingIn') : t('admin.loginButton')}
                         </button>
                     </form>
 
                     <div className="mt-6 text-center text-sm text-gray-500">
-                        {language === 'ar'
-                            ? '© 2025 كلورو ماستر. جميع الحقوق محفوظة.'
-                            : '© 2025 ChloroMaster. All rights reserved.'
-                        }
+                        {`© ${new Date().getFullYear()} ${t('footer.copyright')}`}
                     </div>
                 </div>
             </div>

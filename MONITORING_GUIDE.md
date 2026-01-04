@@ -57,9 +57,9 @@ sleep 30
 **Login Credentials**:
 
 - **Username**: `admin`
-- **Password**: `admin123`
+- **Password**: set via environment variable `GF_SECURITY_ADMIN_PASSWORD` (do not use `admin123` in production)
 
-⚠️ **Important**: Change this password after first login!
+⚠️ **Important**: Set a secure password via environment variables before exposing Grafana. Change the password immediately after first login if a default was used.
 
 ### 3. View Statistics
 
@@ -89,7 +89,7 @@ Once logged in, you can:
 
 ```bash
 xdg-open http://localhost:3001
-# Login: admin / admin123
+# Login: admin / (password set via GF_SECURITY_ADMIN_PASSWORD)
 ```
 
 ### Step 2: Add a Dashboard

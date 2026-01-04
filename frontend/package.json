@@ -3,21 +3,30 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "aos": "^2.3.4",
     "framer-motion": "^7.10.3",
+    "puppeteer": "^24.34.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^7.11.0",
     "react-scripts": "5.0.1",
-    "react-scroll": "^1.8.9",
-    "sharp": "^0.34.5"
+    "react-scroll": "^1.8.9"
   },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "browserslist": {
     "production": [
@@ -30,5 +39,27 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "npm-force-resolutions": "^0.0.10"
+  },
+  "overrides": {
+    "serialize-javascript": "6.0.1",
+    "nth-check": "2.0.1",
+    "inflight": "1.0.6",
+    "postcss": "8.4.21",
+    "webpack-dev-server": "4.15.0"
+  },
+  "resolutions": {
+    "serialize-javascript": "6.0.1",
+    "nth-check": "2.0.1",
+    "inflight": "1.0.6",
+    "postcss": "8.4.21",
+    "webpack-dev-server": "4.15.0"
   }
 }

@@ -8,7 +8,7 @@ class ApiService {
 
   async request(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`;
-    
+
     const defaultOptions = {
       headers: {
         'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ class ApiService {
         ...config,
         signal: controller.signal,
       });
-      
+
       clearTimeout(timeoutId);
-      
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
@@ -44,7 +44,10 @@ class ApiService {
       if (error.name === 'AbortError') {
         throw new Error('Request timeout. Please try again.');
       }
-      console.error('API request failed:', error);
+      // Log error in development only
+      if (process.env.NODE_ENV === 'development') {
+        void error;
+      }
       throw error;
     }
   }

@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../app/routes';
 
 export default function GalleryCard({ src, name, slug, disableLink = false, onClick, hideMeta = false }) {
     const navigate = useNavigate();
     const handleClick = () => {
         if (onClick) return onClick();
         if (disableLink) return;
-        if (slug) navigate(`/equipment/${slug}`);
+        if (slug) navigate(PATHS.EQUIPMENT(slug));
     };
 
     return (

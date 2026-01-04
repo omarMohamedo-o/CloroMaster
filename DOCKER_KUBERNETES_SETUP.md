@@ -161,24 +161,14 @@ make status
 
 **Option 3: Manual Deployment**
 
-```bash
-# Apply configurations
-kubectl apply -f k8s/00-namespace.yaml
-kubectl apply -f k8s/01-configmap.yaml
-kubectl apply -f k8s/02-secrets.yaml
-kubectl apply -f k8s/03-pvc.yaml
-kubectl apply -f k8s/04-backend-deployment.yaml
-kubectl apply -f k8s/05-frontend-deployment.yaml
-kubectl apply -f k8s/06-services.yaml
-kubectl apply -f k8s/07-hpa.yaml
-kubectl apply -f k8s/08-ingress.yaml
-kubectl apply -f k8s/09-pdb.yaml
-kubectl apply -f k8s/10-network-policy.yaml
-kubectl apply -f k8s/11-resource-limits.yaml
+See the full manual deployment steps in `KUBERNETES_GUIDE.md`.
 
+```bash
+# From repository root
+kubectl apply -f k8s/
 # Wait for deployments
 kubectl wait --for=condition=available --timeout=300s \
-  deployment/backend deployment/frontend -n chloromaster
+   deployment/backend deployment/frontend -n chloromaster
 ```
 
 ## 📊 Monitoring & Management

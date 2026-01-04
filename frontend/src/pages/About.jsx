@@ -1,7 +1,11 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
-import { FaCheckCircle, FaUsers, FaAward, FaGlobe, FaLightbulb, FaHeart, FaBuilding } from 'react-icons/fa';
+import { FaCheckCircle, FaUsers, FaAward, FaGlobe, FaHeart, FaBuilding } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
+import SectionHeader from '../components/common/SectionHeader';
+
+import { textBlockVariant, serviceCardsContainer, staggerItem, imageVariant } from '../lib/animations';
 
 export default function About() {
   const { t } = useLanguage();
@@ -30,18 +34,25 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+    <section id="about" className="py-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 right-0 w-96 h-96 bg-brand/5 rounded-full blur-3xl opacity-20" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <SectionHeader
+          badgeIcon={FaBuilding}
+          badge={t('about.badge')}
+          title={t('about.title')}
+          titleHighlight={t('about.titleHighlight')}
+        />
+
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Left Content - Text slides from left */}
-          <div className="space-y-6" data-aos="fade-right" data-aos-duration="700">
+          <motion.div className="space-y-6" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={textBlockVariant}>
             <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-medium">
+              <div className="flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-brand/10 text-brand text-sm font-medium w-max mx-auto">
                 <FaBuilding className="text-lg" />
                 {t('about.badge')}
               </div>
@@ -89,14 +100,14 @@ export default function About() {
             </p>
 
             {/* Features Grid - Staggered */}
-            <div className="grid grid-cols-2 gap-6 pt-8">
+            <motion.div className="flex flex-wrap justify-center gap-6 pt-8 max-w-4xl mx-auto" variants={serviceCardsContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
               {features.map((feature, index) => (
-                <div
+                <motion.div
                   key={feature.title}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 hover-lift"
-                  data-aos="fade-up"
-                  data-aos-duration="700"
-                  data-aos-delay={index * 100}
+                  className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 w-full sm:w-[calc(50%-0.75rem)] min-w-[280px] max-w-[450px]"
+                  variants={staggerItem}
+                  custom={index}
+                  style={{ willChange: 'transform' }}
                 >
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand to-brand-secondary flex items-center justify-center">
                     <feature.icon className="text-white text-xl" />
@@ -105,23 +116,23 @@ export default function About() {
                     <h4 className="font-semibold text-gray-900 dark:text-white">{feature.title}</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{feature.description}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* CTA Button */}
-            <div data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerItem} custom={3}>
               <Link to="contact" smooth duration={600} offset={-80}>
                 <button className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-brand to-brand-secondary text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover-lift">
                   <FaHeart className="text-lg" />
                   {t('about.cta')}
                 </button>
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Content - Image slides from right */}
-          <div className="relative" data-aos="fade-left" data-aos-duration="800" data-aos-delay="80">
+          <motion.div className="relative" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={imageVariant} custom={0}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src="/images/ChloroMaster-about.png"
@@ -130,9 +141,9 @@ export default function About() {
                 style={{ imageRendering: 'crisp-edges' }}
               />
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }

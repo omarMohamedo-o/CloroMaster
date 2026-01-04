@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import BackButton from '../../components/common/BackButton';
+import { PATHS } from '../../app/routes';
 import { useLanguage } from '../../context/LanguageContext';
 import config from '../../config/config';
+import InfoRow from '../../components/admin/InfoRow';
 
 const SubmissionDetail = () => {
-    const { language } = useLanguage();
+    const { t } = useLanguage();
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -12,17 +15,13 @@ const SubmissionDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    useEffect(() => {
+    const fetchSubmissionDetail = useCallback(async () => {
         const token = localStorage.getItem('adminToken');
         if (!token) {
-            navigate('/admin/login');
+            navigate(PATHS.ADMIN_LOGIN);
             return;
         }
 
-        fetchSubmissionDetail();
-    }, [id]);
-
-    const fetchSubmissionDetail = async () => {
         try {
             const response = await fetch(
                 `${config.api.baseURL}/admin/submissions/${id}`
@@ -37,7 +36,11 @@ const SubmissionDetail = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id, navigate]);
+
+    useEffect(() => {
+        fetchSubmissionDetail();
+    }, [fetchSubmissionDetail]);
 
     const handleMarkAsRead = async (isRead) => {
         try {
@@ -59,7 +62,7 @@ const SubmissionDetail = () => {
     };
 
     const handleDelete = async () => {
-        if (!window.confirm(language === 'ar' ? 'هل أنت متأكد من الحذف؟' : 'Are you sure you want to delete?')) {
+        if (!window.confirm(t('admin.deleteConfirm'))) {
             return;
         }
 
@@ -71,7 +74,7 @@ const SubmissionDetail = () => {
 
             if (!response.ok) throw new Error('Failed to delete');
 
-            navigate('/admin/submissions');
+            navigate(PATHS.ADMIN_SUBMISSIONS);
         } catch (err) {
             alert(err.message);
         }
@@ -83,7 +86,7 @@ const SubmissionDetail = () => {
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
                     <p className="mt-4 text-gray-600">
-                        {language === 'ar' ? 'جاري التحميل...' : 'Loading...'}
+                        {t('admin.loading')}
                     </p>
                 </div>
             </div>
@@ -94,74 +97,38 @@ const SubmissionDetail = () => {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
                 <div className="max-w-md w-full bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg">
-                    <h3 className="font-semibold mb-2">Error</h3>
+                    <h3 className="font-semibold mb-2">{t('admin.error')}</h3>
                     <p>{error || 'Submission not found'}</p>
-                    <button
-                        onClick={() => navigate('/admin/submissions')}
-                        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                    >
-                        {language === 'ar' ? 'العودة للقائمة' : 'Back to List'}
-                    </button>
+                    <BackButton className="mt-4" />
                 </div>
             </div>
         );
     }
 
-    const InfoRow = ({ label, value }) => (
-        <div className="py-3 border-b border-gray-200 last:border-0">
-            <dt className="text-sm font-medium text-gray-500 mb-1">{label}</dt>
-            <dd className="text-base text-gray-900">{value || '-'}</dd>
-        </div>
-    );
+    // InfoRow moved to shared component
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <header className="bg-white shadow-sm">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <button
-                                onClick={() => navigate('/admin/submissions')}
-                                className="text-blue-600 hover:text-blue-800 mb-2 flex items-center gap-2"
-                            >
-                                ← {language === 'ar' ? 'العودة' : 'Back'}
-                            </button>
-                            <h1 className="text-2xl font-bold text-gray-900">
-                                {language === 'ar' ? 'تفاصيل الرسالة' : 'Submission Detail'}
-                            </h1>
-                        </div>
-                        <div className="flex gap-2">
-                            <button
-                                onClick={() => handleMarkAsRead(!submission.isRead)}
-                                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-                            >
-                                {submission.isRead
-                                    ? (language === 'ar' ? 'تعليم كغير مقروءة' : 'Mark Unread')
-                                    : (language === 'ar' ? 'تعليم كمقروءة' : 'Mark Read')
-                                }
-                            </button>
-                            <button
-                                onClick={handleDelete}
-                                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-                            >
-                                {language === 'ar' ? 'حذف' : 'Delete'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <AdminHeader
+                showBack
+                backClassName="mb-2 text-blue-600"
+                title={t('admin.submissionDetail')}
+                actions={[
+                    { label: submission.isRead ? t('admin.markAsUnread') : t('admin.markAsRead'), onClick: () => handleMarkAsRead(!submission.isRead), className: 'px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700' },
+                    { label: t('admin.delete'), onClick: handleDelete, className: 'px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700' }
+                ]}
+            />
 
             <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Status Badge */}
                 <div className="mb-6">
                     {submission.isRead ? (
                         <span className="px-3 py-1 text-sm font-semibold rounded-full bg-green-100 text-green-800">
-                            {language === 'ar' ? 'مقروءة' : 'Read'}
+                            {t('admin.readStatus')}
                         </span>
                     ) : (
                         <span className="px-3 py-1 text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                            {language === 'ar' ? 'جديدة' : 'New'}
+                            {t('admin.newStatus')}
                         </span>
                     )}
                 </div>
@@ -171,23 +138,23 @@ const SubmissionDetail = () => {
                     <div className="bg-white rounded-xl shadow-md p-6">
                         <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                             <span>👤</span>
-                            {language === 'ar' ? 'معلومات الاتصال' : 'Contact Information'}
+                            {t('admin.contactInfo')}
                         </h2>
                         <dl>
                             <InfoRow
-                                label={language === 'ar' ? 'الاسم الأول' : 'First Name'}
+                                label={t('admin.firstName')}
                                 value={submission.firstName}
                             />
                             <InfoRow
-                                label={language === 'ar' ? 'الاسم الأخير' : 'Last Name'}
+                                label={t('admin.lastName')}
                                 value={submission.lastName}
                             />
                             <InfoRow
-                                label={language === 'ar' ? 'البريد الإلكتروني' : 'Email'}
+                                label={t('admin.email')}
                                 value={submission.email}
                             />
                             <InfoRow
-                                label={language === 'ar' ? 'الهاتف' : 'Phone'}
+                                label={t('admin.phone')}
                                 value={submission.phone}
                             />
                         </dl>
@@ -197,23 +164,23 @@ const SubmissionDetail = () => {
                     <div className="bg-white rounded-xl shadow-md p-6">
                         <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                             <span>🏢</span>
-                            {language === 'ar' ? 'معلومات الشركة' : 'Company Information'}
+                            {t('admin.companyInfo')}
                         </h2>
                         <dl>
                             <InfoRow
-                                label={language === 'ar' ? 'الشركة' : 'Company'}
+                                label={t('admin.company')}
                                 value={submission.company}
                             />
                             <InfoRow
-                                label={language === 'ar' ? 'الصناعة' : 'Industry'}
+                                label={t('admin.industry')}
                                 value={submission.industry}
                             />
                             <InfoRow
-                                label={language === 'ar' ? 'الدولة' : 'Country'}
+                                label={t('admin.country')}
                                 value={submission.country}
                             />
                             <InfoRow
-                                label={language === 'ar' ? 'الرمز البريدي' : 'Postal Code'}
+                                label={t('admin.postalCode')}
                                 value={submission.postalCode}
                             />
                         </dl>
@@ -223,7 +190,7 @@ const SubmissionDetail = () => {
                     <div className="bg-white rounded-xl shadow-md p-6 lg:col-span-2">
                         <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                             <span>💬</span>
-                            {language === 'ar' ? 'الرسالة' : 'Message'}
+                            {t('admin.message')}
                         </h2>
                         <div className="bg-gray-50 rounded-lg p-4">
                             <p className="text-gray-800 whitespace-pre-wrap">
@@ -236,28 +203,28 @@ const SubmissionDetail = () => {
                     <div className="bg-white rounded-xl shadow-md p-6 lg:col-span-2">
                         <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                             <span>📊</span>
-                            {language === 'ar' ? 'بيانات إضافية' : 'Metadata'}
+                            {t('admin.metadata')}
                         </h2>
                         <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InfoRow
-                                label={language === 'ar' ? 'تاريخ الإرسال' : 'Submitted At'}
+                                label={t('admin.submittedAt')}
                                 value={new Date(submission.submittedAt).toLocaleString()}
                             />
                             <InfoRow
-                                label={language === 'ar' ? 'عنوان IP' : 'IP Address'}
+                                label={t('admin.ipAddress')}
                                 value={submission.ipAddress}
                             />
                             <div className="md:col-span-2">
                                 <InfoRow
-                                    label={language === 'ar' ? 'المتصفح' : 'User Agent'}
+                                    label={t('admin.userAgent')}
                                     value={submission.userAgent}
                                 />
                             </div>
                             <InfoRow
-                                label={language === 'ar' ? 'استقبال الرسائل' : 'Receive Emails'}
+                                label={t('admin.receiveEmails')}
                                 value={submission.receiveEmails
-                                    ? (language === 'ar' ? 'نعم' : 'Yes')
-                                    : (language === 'ar' ? 'لا' : 'No')
+                                    ? t('admin.yes')
+                                    : t('admin.no')
                                 }
                             />
                         </dl>

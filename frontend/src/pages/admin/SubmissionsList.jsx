@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import config from '../../config/config';
+import { PATHS } from '../../app/routes';
+import SubmissionsTable from '../../components/admin/SubmissionsTable';
 
 const SubmissionsList = () => {
-    const { language } = useLanguage();
+    const { t } = useLanguage();
     const navigate = useNavigate();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     const [submissions, setSubmissions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,17 +25,7 @@ const SubmissionsList = () => {
         isRead: searchParams.get('filter') === 'unread' ? 'false' : ''
     });
 
-    useEffect(() => {
-        const token = localStorage.getItem('adminToken');
-        if (!token) {
-            navigate('/admin/login');
-            return;
-        }
-
-        fetchSubmissions();
-    }, [pagination.page, filters]);
-
-    const fetchSubmissions = async () => {
+    const fetchSubmissions = useCallback(async () => {
         setLoading(true);
         try {
             const params = new URLSearchParams({
@@ -51,17 +43,27 @@ const SubmissionsList = () => {
 
             const data = await response.json();
             setSubmissions(data.data);
-            setPagination({
-                ...pagination,
+            setPagination((prev) => ({
+                ...prev,
                 total: data.total,
                 totalPages: data.totalPages
-            });
+            }));
         } catch (err) {
             setError(err.message);
         } finally {
             setLoading(false);
         }
-    };
+    }, [pagination.page, pagination.pageSize, filters]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            navigate(PATHS.ADMIN_LOGIN);
+            return;
+        }
+
+        fetchSubmissions();
+    }, [fetchSubmissions, navigate]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -94,7 +96,7 @@ const SubmissionsList = () => {
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm(language === 'ar' ? 'هل أنت متأكد من الحذف؟' : 'Are you sure you want to delete?')) {
+        if (!window.confirm(t('admin.deleteConfirm'))) {
             return;
         }
 
@@ -114,39 +116,14 @@ const SubmissionsList = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <header className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-900">
-                                {language === 'ar' ? 'الرسائل' : 'Submissions'}
-                            </h1>
-                            <p className="text-sm text-gray-600">
-                                {pagination.total} {language === 'ar' ? 'رسالة' : 'total'}
-                            </p>
-                        </div>
-                        <div className="flex gap-4">
-                            <button
-                                onClick={() => navigate('/admin/dashboard')}
-                                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-                            >
-                                {language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}
-                            </button>
-                            <button
-                                onClick={() => {
-                                    localStorage.removeItem('adminToken');
-                                    localStorage.removeItem('adminUser');
-                                    navigate('/admin/login');
-                                }}
-                                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-                            >
-                                {language === 'ar' ? 'تسجيل الخروج' : 'Logout'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <AdminHeader
+                title={t('admin.submissions')}
+                subtitle={`${pagination.total} ${t('admin.total')}`}
+                actions={[
+                    { label: t('admin.dashboard'), onClick: () => navigate(PATHS.ADMIN_DASHBOARD) },
+                    { label: t('admin.logout'), onClick: () => { localStorage.removeItem('adminToken'); localStorage.removeItem('adminUser'); navigate(PATHS.ADMIN_LOGIN); } }
+                ]}
+            />
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Filters */}
@@ -159,14 +136,14 @@ const SubmissionsList = () => {
                                     type="text"
                                     value={filters.search}
                                     onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-                                    placeholder={language === 'ar' ? 'بحث...' : 'Search...'}
+                                    placeholder={t('admin.searchPlaceholder')}
                                     className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                 />
                                 <button
                                     type="submit"
                                     className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                                 >
-                                    {language === 'ar' ? 'بحث' : 'Search'}
+                                    {t('admin.search')}
                                 </button>
                             </div>
                         </form>
@@ -180,7 +157,7 @@ const SubmissionsList = () => {
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                     }`}
                             >
-                                {language === 'ar' ? 'الكل' : 'All'}
+                                {t('admin.all')}
                             </button>
                             <button
                                 onClick={() => handleFilterChange('false')}
@@ -189,7 +166,7 @@ const SubmissionsList = () => {
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                     }`}
                             >
-                                {language === 'ar' ? 'غير مقروءة' : 'Unread'}
+                                {t('admin.unread')}
                             </button>
                             <button
                                 onClick={() => handleFilterChange('true')}
@@ -198,7 +175,7 @@ const SubmissionsList = () => {
                                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                     }`}
                             >
-                                {language === 'ar' ? 'مقروءة' : 'Read'}
+                                {t('admin.read')}
                             </button>
                         </div>
                     </div>
@@ -211,129 +188,20 @@ const SubmissionsList = () => {
                             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
                         </div>
                     ) : error ? (
-                        <div className="p-6 text-center text-red-600">
-                            {error}
-                        </div>
+                        <div className="p-6 text-center text-red-600">{error}</div>
                     ) : submissions.length === 0 ? (
-                        <div className="p-12 text-center text-gray-500">
-                            {language === 'ar' ? 'لا توجد رسائل' : 'No submissions found'}
-                        </div>
+                        <div className="p-12 text-center text-gray-500">{t('admin.noSubmissions')}</div>
                     ) : (
-                        <>
-                            <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead className="bg-gray-50 border-b border-gray-200">
-                                        <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                                {language === 'ar' ? 'الاسم' : 'Name'}
-                                            </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                                {language === 'ar' ? 'البريد' : 'Email'}
-                                            </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                                {language === 'ar' ? 'الشركة' : 'Company'}
-                                            </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                                {language === 'ar' ? 'التاريخ' : 'Date'}
-                                            </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                                {language === 'ar' ? 'الحالة' : 'Status'}
-                                            </th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                                {language === 'ar' ? 'الإجراءات' : 'Actions'}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-200">
-                                        {submissions.map((sub) => (
-                                            <tr key={sub.id} className="hover:bg-gray-50">
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="font-medium text-gray-900">
-                                                        {sub.fullName}
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="text-sm text-gray-600">{sub.email}</div>
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="text-sm text-gray-600">{sub.company || '-'}</div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-600">
-                                                        {new Date(sub.submittedAt).toLocaleDateString()}
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    {sub.isRead ? (
-                                                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                                            {language === 'ar' ? 'مقروءة' : 'Read'}
-                                                        </span>
-                                                    ) : (
-                                                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                                            {language === 'ar' ? 'جديدة' : 'New'}
-                                                        </span>
-                                                    )}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                    <div className="flex gap-2">
-                                                        <button
-                                                            onClick={() => navigate(`/admin/submissions/${sub.id}`)}
-                                                            className="text-blue-600 hover:text-blue-800"
-                                                        >
-                                                            {language === 'ar' ? 'عرض' : 'View'}
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleMarkAsRead(sub.id, !sub.isRead)}
-                                                            className="text-green-600 hover:text-green-800"
-                                                        >
-                                                            {sub.isRead
-                                                                ? (language === 'ar' ? 'غير مقروءة' : 'Unread')
-                                                                : (language === 'ar' ? 'مقروءة' : 'Read')
-                                                            }
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleDelete(sub.id)}
-                                                            className="text-red-600 hover:text-red-800"
-                                                        >
-                                                            {language === 'ar' ? 'حذف' : 'Delete'}
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            {/* Pagination */}
-                            <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
-                                <div className="text-sm text-gray-700">
-                                    {language === 'ar'
-                                        ? `عرض ${(pagination.page - 1) * pagination.pageSize + 1} - ${Math.min(pagination.page * pagination.pageSize, pagination.total)} من ${pagination.total}`
-                                        : `Showing ${(pagination.page - 1) * pagination.pageSize + 1} - ${Math.min(pagination.page * pagination.pageSize, pagination.total)} of ${pagination.total}`
-                                    }
-                                </div>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => setPagination({ ...pagination, page: pagination.page - 1 })}
-                                        disabled={pagination.page === 1}
-                                        className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {language === 'ar' ? 'السابق' : 'Previous'}
-                                    </button>
-                                    <span className="px-4 py-2 text-gray-700">
-                                        {pagination.page} / {pagination.totalPages}
-                                    </span>
-                                    <button
-                                        onClick={() => setPagination({ ...pagination, page: pagination.page + 1 })}
-                                        disabled={pagination.page >= pagination.totalPages}
-                                        className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {language === 'ar' ? 'التالي' : 'Next'}
-                                    </button>
-                                </div>
-                            </div>
-                        </>
+                        <SubmissionsTable
+                            submissions={submissions}
+                            t={t}
+                            navigate={navigate}
+                            onView={(id) => navigate(PATHS.ADMIN_SUBMISSION_DETAIL(id))}
+                            onMark={handleMarkAsRead}
+                            onDelete={handleDelete}
+                            pagination={pagination}
+                            setPagination={setPagination}
+                        />
                     )}
                 </div>
             </main>

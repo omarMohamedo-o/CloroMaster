@@ -1,55 +1,62 @@
-import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { FaArrowLeft } from 'react-icons/fa';
+import React, { useEffect } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
+import BackButton from '../common/BackButton';
+import UpArrowButton from '../common/UpArrowButton';
 
-export default function SubpageLayout({ title, titleHighlight, subtitle, children, onBack, headerChildren }) {
-    const renderTitle = () => {
-        if (!title) return null;
+export default function SubpageLayout({ title, titleHighlight, subtitle, children, headerChildren }) {
+    useLanguage();
 
-        const showHighlight = titleHighlight && titleHighlight.trim() !== '';
+    // Hide any duplicate back buttons that might be injected by pages
+    // so the single shared `BackButton` is always the authoritative control.
+    useEffect(() => {
+        const backs = Array.from(document.querySelectorAll('[data-back-button]'));
+        // keep the first, hide the rest
+        backs.forEach((el, idx) => {
+            if (idx > 0) el.style.display = 'none';
+        });
+        return () => {
+            backs.forEach((el) => {
+                if (el && el.style) el.style.display = '';
+            });
+        };
+    }, []);
 
-        if (showHighlight && title.includes(titleHighlight)) {
-            return (
-                <h1 className="text-2xl md:text-3xl font-bold mt-3 text-gray-900 dark:text-white leading-tight">
-                    {title.replace(titleHighlight, '')}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-secondary">{titleHighlight}</span>
-                </h1>
-            );
-        }
-
-        const parts = title.split(' ');
-        if (parts.length === 1) return <h1 className="text-2xl md:text-3xl font-bold mt-3 text-brand">{title}</h1>;
-        const last = parts.pop();
-        const rest = parts.join(' ');
-        return (
-            <h1 className="text-2xl md:text-3xl font-bold mt-3 text-gray-900 dark:text-white leading-tight">
-                {rest + ' '}
-                <span className="text-brand">{last}</span>
-            </h1>
-        );
-    };
-
-    const { t } = useLanguage();
+    // Ensure titleHighlight works even when translations provide title and highlight separately
+    const effectiveTitle = (() => {
+        if (!titleHighlight) return title || '';
+        // If the title already contains the highlight, use it as-is
+        if (typeof title === 'string' && title.includes(titleHighlight)) return title;
+        // Otherwise combine them with a space if needed
+        const sep = title && typeof title === 'string' && title.endsWith(' ') ? '' : ' ';
+        return `${title || ''}${sep}${titleHighlight}`.trim();
+    })();
 
     return (
-        <div className="bg-gray-50 dark:bg-gray-900 min-h-screen py-20">
+        <div className="bg-gray-50 dark:bg-gray-900 min-h-screen py-6 cm-subpage">
             <div className="container mx-auto px-6">
-                {onBack ? (
-                    <div className="mb-8">
-                        <button
-                            onClick={onBack}
-                            className="flex items-center gap-2 text-brand hover:text-brand/80 transition-colors"
-                        >
-                            <FaArrowLeft />
-                            <span>{t('common.back')}</span>
-                        </button>
-                    </div>
-                ) : null}
+                <div className="mb-0 py-4">
+                    <BackButton className="mb-0" />
+                </div>
 
-                <div className="rounded-2xl overflow-hidden mb-8 shadow-xl bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white">
-                    <div className="px-6 py-8 md:px-8 md:py-10">
+                <div id="cm-page-wrapper" className="rounded-2xl overflow-hidden mb-8 shadow-xl bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white">
+                    <div className="px-6 py-6 md:px-8 md:py-8">
                         <div className="flex-1">
-                            {renderTitle()}
+                            {titleHighlight ? (
+                                <h1 className="text-3xl md:text-4xl font-bold">
+                                    {effectiveTitle.split(titleHighlight).map((part, i, arr) => (
+                                        <React.Fragment key={i}>
+                                            {part}
+                                            {i < arr.length - 1 && (
+                                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-secondary">
+                                                    {titleHighlight}
+                                                </span>
+                                            )}
+                                        </React.Fragment>
+                                    ))}
+                                </h1>
+                            ) : (
+                                <h1 className="text-3xl md:text-4xl font-bold">{effectiveTitle || title}</h1>
+                            )}
                             {subtitle ? (
                                 <p className="mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                                     {subtitle}
@@ -67,6 +74,8 @@ export default function SubpageLayout({ title, titleHighlight, subtitle, childre
                 <div>
                     {children}
                 </div>
+                {/* Up arrow navigates to parent using the same resolver and animation as BackButton */}
+                <UpArrowButton />
             </div>
         </div>
     );
