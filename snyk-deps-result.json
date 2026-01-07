@@ -1,0 +1,2443 @@
+[
+  {
+    "vulnerabilities": [
+      {
+        "id": "SNYK-DOTNET-BOUNCYCASTLECRYPTOGRAPHY-7831268",
+        "title": "Infinite loop",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P",
+        "credit": [
+          "jr981008"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[,2.3.1)"
+          ]
+        },
+        "exploit": "Proof of Concept",
+        "fixedIn": [
+          "2.3.1"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 7.5,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "bouncycastle.cryptography",
+        "references": [
+          {
+            "url": "https://github.com/bcgit/bc-java/commit/9c165791b68a204678b48ec11e4e579754c2ea49",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/bcgit/bc-java/issues/1599",
+            "title": "GitHub Issue"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-08-09T13:34:05.741930Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-08-26T10:20:45.735477Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-08-09T13:34:05.741930Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Infinite loop in ED25519 verification in the `ScalarUtil` class. An attacker can send a malicious signature and public key to trigger denial of service.\n## Remediation\nUpgrade `BouncyCastle.Cryptography` to version 2.3.1 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/9c165791b68a204678b48ec11e4e579754c2ea49)\n- [GitHub Issue](https://github.com/bcgit/bc-java/issues/1599)\n",
+        "epssDetails": {
+          "percentile": "0.34287",
+          "probability": "0.00136",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-30172"
+          ],
+          "CWE": [
+            "CWE-835"
+          ]
+        },
+        "packageName": "BouncyCastle.Cryptography",
+        "proprietary": false,
+        "creationTime": "2024-08-26T10:20:00.802568Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-04-12T22:09:45Z",
+        "exploitDetails": {
+          "sources": [
+            "Snyk"
+          ],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Proof of Concept",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Proof of Concept",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-08-26T10:20:01.011096Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-08-26T10:20:45.735477Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "MailKit@4.1.0",
+          "MimeKit@4.1.0",
+          "BouncyCastle.Cryptography@2.2.1"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "BouncyCastle.Cryptography",
+        "version": "2.2.1"
+      },
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-7433719",
+        "title": "Denial of Service (DoS)",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[7.0.0, 8.0.4)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "8.0.4"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using .NET's `JsonSerializer.DeserializeAsyncEnumerable()` function on untrusted input.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `System.Text.Json` to version 8.0.4 or higher.\n## References\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105)\n",
+        "epssDetails": {
+          "percentile": "0.82306",
+          "probability": "0.01793",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-30105"
+          ],
+          "CWE": [
+            "CWE-400"
+          ],
+          "GHSA": [
+            "GHSA-hh2w-p6rv-4g7w"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-07-10T07:10:28.236853Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-07-09T21:14:10Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-07-10T07:35:03.631000Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-07-11T00:50:00.849512Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Microsoft.EntityFrameworkCore.Design@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      },
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-8168848",
+        "title": "Inefficient Algorithmic Complexity",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[6.0.0,6.0.10)",
+            "[8.0.0,8.0.5)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "6.0.10",
+          "8.0.5"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/announcements/issues/329",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/issues/108678",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Inefficient Algorithmic Complexity involved in processing `[ExtensionData]` property data. An attacker can trigger denial of service by passing malicious JSON input to a model that uses this property.\n## Remediation\nUpgrade `System.Text.Json` to version 6.0.10, 8.0.5 or higher.\n## References\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809)\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4)\n- [GitHub Issue](https://github.com/dotnet/announcements/issues/329)\n- [GitHub Issue](https://github.com/dotnet/runtime/issues/108678)\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485)\n",
+        "epssDetails": {
+          "percentile": "0.72437",
+          "probability": "0.00738",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-43485"
+          ],
+          "CWE": [
+            "CWE-407"
+          ],
+          "GHSA": [
+            "GHSA-8g4q-xg66-9fp4"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-10-09T10:31:31.348625Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-10-08T20:25:19Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-10-09T21:31:57.241304Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-10-09T21:31:57.250268Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Microsoft.EntityFrameworkCore.Design@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      },
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-7433719",
+        "title": "Denial of Service (DoS)",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[7.0.0, 8.0.4)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "8.0.4"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using .NET's `JsonSerializer.DeserializeAsyncEnumerable()` function on untrusted input.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `System.Text.Json` to version 8.0.4 or higher.\n## References\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105)\n",
+        "epssDetails": {
+          "percentile": "0.82306",
+          "probability": "0.01793",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-30105"
+          ],
+          "CWE": [
+            "CWE-400"
+          ],
+          "GHSA": [
+            "GHSA-hh2w-p6rv-4g7w"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-07-10T07:10:28.236853Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-07-09T21:14:10Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-07-10T07:35:03.631000Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-07-11T00:50:00.849512Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite@8.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      },
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-8168848",
+        "title": "Inefficient Algorithmic Complexity",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[6.0.0,6.0.10)",
+            "[8.0.0,8.0.5)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "6.0.10",
+          "8.0.5"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/announcements/issues/329",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/issues/108678",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Inefficient Algorithmic Complexity involved in processing `[ExtensionData]` property data. An attacker can trigger denial of service by passing malicious JSON input to a model that uses this property.\n## Remediation\nUpgrade `System.Text.Json` to version 6.0.10, 8.0.5 or higher.\n## References\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809)\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4)\n- [GitHub Issue](https://github.com/dotnet/announcements/issues/329)\n- [GitHub Issue](https://github.com/dotnet/runtime/issues/108678)\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485)\n",
+        "epssDetails": {
+          "percentile": "0.72437",
+          "probability": "0.00738",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-43485"
+          ],
+          "CWE": [
+            "CWE-407"
+          ],
+          "GHSA": [
+            "GHSA-8g4q-xg66-9fp4"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-10-09T10:31:31.348625Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-10-08T20:25:19Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-10-09T21:31:57.241304Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-10-09T21:31:57.250268Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite@8.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      },
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-7433719",
+        "title": "Denial of Service (DoS)",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[7.0.0, 8.0.4)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "8.0.4"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using .NET's `JsonSerializer.DeserializeAsyncEnumerable()` function on untrusted input.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `System.Text.Json` to version 8.0.4 or higher.\n## References\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105)\n",
+        "epssDetails": {
+          "percentile": "0.82306",
+          "probability": "0.01793",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-30105"
+          ],
+          "CWE": [
+            "CWE-400"
+          ],
+          "GHSA": [
+            "GHSA-hh2w-p6rv-4g7w"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-07-10T07:10:28.236853Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-07-09T21:14:10Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-07-10T07:35:03.631000Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-07-11T00:50:00.849512Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Serilog.AspNetCore@8.0.0",
+          "Serilog.Settings.Configuration@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      },
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-8168848",
+        "title": "Inefficient Algorithmic Complexity",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[6.0.0,6.0.10)",
+            "[8.0.0,8.0.5)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "6.0.10",
+          "8.0.5"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/announcements/issues/329",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/issues/108678",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Inefficient Algorithmic Complexity involved in processing `[ExtensionData]` property data. An attacker can trigger denial of service by passing malicious JSON input to a model that uses this property.\n## Remediation\nUpgrade `System.Text.Json` to version 6.0.10, 8.0.5 or higher.\n## References\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809)\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4)\n- [GitHub Issue](https://github.com/dotnet/announcements/issues/329)\n- [GitHub Issue](https://github.com/dotnet/runtime/issues/108678)\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485)\n",
+        "epssDetails": {
+          "percentile": "0.72437",
+          "probability": "0.00738",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-43485"
+          ],
+          "CWE": [
+            "CWE-407"
+          ],
+          "GHSA": [
+            "GHSA-8g4q-xg66-9fp4"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-10-09T10:31:31.348625Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-10-08T20:25:19Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-10-09T21:31:57.241304Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-10-09T21:31:57.250268Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Serilog.AspNetCore@8.0.0",
+          "Serilog.Settings.Configuration@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      }
+    ],
+    "ok": false,
+    "dependencyCount": 78,
+    "org": "omarmohamedo-o",
+    "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.25.1\nignore: {}\npatch: {}\n",
+    "isPrivate": true,
+    "licensesPolicy": {
+      "severities": {},
+      "orgLicenseRules": {
+        "AGPL-1.0": {
+          "licenseType": "AGPL-1.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "AGPL-3.0": {
+          "licenseType": "AGPL-3.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "Artistic-1.0": {
+          "licenseType": "Artistic-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "Artistic-2.0": {
+          "licenseType": "Artistic-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "CDDL-1.0": {
+          "licenseType": "CDDL-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "CPOL-1.02": {
+          "licenseType": "CPOL-1.02",
+          "severity": "high",
+          "instructions": ""
+        },
+        "EPL-1.0": {
+          "licenseType": "EPL-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "GPL-2.0": {
+          "licenseType": "GPL-2.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "GPL-3.0": {
+          "licenseType": "GPL-3.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "LGPL-2.0": {
+          "licenseType": "LGPL-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "LGPL-2.1": {
+          "licenseType": "LGPL-2.1",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "LGPL-3.0": {
+          "licenseType": "LGPL-3.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MPL-1.1": {
+          "licenseType": "MPL-1.1",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MPL-2.0": {
+          "licenseType": "MPL-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MS-RL": {
+          "licenseType": "MS-RL",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "SimPL-2.0": {
+          "licenseType": "SimPL-2.0",
+          "severity": "high",
+          "instructions": ""
+        }
+      }
+    },
+    "packageManager": "nuget",
+    "ignoreSettings": {
+      "adminOnly": false,
+      "reasonRequired": false,
+      "disregardFilesystemIgnores": false
+    },
+    "summary": "7 high or critical severity vulnerable dependency paths",
+    "severityThreshold": "high",
+    "remediation": {
+      "unresolved": [
+        {
+          "id": "SNYK-DOTNET-BOUNCYCASTLECRYPTOGRAPHY-7831268",
+          "title": "Infinite loop",
+          "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P",
+          "credit": [
+            "jr981008"
+          ],
+          "semver": {
+            "vulnerable": [
+              "[,2.3.1)"
+            ]
+          },
+          "exploit": "Proof of Concept",
+          "fixedIn": [
+            "2.3.1"
+          ],
+          "patches": [],
+          "insights": {
+            "triageAdvice": null
+          },
+          "language": "dotnet",
+          "severity": "high",
+          "cvssScore": 7.5,
+          "functions": [],
+          "malicious": false,
+          "isDisputed": false,
+          "moduleName": "bouncycastle.cryptography",
+          "references": [
+            {
+              "url": "https://github.com/bcgit/bc-java/commit/9c165791b68a204678b48ec11e4e579754c2ea49",
+              "title": "GitHub Commit"
+            },
+            {
+              "url": "https://github.com/bcgit/bc-java/issues/1599",
+              "title": "GitHub Issue"
+            }
+          ],
+          "cvssDetails": [
+            {
+              "assigner": "Red Hat",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-08-09T13:34:05.741930Z"
+            }
+          ],
+          "cvssSources": [
+            {
+              "type": "primary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-08-26T10:20:45.735477Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Red Hat",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-08-09T13:34:05.741930Z"
+            }
+          ],
+          "description": "## Overview\n\nAffected versions of this package are vulnerable to Infinite loop in ED25519 verification in the `ScalarUtil` class. An attacker can send a malicious signature and public key to trigger denial of service.\n## Remediation\nUpgrade `BouncyCastle.Cryptography` to version 2.3.1 or higher.\n## References\n- [GitHub Commit](https://github.com/bcgit/bc-java/commit/9c165791b68a204678b48ec11e4e579754c2ea49)\n- [GitHub Issue](https://github.com/bcgit/bc-java/issues/1599)\n",
+          "epssDetails": {
+            "percentile": "0.34287",
+            "probability": "0.00136",
+            "modelVersion": "v2025.03.14"
+          },
+          "identifiers": {
+            "CVE": [
+              "CVE-2024-30172"
+            ],
+            "CWE": [
+              "CWE-835"
+            ]
+          },
+          "packageName": "BouncyCastle.Cryptography",
+          "proprietary": false,
+          "creationTime": "2024-08-26T10:20:00.802568Z",
+          "functions_new": [],
+          "alternativeIds": [],
+          "disclosureTime": "2024-04-12T22:09:45Z",
+          "exploitDetails": {
+            "sources": [
+              "Snyk"
+            ],
+            "maturityLevels": [
+              {
+                "type": "secondary",
+                "level": "Proof of Concept",
+                "format": "CVSSv3"
+              },
+              {
+                "type": "primary",
+                "level": "Proof of Concept",
+                "format": "CVSSv4"
+              }
+            ]
+          },
+          "packageManager": "nuget",
+          "publicationTime": "2024-08-26T10:20:01.011096Z",
+          "severityBasedOn": "CVSS",
+          "modificationTime": "2024-08-26T10:20:45.735477Z",
+          "socialTrendAlert": false,
+          "packagePopularityRank": 99,
+          "from": [
+            "CloroMaster@1.0.0",
+            "MailKit@4.1.0",
+            "MimeKit@4.1.0",
+            "BouncyCastle.Cryptography@2.2.1"
+          ],
+          "upgradePath": [],
+          "isUpgradable": false,
+          "isPatchable": false,
+          "isPinnable": false,
+          "isRuntime": false,
+          "name": "BouncyCastle.Cryptography",
+          "version": "2.2.1",
+          "severityWithCritical": "high"
+        },
+        {
+          "id": "SNYK-DOTNET-SYSTEMTEXTJSON-7433719",
+          "title": "Denial of Service (DoS)",
+          "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "credit": [
+            "Unknown"
+          ],
+          "semver": {
+            "vulnerable": [
+              "[7.0.0, 8.0.4)"
+            ]
+          },
+          "exploit": "Not Defined",
+          "fixedIn": [
+            "8.0.4"
+          ],
+          "patches": [],
+          "insights": {
+            "triageAdvice": null
+          },
+          "language": "dotnet",
+          "severity": "high",
+          "cvssScore": 8.7,
+          "functions": [],
+          "malicious": false,
+          "isDisputed": false,
+          "moduleName": "system.text.json",
+          "references": [
+            {
+              "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105",
+              "title": "Vulnerability Advisory"
+            }
+          ],
+          "cvssDetails": [
+            {
+              "assigner": "NVD",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-07-10T01:11:34.867502Z"
+            },
+            {
+              "assigner": "Red Hat",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-07-11T00:50:00.849512Z"
+            }
+          ],
+          "cvssSources": [
+            {
+              "type": "primary",
+              "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 8.7,
+              "cvssVersion": "4.0",
+              "modificationTime": "2024-07-10T07:35:03.631520Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-07-10T07:35:03.631520Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "NVD",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-07-10T01:11:34.867502Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Red Hat",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-07-11T00:50:00.849512Z"
+            }
+          ],
+          "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using .NET's `JsonSerializer.DeserializeAsyncEnumerable()` function on untrusted input.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `System.Text.Json` to version 8.0.4 or higher.\n## References\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105)\n",
+          "epssDetails": {
+            "percentile": "0.82306",
+            "probability": "0.01793",
+            "modelVersion": "v2025.03.14"
+          },
+          "identifiers": {
+            "CVE": [
+              "CVE-2024-30105"
+            ],
+            "CWE": [
+              "CWE-400"
+            ],
+            "GHSA": [
+              "GHSA-hh2w-p6rv-4g7w"
+            ]
+          },
+          "packageName": "System.Text.Json",
+          "proprietary": false,
+          "creationTime": "2024-07-10T07:10:28.236853Z",
+          "functions_new": [],
+          "alternativeIds": [],
+          "disclosureTime": "2024-07-09T21:14:10Z",
+          "exploitDetails": {
+            "sources": [],
+            "maturityLevels": [
+              {
+                "type": "secondary",
+                "level": "Not Defined",
+                "format": "CVSSv3"
+              },
+              {
+                "type": "primary",
+                "level": "Not Defined",
+                "format": "CVSSv4"
+              }
+            ]
+          },
+          "packageManager": "nuget",
+          "publicationTime": "2024-07-10T07:35:03.631000Z",
+          "severityBasedOn": "CVSS",
+          "modificationTime": "2024-07-11T00:50:00.849512Z",
+          "socialTrendAlert": false,
+          "packagePopularityRank": 99,
+          "from": [
+            "CloroMaster@1.0.0",
+            "Serilog.AspNetCore@8.0.0",
+            "Serilog.Settings.Configuration@8.0.0",
+            "Microsoft.Extensions.DependencyModel@8.0.0",
+            "System.Text.Json@8.0.0"
+          ],
+          "upgradePath": [],
+          "isUpgradable": false,
+          "isPatchable": false,
+          "isPinnable": false,
+          "isRuntime": false,
+          "name": "System.Text.Json",
+          "version": "8.0.0",
+          "severityWithCritical": "high"
+        },
+        {
+          "id": "SNYK-DOTNET-SYSTEMTEXTJSON-8168848",
+          "title": "Inefficient Algorithmic Complexity",
+          "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "credit": [
+            "Unknown"
+          ],
+          "semver": {
+            "vulnerable": [
+              "[6.0.0,6.0.10)",
+              "[8.0.0,8.0.5)"
+            ]
+          },
+          "exploit": "Not Defined",
+          "fixedIn": [
+            "6.0.10",
+            "8.0.5"
+          ],
+          "patches": [],
+          "insights": {
+            "triageAdvice": null
+          },
+          "language": "dotnet",
+          "severity": "high",
+          "cvssScore": 8.7,
+          "functions": [],
+          "malicious": false,
+          "isDisputed": false,
+          "moduleName": "system.text.json",
+          "references": [
+            {
+              "url": "https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809",
+              "title": "GitHub Commit"
+            },
+            {
+              "url": "https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4",
+              "title": "GitHub Commit"
+            },
+            {
+              "url": "https://github.com/dotnet/announcements/issues/329",
+              "title": "GitHub Issue"
+            },
+            {
+              "url": "https://github.com/dotnet/runtime/issues/108678",
+              "title": "GitHub Issue"
+            },
+            {
+              "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485",
+              "title": "Vulnerability Advisory"
+            }
+          ],
+          "cvssDetails": [
+            {
+              "assigner": "Red Hat",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-10-09T13:50:23.324526Z"
+            },
+            {
+              "assigner": "NVD",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-10-09T01:12:22.673612Z"
+            }
+          ],
+          "cvssSources": [
+            {
+              "type": "primary",
+              "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 8.7,
+              "cvssVersion": "4.0",
+              "modificationTime": "2024-10-09T21:31:57.250268Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-10-09T21:31:57.250268Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Red Hat",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-10-09T13:50:23.324526Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "NVD",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-10-09T01:12:22.673612Z"
+            }
+          ],
+          "description": "## Overview\n\nAffected versions of this package are vulnerable to Inefficient Algorithmic Complexity involved in processing `[ExtensionData]` property data. An attacker can trigger denial of service by passing malicious JSON input to a model that uses this property.\n## Remediation\nUpgrade `System.Text.Json` to version 6.0.10, 8.0.5 or higher.\n## References\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809)\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4)\n- [GitHub Issue](https://github.com/dotnet/announcements/issues/329)\n- [GitHub Issue](https://github.com/dotnet/runtime/issues/108678)\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485)\n",
+          "epssDetails": {
+            "percentile": "0.72437",
+            "probability": "0.00738",
+            "modelVersion": "v2025.03.14"
+          },
+          "identifiers": {
+            "CVE": [
+              "CVE-2024-43485"
+            ],
+            "CWE": [
+              "CWE-407"
+            ],
+            "GHSA": [
+              "GHSA-8g4q-xg66-9fp4"
+            ]
+          },
+          "packageName": "System.Text.Json",
+          "proprietary": false,
+          "creationTime": "2024-10-09T10:31:31.348625Z",
+          "functions_new": [],
+          "alternativeIds": [],
+          "disclosureTime": "2024-10-08T20:25:19Z",
+          "exploitDetails": {
+            "sources": [],
+            "maturityLevels": [
+              {
+                "type": "secondary",
+                "level": "Not Defined",
+                "format": "CVSSv3"
+              },
+              {
+                "type": "primary",
+                "level": "Not Defined",
+                "format": "CVSSv4"
+              }
+            ]
+          },
+          "packageManager": "nuget",
+          "publicationTime": "2024-10-09T21:31:57.241304Z",
+          "severityBasedOn": "CVSS",
+          "modificationTime": "2024-10-09T21:31:57.250268Z",
+          "socialTrendAlert": false,
+          "packagePopularityRank": 99,
+          "from": [
+            "CloroMaster@1.0.0",
+            "Serilog.AspNetCore@8.0.0",
+            "Serilog.Settings.Configuration@8.0.0",
+            "Microsoft.Extensions.DependencyModel@8.0.0",
+            "System.Text.Json@8.0.0"
+          ],
+          "upgradePath": [],
+          "isUpgradable": false,
+          "isPatchable": false,
+          "isPinnable": false,
+          "isRuntime": false,
+          "name": "System.Text.Json",
+          "version": "8.0.0",
+          "severityWithCritical": "high"
+        }
+      ],
+      "upgrade": {},
+      "patch": {},
+      "ignore": {},
+      "pin": {}
+    },
+    "filesystemPolicy": false,
+    "filtered": {
+      "ignore": [],
+      "patch": []
+    },
+    "uniqueCount": 3,
+    "targetFile": "backend/src/ChloroMaster.API/obj/project.assets.json",
+    "projectName": "CloroMaster",
+    "displayTargetFile": "backend/src/ChloroMaster.API/obj/project.assets.json",
+    "hasUnknownVersions": false,
+    "path": "/home/omar/Projects/project/CloroMaster"
+  },
+  {
+    "vulnerabilities": [],
+    "ok": true,
+    "dependencyCount": 0,
+    "org": "omarmohamedo-o",
+    "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.25.1\nignore: {}\npatch: {}\n",
+    "isPrivate": true,
+    "licensesPolicy": {
+      "severities": {},
+      "orgLicenseRules": {
+        "AGPL-1.0": {
+          "licenseType": "AGPL-1.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "AGPL-3.0": {
+          "licenseType": "AGPL-3.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "Artistic-1.0": {
+          "licenseType": "Artistic-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "Artistic-2.0": {
+          "licenseType": "Artistic-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "CDDL-1.0": {
+          "licenseType": "CDDL-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "CPOL-1.02": {
+          "licenseType": "CPOL-1.02",
+          "severity": "high",
+          "instructions": ""
+        },
+        "EPL-1.0": {
+          "licenseType": "EPL-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "GPL-2.0": {
+          "licenseType": "GPL-2.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "GPL-3.0": {
+          "licenseType": "GPL-3.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "LGPL-2.0": {
+          "licenseType": "LGPL-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "LGPL-2.1": {
+          "licenseType": "LGPL-2.1",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "LGPL-3.0": {
+          "licenseType": "LGPL-3.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MPL-1.1": {
+          "licenseType": "MPL-1.1",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MPL-2.0": {
+          "licenseType": "MPL-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MS-RL": {
+          "licenseType": "MS-RL",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "SimPL-2.0": {
+          "licenseType": "SimPL-2.0",
+          "severity": "high",
+          "instructions": ""
+        }
+      }
+    },
+    "packageManager": "nuget",
+    "ignoreSettings": {
+      "adminOnly": false,
+      "reasonRequired": false,
+      "disregardFilesystemIgnores": false
+    },
+    "summary": "No high or critical severity vulnerabilities",
+    "severityThreshold": "high",
+    "filesystemPolicy": false,
+    "uniqueCount": 0,
+    "targetFile": "backend/src/ChloroMaster.Core/obj/project.assets.json",
+    "projectName": "CloroMaster",
+    "displayTargetFile": "backend/src/ChloroMaster.Core/obj/project.assets.json",
+    "hasUnknownVersions": false,
+    "path": "/home/omar/Projects/project/CloroMaster"
+  },
+  {
+    "vulnerabilities": [
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-7433719",
+        "title": "Denial of Service (DoS)",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[7.0.0, 8.0.4)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "8.0.4"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T07:35:03.631520Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-10T01:11:34.867502Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-07-11T00:50:00.849512Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using .NET's `JsonSerializer.DeserializeAsyncEnumerable()` function on untrusted input.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `System.Text.Json` to version 8.0.4 or higher.\n## References\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105)\n",
+        "epssDetails": {
+          "percentile": "0.82306",
+          "probability": "0.01793",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-30105"
+          ],
+          "CWE": [
+            "CWE-400"
+          ],
+          "GHSA": [
+            "GHSA-hh2w-p6rv-4g7w"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-07-10T07:10:28.236853Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-07-09T21:14:10Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-07-10T07:35:03.631000Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-07-11T00:50:00.849512Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite@8.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      },
+      {
+        "id": "SNYK-DOTNET-SYSTEMTEXTJSON-8168848",
+        "title": "Inefficient Algorithmic Complexity",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "credit": [
+          "Unknown"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[6.0.0,6.0.10)",
+            "[8.0.0,8.0.5)"
+          ]
+        },
+        "exploit": "Not Defined",
+        "fixedIn": [
+          "6.0.10",
+          "8.0.5"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "dotnet",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "system.text.json",
+        "references": [
+          {
+            "url": "https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/dotnet/announcements/issues/329",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://github.com/dotnet/runtime/issues/108678",
+            "title": "GitHub Issue"
+          },
+          {
+            "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485",
+            "title": "Vulnerability Advisory"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "Red Hat",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T21:31:57.250268Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "Red Hat",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T13:50:23.324526Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-10-09T01:12:22.673612Z"
+          }
+        ],
+        "description": "## Overview\n\nAffected versions of this package are vulnerable to Inefficient Algorithmic Complexity involved in processing `[ExtensionData]` property data. An attacker can trigger denial of service by passing malicious JSON input to a model that uses this property.\n## Remediation\nUpgrade `System.Text.Json` to version 6.0.10, 8.0.5 or higher.\n## References\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809)\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4)\n- [GitHub Issue](https://github.com/dotnet/announcements/issues/329)\n- [GitHub Issue](https://github.com/dotnet/runtime/issues/108678)\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485)\n",
+        "epssDetails": {
+          "percentile": "0.72437",
+          "probability": "0.00738",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-43485"
+          ],
+          "CWE": [
+            "CWE-407"
+          ],
+          "GHSA": [
+            "GHSA-8g4q-xg66-9fp4"
+          ]
+        },
+        "packageName": "System.Text.Json",
+        "proprietary": false,
+        "creationTime": "2024-10-09T10:31:31.348625Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-10-08T20:25:19Z",
+        "exploitDetails": {
+          "sources": [],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Not Defined",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Not Defined",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "nuget",
+        "publicationTime": "2024-10-09T21:31:57.241304Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-10-09T21:31:57.250268Z",
+        "socialTrendAlert": false,
+        "severityWithCritical": "high",
+        "from": [
+          "CloroMaster@1.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite@8.0.0",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core@8.0.0",
+          "Microsoft.Extensions.DependencyModel@8.0.0",
+          "System.Text.Json@8.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "name": "System.Text.Json",
+        "version": "8.0.0"
+      }
+    ],
+    "ok": false,
+    "dependencyCount": 24,
+    "org": "omarmohamedo-o",
+    "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.25.1\nignore: {}\npatch: {}\n",
+    "isPrivate": true,
+    "licensesPolicy": {
+      "severities": {},
+      "orgLicenseRules": {
+        "AGPL-1.0": {
+          "licenseType": "AGPL-1.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "AGPL-3.0": {
+          "licenseType": "AGPL-3.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "Artistic-1.0": {
+          "licenseType": "Artistic-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "Artistic-2.0": {
+          "licenseType": "Artistic-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "CDDL-1.0": {
+          "licenseType": "CDDL-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "CPOL-1.02": {
+          "licenseType": "CPOL-1.02",
+          "severity": "high",
+          "instructions": ""
+        },
+        "EPL-1.0": {
+          "licenseType": "EPL-1.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "GPL-2.0": {
+          "licenseType": "GPL-2.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "GPL-3.0": {
+          "licenseType": "GPL-3.0",
+          "severity": "high",
+          "instructions": ""
+        },
+        "LGPL-2.0": {
+          "licenseType": "LGPL-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "LGPL-2.1": {
+          "licenseType": "LGPL-2.1",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "LGPL-3.0": {
+          "licenseType": "LGPL-3.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MPL-1.1": {
+          "licenseType": "MPL-1.1",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MPL-2.0": {
+          "licenseType": "MPL-2.0",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "MS-RL": {
+          "licenseType": "MS-RL",
+          "severity": "medium",
+          "instructions": ""
+        },
+        "SimPL-2.0": {
+          "licenseType": "SimPL-2.0",
+          "severity": "high",
+          "instructions": ""
+        }
+      }
+    },
+    "packageManager": "nuget",
+    "ignoreSettings": {
+      "adminOnly": false,
+      "reasonRequired": false,
+      "disregardFilesystemIgnores": false
+    },
+    "summary": "2 high or critical severity vulnerable dependency paths",
+    "severityThreshold": "high",
+    "remediation": {
+      "unresolved": [
+        {
+          "id": "SNYK-DOTNET-SYSTEMTEXTJSON-7433719",
+          "title": "Denial of Service (DoS)",
+          "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "credit": [
+            "Unknown"
+          ],
+          "semver": {
+            "vulnerable": [
+              "[7.0.0, 8.0.4)"
+            ]
+          },
+          "exploit": "Not Defined",
+          "fixedIn": [
+            "8.0.4"
+          ],
+          "patches": [],
+          "insights": {
+            "triageAdvice": null
+          },
+          "language": "dotnet",
+          "severity": "high",
+          "cvssScore": 8.7,
+          "functions": [],
+          "malicious": false,
+          "isDisputed": false,
+          "moduleName": "system.text.json",
+          "references": [
+            {
+              "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105",
+              "title": "Vulnerability Advisory"
+            }
+          ],
+          "cvssDetails": [
+            {
+              "assigner": "NVD",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-07-10T01:11:34.867502Z"
+            },
+            {
+              "assigner": "Red Hat",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-07-11T00:50:00.849512Z"
+            }
+          ],
+          "cvssSources": [
+            {
+              "type": "primary",
+              "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 8.7,
+              "cvssVersion": "4.0",
+              "modificationTime": "2024-07-10T07:35:03.631520Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-07-10T07:35:03.631520Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "NVD",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-07-10T01:11:34.867502Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Red Hat",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-07-11T00:50:00.849512Z"
+            }
+          ],
+          "description": "## Overview\n\nAffected versions of this package are vulnerable to Denial of Service (DoS) when using .NET's `JsonSerializer.DeserializeAsyncEnumerable()` function on untrusted input.\n\n## Details\n\nDenial of Service (DoS) describes a family of attacks, all aimed at making a system inaccessible to its intended and legitimate users.\n\nUnlike other vulnerabilities, DoS attacks usually do not aim at breaching security. Rather, they are focused on making websites and services unavailable to genuine users resulting in downtime.\n\nOne popular Denial of Service vulnerability is DDoS (a Distributed Denial of Service), an attack that attempts to clog network pipes to the system by generating a large volume of traffic from many machines.\n\nWhen it comes to open source libraries, DoS vulnerabilities allow attackers to trigger such a crash or crippling of the service by using a flaw either in the application code or from the use of open source libraries.\n\nTwo common types of DoS vulnerabilities:\n\n* High CPU/Memory Consumption- An attacker sending crafted requests that could cause the system to take a disproportionate amount of time to process. For example, [commons-fileupload:commons-fileupload](https://security.snyk.io/vuln/SNYK-JAVA-COMMONSFILEUPLOAD-30082).\n\n* Crash - An attacker sending crafted requests that could cause the system to crash. For Example,  [npm `ws` package](https://snyk.io/vuln/npm:ws:20171108)\n\n## Remediation\nUpgrade `System.Text.Json` to version 8.0.4 or higher.\n## References\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-30105)\n",
+          "epssDetails": {
+            "percentile": "0.82306",
+            "probability": "0.01793",
+            "modelVersion": "v2025.03.14"
+          },
+          "identifiers": {
+            "CVE": [
+              "CVE-2024-30105"
+            ],
+            "CWE": [
+              "CWE-400"
+            ],
+            "GHSA": [
+              "GHSA-hh2w-p6rv-4g7w"
+            ]
+          },
+          "packageName": "System.Text.Json",
+          "proprietary": false,
+          "creationTime": "2024-07-10T07:10:28.236853Z",
+          "functions_new": [],
+          "alternativeIds": [],
+          "disclosureTime": "2024-07-09T21:14:10Z",
+          "exploitDetails": {
+            "sources": [],
+            "maturityLevels": [
+              {
+                "type": "secondary",
+                "level": "Not Defined",
+                "format": "CVSSv3"
+              },
+              {
+                "type": "primary",
+                "level": "Not Defined",
+                "format": "CVSSv4"
+              }
+            ]
+          },
+          "packageManager": "nuget",
+          "publicationTime": "2024-07-10T07:35:03.631000Z",
+          "severityBasedOn": "CVSS",
+          "modificationTime": "2024-07-11T00:50:00.849512Z",
+          "socialTrendAlert": false,
+          "packagePopularityRank": 99,
+          "from": [
+            "CloroMaster@1.0.0",
+            "Microsoft.EntityFrameworkCore.Sqlite@8.0.0",
+            "Microsoft.EntityFrameworkCore.Sqlite.Core@8.0.0",
+            "Microsoft.Extensions.DependencyModel@8.0.0",
+            "System.Text.Json@8.0.0"
+          ],
+          "upgradePath": [],
+          "isUpgradable": false,
+          "isPatchable": false,
+          "isPinnable": false,
+          "isRuntime": false,
+          "name": "System.Text.Json",
+          "version": "8.0.0",
+          "severityWithCritical": "high"
+        },
+        {
+          "id": "SNYK-DOTNET-SYSTEMTEXTJSON-8168848",
+          "title": "Inefficient Algorithmic Complexity",
+          "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+          "credit": [
+            "Unknown"
+          ],
+          "semver": {
+            "vulnerable": [
+              "[6.0.0,6.0.10)",
+              "[8.0.0,8.0.5)"
+            ]
+          },
+          "exploit": "Not Defined",
+          "fixedIn": [
+            "6.0.10",
+            "8.0.5"
+          ],
+          "patches": [],
+          "insights": {
+            "triageAdvice": null
+          },
+          "language": "dotnet",
+          "severity": "high",
+          "cvssScore": 8.7,
+          "functions": [],
+          "malicious": false,
+          "isDisputed": false,
+          "moduleName": "system.text.json",
+          "references": [
+            {
+              "url": "https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809",
+              "title": "GitHub Commit"
+            },
+            {
+              "url": "https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4",
+              "title": "GitHub Commit"
+            },
+            {
+              "url": "https://github.com/dotnet/announcements/issues/329",
+              "title": "GitHub Issue"
+            },
+            {
+              "url": "https://github.com/dotnet/runtime/issues/108678",
+              "title": "GitHub Issue"
+            },
+            {
+              "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485",
+              "title": "Vulnerability Advisory"
+            }
+          ],
+          "cvssDetails": [
+            {
+              "assigner": "Red Hat",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-10-09T13:50:23.324526Z"
+            },
+            {
+              "assigner": "NVD",
+              "severity": "high",
+              "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "cvssV3BaseScore": 7.5,
+              "modificationTime": "2024-10-09T01:12:22.673612Z"
+            }
+          ],
+          "cvssSources": [
+            {
+              "type": "primary",
+              "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 8.7,
+              "cvssVersion": "4.0",
+              "modificationTime": "2024-10-09T21:31:57.250268Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Snyk",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-10-09T21:31:57.250268Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "Red Hat",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-10-09T13:50:23.324526Z"
+            },
+            {
+              "type": "secondary",
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "assigner": "NVD",
+              "severity": "high",
+              "baseScore": 7.5,
+              "cvssVersion": "3.1",
+              "modificationTime": "2024-10-09T01:12:22.673612Z"
+            }
+          ],
+          "description": "## Overview\n\nAffected versions of this package are vulnerable to Inefficient Algorithmic Complexity involved in processing `[ExtensionData]` property data. An attacker can trigger denial of service by passing malicious JSON input to a model that uses this property.\n## Remediation\nUpgrade `System.Text.Json` to version 6.0.10, 8.0.5 or higher.\n## References\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/be46d16f6ff2daa6632136f7f100c5de89de6809)\n- [GitHub Commit](https://github.com/dotnet/runtime/commit/c3c2cc2e61411fc1c56ca962684348ccf5563ce4)\n- [GitHub Issue](https://github.com/dotnet/announcements/issues/329)\n- [GitHub Issue](https://github.com/dotnet/runtime/issues/108678)\n- [Vulnerability Advisory](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-43485)\n",
+          "epssDetails": {
+            "percentile": "0.72437",
+            "probability": "0.00738",
+            "modelVersion": "v2025.03.14"
+          },
+          "identifiers": {
+            "CVE": [
+              "CVE-2024-43485"
+            ],
+            "CWE": [
+              "CWE-407"
+            ],
+            "GHSA": [
+              "GHSA-8g4q-xg66-9fp4"
+            ]
+          },
+          "packageName": "System.Text.Json",
+          "proprietary": false,
+          "creationTime": "2024-10-09T10:31:31.348625Z",
+          "functions_new": [],
+          "alternativeIds": [],
+          "disclosureTime": "2024-10-08T20:25:19Z",
+          "exploitDetails": {
+            "sources": [],
+            "maturityLevels": [
+              {
+                "type": "secondary",
+                "level": "Not Defined",
+                "format": "CVSSv3"
+              },
+              {
+                "type": "primary",
+                "level": "Not Defined",
+                "format": "CVSSv4"
+              }
+            ]
+          },
+          "packageManager": "nuget",
+          "publicationTime": "2024-10-09T21:31:57.241304Z",
+          "severityBasedOn": "CVSS",
+          "modificationTime": "2024-10-09T21:31:57.250268Z",
+          "socialTrendAlert": false,
+          "packagePopularityRank": 99,
+          "from": [
+            "CloroMaster@1.0.0",
+            "Microsoft.EntityFrameworkCore.Sqlite@8.0.0",
+            "Microsoft.EntityFrameworkCore.Sqlite.Core@8.0.0",
+            "Microsoft.Extensions.DependencyModel@8.0.0",
+            "System.Text.Json@8.0.0"
+          ],
+          "upgradePath": [],
+          "isUpgradable": false,
+          "isPatchable": false,
+          "isPinnable": false,
+          "isRuntime": false,
+          "name": "System.Text.Json",
+          "version": "8.0.0",
+          "severityWithCritical": "high"
+        }
+      ],
+      "upgrade": {},
+      "patch": {},
+      "ignore": {},
+      "pin": {}
+    },
+    "filesystemPolicy": false,
+    "filtered": {
+      "ignore": [],
+      "patch": []
+    },
+    "uniqueCount": 2,
+    "targetFile": "backend/src/ChloroMaster.Infrastructure/obj/project.assets.json",
+    "projectName": "CloroMaster",
+    "displayTargetFile": "backend/src/ChloroMaster.Infrastructure/obj/project.assets.json",
+    "hasUnknownVersions": false,
+    "path": "/home/omar/Projects/project/CloroMaster"
+  }
+]

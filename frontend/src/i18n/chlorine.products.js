@@ -2,7 +2,7 @@ const chlorineProducts = [
     {
         id: 1,
         slug: 'drum-lifting-beam',
-        image: '/images/services/Chlorine System Solutions/Chlorine Drum Lifting Beam.png',
+        image: '/images/services/Chlorine System Solutions/Chlorine Drum Lifting Beam.webp',
         datasheet: '/files/datasheets/chlorine-drum-lifting-beam.pdf',
         title: {
             en: 'Chlorine Drum Lifting Beam',
@@ -20,7 +20,7 @@ const chlorineProducts = [
     {
         id: 2,
         slug: 'drum-trunnion',
-        image: '/images/services/Chlorine System Solutions/Chlorine Drum Trunnion.png',
+        image: '/images/services/Chlorine System Solutions/Chlorine Drum Trunnion.webp',
         datasheet: '/files/datasheets/chlorine-drum-trunnion.pdf',
         title: {
             en: 'Chlorine Drum Trunnion',
@@ -38,7 +38,7 @@ const chlorineProducts = [
     {
         id: 3,
         slug: 'drum-scale-frame-digital-load-cell',
-        image: '/images/services/Chlorine System Solutions/ChloroMaster DRUM SCALE FRAME WITH DIGITAL LOAD CELL   (D.Sc 05).png',
+        image: '/images/services/Chlorine System Solutions/ChloroMaster DRUM SCALE FRAME WITH DIGITAL LOAD CELL   (D.Sc 05).webp',
         datasheet: '/files/datasheets/ChloroMaster DRUM SCALE FRAME WITH DIGITAL LOAD CELL   (D.Sc 05).pdf',
         title: {
             en: 'Drum Scale Frame with Digital Load Cell',
@@ -56,7 +56,7 @@ const chlorineProducts = [
     {
         id: 4,
         slug: 'chlorine-line-valve-monel-k400',
-        image: '/images/services/Chlorine System Solutions/Chlorine Line Valve Monel K400.png',
+        image: '/images/services/Chlorine System Solutions/Chlorine Line Valve Monel K400.webp',
         datasheet: '/files/datasheets/chlorine-line-valve-monel-k400.pdf',
         title: {
             en: 'Chlorine Line Valve – Monel K400',
@@ -74,7 +74,7 @@ const chlorineProducts = [
     {
         id: 5,
         slug: 'chlorine-flexible-connection-3-4',
-        image: '/images/services/Chlorine System Solutions/Chlorine-Flexible Connection.png',
+        image: '/images/services/Chlorine System Solutions/Chlorine-Flexible Connection.webp',
         datasheet: '/files/datasheets/chlorine-flexible-connection-3-4.pdf',
         title: {
             en: 'Chlorine Flexible Connection ¾"',
@@ -92,7 +92,7 @@ const chlorineProducts = [
     {
         id: 6,
         slug: 'diaphragm-pressure-gauge-with-contact',
-        image: '/images/services/Chlorine System Solutions/Diaphragm Pressure Gauge with contact.png',
+        image: '/images/services/Chlorine System Solutions/Diaphragm Pressure Gauge with contact.webp',
         datasheet: '/files/datasheets/diaphragm-pressure-gauge-with-contact.pdf',
         title: {
             en: 'Diaphragm Pressure Gauge with Contact',
@@ -110,7 +110,7 @@ const chlorineProducts = [
     {
         id: 7,
         slug: 'rupture-disc',
-        image: '/images/services/Chlorine System Solutions/ChloroMaster Rupture Disc (R.D 05).png',
+        image: '/images/services/Chlorine System Solutions/ChloroMaster Rupture Disc (R.D 05).webp',
         datasheet: '/files/datasheets/ChloroMaster Rupture Disc (R.D 05).pdf',
         title: {
             en: 'Rupture Disc',
@@ -128,7 +128,7 @@ const chlorineProducts = [
     {
         id: 8,
         slug: 'expansion-tube-with-rupture-disc',
-        image: '/images/services/Chlorine System Solutions/Expansion-tube-with-rupture-disc.png',
+        image: '/images/services/Chlorine System Solutions/Expansion-tube-with-rupture-disc.webp',
         datasheet: '/files/datasheets/expansion-tube-with-rupture-disc.pdf',
         title: {
             en: 'Expansion Tube with Rupture Disc',
@@ -146,7 +146,7 @@ const chlorineProducts = [
     {
         id: 9,
         slug: 'emergency-kit',
-        image: '/images/services/Chlorine System Solutions/Emergency kit.png',
+        image: '/images/services/Chlorine System Solutions/Emergency kit.webp',
         datasheet: '/files/datasheets/emergency-kit.pdf',
         title: {
             en: 'Chlorine Emergency Kit',
@@ -164,7 +164,7 @@ const chlorineProducts = [
     {
         id: 10,
         slug: 'safety-shower-eyewash',
-        image: '/images/services/Chlorine System Solutions/EMERGENCY-SAFETY-SHOWER-AND-EYE-WASH.png',
+        image: '/images/services/Chlorine System Solutions/EMERGENCY-SAFETY-SHOWER-AND-EYE-WASH.webp',
         datasheet: '/files/datasheets/safety-shower-eyewash.pdf',
         title: {
             en: 'Emergency Safety Shower & Eyewash',
@@ -182,7 +182,7 @@ const chlorineProducts = [
     {
         id: 11,
         slug: 'neutralization-system-wet-scrubber',
-        image: '/images/services/Chlorine System Solutions/Neutralization-System-(Wet-scrubber).png',
+        image: '/images/services/Chlorine System Solutions/Neutralization-System-(Wet-scrubber).webp',
         datasheet: '/files/datasheets/neutralization-system.pdf',
         title: {
             en: 'Chlorine Neutralization System',
@@ -200,7 +200,7 @@ const chlorineProducts = [
     {
         id: 12,
         slug: 'nitrogen-flushing-system',
-        image: '/images/services/Chlorine System Solutions/Nitrogen-flushing-system.png',
+        image: '/images/services/Chlorine System Solutions/Nitrogen-flushing-system.webp',
         datasheet: '/files/datasheets/nitrogen-flushing-system.pdf',
         title: {
             en: 'Nitrogen Flushing System',
@@ -218,7 +218,7 @@ const chlorineProducts = [
     {
         id: 13,
         slug: 'chlorine-threaded-ball-valve-3pcs',
-        image: '/images/services/Chlorine System Solutions/Chlorine-Threaded-ball-valve-3PCS.png',
+        image: '/images/services/Chlorine System Solutions/Chlorine-Threaded-ball-valve-3PCS.webp',
         datasheet: '/files/datasheets/line-ball-valve-s-s-316-l.pdf',
         title: {
             en: 'Chlorine Threaded Ball Valve 3PCS',
@@ -236,7 +236,7 @@ const chlorineProducts = [
     {
         id: 14,
         slug: 'gas-container-change-over-unit',
-        image: '/images/services/Chlorine System Solutions/Gas Container Change Over Unit.png',
+        image: '/images/services/Chlorine System Solutions/Gas Container Change Over Unit.webp',
         datasheet: '/files/datasheets/change-over-unit.pdf',
         title: {
             en: 'Gas Container Change Over Unit',
@@ -254,7 +254,7 @@ const chlorineProducts = [
     {
         id: 15,
         slug: 'liquid-chlorine-trap-and-gas-filter',
-        image: '/images/services/Chlorine System Solutions/liquid-chlorine-trap-and-chlorine-gas-filter.png',
+        image: '/images/services/Chlorine System Solutions/liquid-chlorine-trap-and-chlorine-gas-filter.webp',
         datasheet: '/files/datasheets/liquid-trap.pdf',
         title: {
             en: 'Liquid Chlorine Trap and Chlorine Gas Filter',
@@ -272,7 +272,7 @@ const chlorineProducts = [
     {
         id: 16,
         slug: 'auxiliary-and-header-valve',
-        image: '/images/services/Chlorine System Solutions/Auxiliary & header Valve.png',
+        image: '/images/services/Chlorine System Solutions/Auxiliary & header Valve.webp',
         datasheet: '/files/datasheets/chlorine-auxiliary-header-valve.pdf',
         title: {
             en: 'Auxiliary & Header Valve',

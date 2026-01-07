@@ -16,7 +16,7 @@ export default function Hero() {
         <section
             className="relative text-white overflow-hidden"
             style={{
-                backgroundImage: `url('/images/water-treatment-plant.jpg')`,
+                backgroundImage: `url('/images/water-treatment-plant.webp')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 minHeight: '600px'

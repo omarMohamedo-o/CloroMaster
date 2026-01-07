@@ -5,6 +5,10 @@ import { PATHS } from '../../app/routes';
 import { useLanguage } from '../../context/LanguageContext';
 import config from '../../config/config';
 import InfoRow from '../../components/admin/InfoRow';
+import AdminPageHeader from '../../components/admin/AdminPageHeader';
+import AdminCard from '../../components/admin/AdminCard';
+import LoadingOrError from '../../components/admin/LoadingOrError';
+import StatusBadge from '../../components/admin/StatusBadge';
 
 const SubmissionDetail = () => {
     const { t } = useLanguage();
@@ -44,17 +48,7 @@ const SubmissionDetail = () => {
 
     const handleMarkAsRead = async (isRead) => {
         try {
-            const response = await fetch(
-                `${config.api.baseURL}/admin/submissions/${id}/read`,
-                {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(isRead)
-                }
-            );
-
-            if (!response.ok) throw new Error('Failed to update status');
-
+            await import('../../services/adminSubmissions').then(m => m.markSubmissionRead(id, isRead));
             setSubmission({ ...submission, isRead });
         } catch (err) {
             alert(err.message);
@@ -67,13 +61,7 @@ const SubmissionDetail = () => {
         }
 
         try {
-            const response = await fetch(
-                `${config.api.baseURL}/admin/submissions/${id}`,
-                { method: 'DELETE' }
-            );
-
-            if (!response.ok) throw new Error('Failed to delete');
-
+            await import('../../services/adminSubmissions').then(m => m.deleteSubmission(id));
             navigate(PATHS.ADMIN_SUBMISSIONS);
         } catch (err) {
             alert(err.message);
@@ -81,27 +69,14 @@ const SubmissionDetail = () => {
     };
 
     if (loading) {
-        return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">
-                        {t('admin.loading')}
-                    </p>
-                </div>
-            </div>
-        );
+        return <LoadingOrError loading loadingMessage={t('admin.loading')} />;
     }
 
     if (error || !submission) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-                <div className="max-w-md w-full bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg">
-                    <h3 className="font-semibold mb-2">{t('admin.error')}</h3>
-                    <p>{error || 'Submission not found'}</p>
-                    <BackButton className="mt-4" />
-                </div>
-            </div>
+            <LoadingOrError error title={t('admin.error')} message={error || 'Submission not found'}>
+                <BackButton className="mt-4" />
+            </LoadingOrError>
         );
     }
 
@@ -109,7 +84,7 @@ const SubmissionDetail = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <AdminHeader
+            <AdminPageHeader
                 showBack
                 backClassName="mb-2 text-blue-600"
                 title={t('admin.submissionDetail')}
@@ -122,24 +97,12 @@ const SubmissionDetail = () => {
             <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Status Badge */}
                 <div className="mb-6">
-                    {submission.isRead ? (
-                        <span className="px-3 py-1 text-sm font-semibold rounded-full bg-green-100 text-green-800">
-                            {t('admin.readStatus')}
-                        </span>
-                    ) : (
-                        <span className="px-3 py-1 text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                            {t('admin.newStatus')}
-                        </span>
-                    )}
+                    <StatusBadge isRead={submission.isRead} t={t} />
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Contact Information */}
-                    <div className="bg-white rounded-xl shadow-md p-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                            <span>👤</span>
-                            {t('admin.contactInfo')}
-                        </h2>
+                    <AdminCard icon="👤" title={t('admin.contactInfo')}>
                         <dl>
                             <InfoRow
                                 label={t('admin.firstName')}
@@ -158,14 +121,10 @@ const SubmissionDetail = () => {
                                 value={submission.phone}
                             />
                         </dl>
-                    </div>
+                    </AdminCard>
 
                     {/* Company Information */}
-                    <div className="bg-white rounded-xl shadow-md p-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                            <span>🏢</span>
-                            {t('admin.companyInfo')}
-                        </h2>
+                    <AdminCard icon="🏢" title={t('admin.companyInfo')}>
                         <dl>
                             <InfoRow
                                 label={t('admin.company')}
@@ -184,27 +143,19 @@ const SubmissionDetail = () => {
                                 value={submission.postalCode}
                             />
                         </dl>
-                    </div>
+                    </AdminCard>
 
                     {/* Message */}
-                    <div className="bg-white rounded-xl shadow-md p-6 lg:col-span-2">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                            <span>💬</span>
-                            {t('admin.message')}
-                        </h2>
+                    <AdminCard icon="💬" title={t('admin.message')} className="lg:col-span-2">
                         <div className="bg-gray-50 rounded-lg p-4">
                             <p className="text-gray-800 whitespace-pre-wrap">
                                 {submission.message}
                             </p>
                         </div>
-                    </div>
+                    </AdminCard>
 
                     {/* Metadata */}
-                    <div className="bg-white rounded-xl shadow-md p-6 lg:col-span-2">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                            <span>📊</span>
-                            {t('admin.metadata')}
-                        </h2>
+                    <AdminCard icon="📊" title={t('admin.metadata')} className="lg:col-span-2">
                         <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InfoRow
                                 label={t('admin.submittedAt')}
@@ -228,7 +179,7 @@ const SubmissionDetail = () => {
                                 }
                             />
                         </dl>
-                    </div>
+                    </AdminCard>
                 </div>
             </main>
         </div>

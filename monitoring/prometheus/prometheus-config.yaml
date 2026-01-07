@@ -1,0 +1,155 @@
+# Prometheus ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: chloromaster
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+      external_labels:
+        cluster: 'chloromaster-k8s'
+        environment: 'production'
+
+    # Alertmanager configuration
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets: []
+
+    # Load rules once and periodically evaluate them
+    rule_files:
+      - /etc/prometheus/rules/*.yml
+
+    # Scrape configurations
+    scrape_configs:
+      # Prometheus itself
+      - job_name: 'prometheus'
+        static_configs:
+          - targets: ['localhost:9090']
+
+      # Kubernetes API server
+      - job_name: 'kubernetes-apiservers'
+        kubernetes_sd_configs:
+          - role: endpoints
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: default;kubernetes;https
+
+      # Kubernetes nodes
+      - job_name: 'kubernetes-nodes'
+        kubernetes_sd_configs:
+          - role: node
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+          - action: labelmap
+            regex: __meta_kubernetes_node_label_(.+)
+
+      # Kubernetes pods
+      - job_name: 'kubernetes-pods'
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names:
+                - chloromaster
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
+          - action: labelmap
+            regex: __meta_kubernetes_pod_label_(.+)
+          - source_labels: [__meta_kubernetes_namespace]
+            action: replace
+            target_label: kubernetes_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            action: replace
+            target_label: kubernetes_pod_name
+
+      # Backend service
+      - job_name: 'chloromaster-backend'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - chloromaster
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_name]
+            action: keep
+            regex: backend-service
+          - source_labels: [__meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: http
+
+  rules.yml: |
+    groups:
+      - name: chloromaster_alerts
+        interval: 30s
+        rules:
+          # High CPU usage
+          - alert: HighCPUUsage
+            expr: rate(container_cpu_usage_seconds_total{namespace="chloromaster"}[5m]) > 0.8
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High CPU usage detected"
+              description: "Pod {{ $labels.pod }} CPU usage is above 80%"
+
+          # High memory usage
+          - alert: HighMemoryUsage
+            expr: (container_memory_usage_bytes{namespace="chloromaster"} / container_spec_memory_limit_bytes{namespace="chloromaster"}) > 0.8
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "High memory usage detected"
+              description: "Pod {{ $labels.pod }} memory usage is above 80%"
+
+          # Pod restarts
+          - alert: PodRestarts
+            expr: rate(kube_pod_container_status_restarts_total{namespace="chloromaster"}[15m]) > 0
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Pod is restarting"
+              description: "Pod {{ $labels.pod }} has restarted {{ $value }} times in the last 15 minutes"
+
+          # Pod not ready
+          - alert: PodNotReady
+            expr: kube_pod_status_ready{namespace="chloromaster", condition="false"} == 1
+            for: 5m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Pod not ready"
+              description: "Pod {{ $labels.pod }} is not ready"
+
+          # High error rate
+          - alert: HighErrorRate
+            expr: rate(http_requests_total{namespace="chloromaster", status=~"5.."}[5m]) > 0.05
+            for: 5m
+            labels:
+              severity: critical
+            annotations:
+              summary: "High HTTP error rate"
+              description: "Service {{ $labels.service }} error rate is above 5%"

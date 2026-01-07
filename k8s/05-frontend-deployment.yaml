@@ -11,7 +11,7 @@ metadata:
     tier: web
     version: v1
 spec:
-  replicas: 1 # Initial replicas (HPA will adjust)
+  replicas: 2 # Start with 2 replicas for production (HPA will adjust)
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -45,13 +45,15 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: 80
               protocol: TCP
 
           # Environment Variables
           envFrom:
             - configMapRef:
                 name: chloromaster-config
+          # If you need to inject any secret-backed envs (e.g. analytics keys),
+          # add an env or envFrom here referencing `chloromaster-secrets`.
 
           # Resource Limits and Requests
           resources:
@@ -66,7 +68,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 80
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
@@ -75,7 +77,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 80
             initialDelaySeconds: 5
             periodSeconds: 5
             timeoutSeconds: 3
@@ -84,7 +86,7 @@ spec:
           startupProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 80
             initialDelaySeconds: 0
             periodSeconds: 5
             timeoutSeconds: 3

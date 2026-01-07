@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../app/routes';
 import { useLanguage } from '../../context/LanguageContext';
 import config from '../../config/config';
+import AdminPageHeader from '../../components/admin/AdminPageHeader';
+import LoadingOrError from '../../components/admin/LoadingOrError';
 
 const AdminDashboard = () => {
     const { t } = useLanguage();
@@ -24,7 +26,12 @@ const AdminDashboard = () => {
 
     const fetchDashboardStats = async () => {
         try {
-            const response = await fetch(`${config.api.baseURL}/admin/dashboard/stats`);
+            const token = localStorage.getItem('adminToken');
+            const response = await fetch(`${config.api.baseURL}/admin/dashboard/stats`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
             if (!response.ok) {
                 throw new Error('Failed to fetch dashboard stats');
@@ -46,32 +53,19 @@ const AdminDashboard = () => {
     };
 
     if (loading) {
-        return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">
-                        {t('admin.loading')}
-                    </p>
-                </div>
-            </div>
-        );
+        return <LoadingOrError loading loadingMessage={t('admin.loading')} />;
     }
 
     if (error) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-                <div className="max-w-md w-full bg-red-50 border border-red-200 text-red-700 p-6 rounded-lg">
-                    <h3 className="font-semibold mb-2">{t('admin.error')}</h3>
-                    <p>{error}</p>
-                    <button
-                        onClick={fetchDashboardStats}
-                        className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-                    >
-                        {t('admin.retry')}
-                    </button>
-                </div>
-            </div>
+            <LoadingOrError error title={t('admin.error')} message={error}>
+                <button
+                    onClick={fetchDashboardStats}
+                    className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                >
+                    {t('admin.retry')}
+                </button>
+            </LoadingOrError>
         );
     }
 
@@ -92,7 +86,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <AdminHeader
+            <AdminPageHeader
                 title={t('admin.dashboard')}
                 subtitle={"ChloroMaster Analytics"}
                 actions={[

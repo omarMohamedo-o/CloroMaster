@@ -64,8 +64,10 @@ services:
   # ==========================================
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      # Use the repository root as build context so the backend Dockerfile's
+      # frontend build stage can access the `frontend/` directory.
+      context: .
+      dockerfile: backend/Dockerfile
       target: final
     image: chloromaster/backend:latest
     container_name: chloromaster-backend
@@ -76,9 +78,27 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5000
       - ConnectionStrings__DefaultConnection=Data Source=/app/data/chloromaster.db
+      # SMTP configuration (can be set in a local `.env` or exported in the shell)
+      # Defaults target Office365 with STARTTLS on port 587.
+      - Smtp__Host=${Smtp__Host:-${SMTP_HOST:-smtp.office365.com}}
+      - Smtp__Port=${Smtp__Port:-${SMTP_PORT:-587}}
+      - Smtp__Username=${Smtp__Username:-${SMTP_USERNAME}}
+      - Smtp__Password=${Smtp__Password:-${SMTP_PASSWORD}}
+      - Smtp__UseSsl=${Smtp__UseSsl:-${SMTP_USE_SSL:-true}}
+      - Smtp__FromEmail=${Smtp__FromEmail:-${SMTP_FROM_EMAIL}}
+      - Smtp__FromName=${Smtp__FromName:-${SMTP_FROM_NAME:-ChloroMaster}}
+      - Smtp__AdminEmail=${Smtp__AdminEmail:-${SMTP_ADMIN_EMAIL}}
+      # Microsoft Graph configuration
+      - USE_GRAPH_MAILER=${USE_GRAPH_MAILER:-false}
+      - Graph__TenantId=${Graph__TenantId}
+      - Graph__ClientId=${Graph__ClientId}
+      - Graph__ClientSecret=${Graph__ClientSecret}
+      - Graph__SenderEmail=${Graph__SenderEmail}
+      - FrontendDataPath=/frontend-data
     volumes:
       - backend_data:/app/data:rw
       - backend_logs:/app/logs:rw
+      - ./frontend/src/i18n:/frontend-data:ro
     user: "1001:1001"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
@@ -316,6 +336,9 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  # MailHog removed: Using Office365 SMTP for sending in production/local
+  # If you need a local SMTP capture utility, re-add MailHog service block here.
 
 # ==========================================
 # Networks Configuration

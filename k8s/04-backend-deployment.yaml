@@ -11,7 +11,7 @@ metadata:
     tier: api
     version: v1
 spec:
-  replicas: 1 # Initial replicas (HPA will adjust)
+  replicas: 2 # Start with 2 replicas for production (HPA will adjust)
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -32,6 +32,9 @@ spec:
         prometheus.io/port: "5000"
         prometheus.io/path: "/metrics"
     spec:
+      # HostAliases removed: rely on DNS in cluster. If you previously used
+      # hostAliases to map 'mailhog' for local testing, keep a local overlay.
+
       # Security Context
       securityContext:
         runAsNonRoot: true
@@ -95,6 +98,59 @@ spec:
             - secretRef:
                 name: chloromaster-secrets
           env:
+            # Force IPv4 for DNS resolution (mitigate .NET DNS issues in containers)
+            - name: DOTNET_SYSTEM_NET_DISABLEIPV6
+              value: "true"
+            - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2SUPPORT
+              value: "false"
+            # Fix for .NET async DNS resolution EAGAIN error in Kubernetes
+            - name: DOTNET_SYSTEM_NET_SOCKETS_INLINE_COMPLETIONS
+              value: "1"
+            - name: DOTNET_SYSTEM_NET_SOCKETS_THREAD_COUNT
+              value: "50"
+            # Disable dev-only fallback in deployments; require valid emails
+            - name: ALLOW_DATASHEET_WITHOUT_EMAIL
+              value: "false"
+            - name: Smtp__Host
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__Host
+            - name: Smtp__Port
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__Port
+            - name: Smtp__Username
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__Username
+            - name: Smtp__Password
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__Password
+            - name: Smtp__UseSsl
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__UseSsl
+            - name: Smtp__FromEmail
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__FromEmail
+            - name: Smtp__FromName
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__FromName
+            - name: Smtp__AdminEmail
+              valueFrom:
+                secretKeyRef:
+                  name: chloromaster-secrets
+                  key: Smtp__AdminEmail
             - name: ConnectionStrings__DefaultConnection
               valueFrom:
                 secretKeyRef:

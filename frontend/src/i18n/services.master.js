@@ -26,7 +26,7 @@ const servicesMaster = [
             ar: 'حلول متكاملة لأنظمة الكلور تشمل الصمامات، العدادات، أجهزة الأمان، معدات تداول الأسطوانات، ووحدات الترشيح. مصممة لتحقيق أعلى مستويات السلامة والاعتمادية والالتزام بالمعايير في التطبيقات البلدية والصناعية.'
         },
         images: [
-            '/images/services/Chlorine System Solutions/Chlorine System Solutions.png',
+            '/images/services/Chlorine System Solutions/Chlorine System Solutions.webp',
             ...chlorineProducts.map(p => p.image)
         ],
         products: chlorineProducts,
@@ -66,7 +66,7 @@ const servicesMaster = [
             ar: 'تم تنفيذ وتسليم جميع المشروعات الموضحة أدناه خلال النصف الثاني من عام 2025، في الفترة من يونيو إلى ديسمبر، بما يعكس كفاءة كلوروماستر في إنجاز مشروعات متخصصة عالية الخطورة وفق أعلى معايير الأمان والجودة.'
         },
         images: [
-            '/images/services/Systems Installation and Commissioning/Systems Installation and Commissioning.png',
+            '/images/services/Systems Installation and Commissioning/Systems Installation and Commissioning.webp',
             ...installationProducts.map(p => p.image)
         ],
         products: installationProducts,

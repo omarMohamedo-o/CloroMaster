@@ -22,7 +22,7 @@ metadata:
   name: frontend-pdb
   namespace: chloromaster
 spec:
-  minAvailable: 2
+  minAvailable: 1
   selector:
     matchLabels:
       app: frontend

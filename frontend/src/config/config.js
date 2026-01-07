@@ -14,7 +14,7 @@ const config = {
 
   // Contact Configuration
   contact: {
-    email: 'ChloroMaster@outlook.sa',
+    email: process.env.REACT_APP_CONTACT_EMAIL || 'chloromaster365@gmail.com',
     phone: '+20 12 22155310',
     phone2: '+20 12 78253701',
     whatsapp: '+201278253701', // WhatsApp number without spaces

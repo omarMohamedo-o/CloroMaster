@@ -1,4 +1,6 @@
 import React from 'react';
+import StatusBadge from './StatusBadge';
+
 export default function SubmissionsTable({ submissions = [], t, onView, onMark, onDelete }) {
     return (
         <div className="overflow-x-auto">
@@ -23,11 +25,7 @@ export default function SubmissionsTable({ submissions = [], t, onView, onMark, 
                             <td className="px-6 py-4"><div className="text-sm text-gray-600">{sub.company || '-'}</div></td>
                             <td className="px-6 py-4 whitespace-nowrap"><div className="text-sm text-gray-600">{new Date(sub.submittedAt).toLocaleDateString()}</div></td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {sub.isRead ? (
-                                    <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">{t('admin.readStatus')}</span>
-                                ) : (
-                                    <span className="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">{t('admin.newStatus')}</span>
-                                )}
+                                <StatusBadge isRead={sub.isRead} t={t} small />
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                                 <div className="flex gap-2">

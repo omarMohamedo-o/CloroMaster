@@ -1,0 +1,33 @@
+# Environment Files
+.env
+.env.*
+!.env.example
+
+# Sensitive Configuration
+ADMIN_CREDENTIALS.md
+**/appsettings.*.json
+!**/appsettings.json
+!**/appsettings.Development.json
+
+# Database Files
+*.db
+*.db-shm
+*.db-wal
+
+# Logs
+logs/
+*.log
+
+# User Secrets
+secrets.json
+
+# Certificates
+*.pfx
+*.p12
+*.key
+*.pem
+*.crt
+
+# Backup files
+*.bak
+*.backup

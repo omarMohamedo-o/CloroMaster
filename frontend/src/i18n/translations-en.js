@@ -98,6 +98,7 @@ const en = {
             { id: 7, name: 'The Arab Contractors', alt: 'The Arab Contractors' },
             { id: 8, name: 'Veolia', alt: 'Veolia' },
             { id: 9, name: 'Canal Harbour & Great Projects Co.', alt: 'Canal Harbour & Great Projects Co.' }
+            , { id: 10, name: 'IETOS (Group)', alt: 'IETOS' }
         ]
     },
 
@@ -326,8 +327,9 @@ const en = {
         equipmentDescription: 'Manufactured to industry standards with configurable options for materials and sizes. For full technical details, download the datasheet below.',
         datasheetUnavailable: "If the datasheet is not available, contact us and we'll provide it.",
         datasheetPrompt: 'Please fill the form below to receive the datasheet.',
-        datasheetSubmitted: 'Thank you — the datasheet download should begin. Check your email for a copy.'
-        ,
+        datasheetSubmitted: 'Thank you — the datasheet download should begin. Check your email for a copy.',
+        invalidRequest: 'Invalid datasheet request.',
+        datasheetInvalidUrl: 'Received invalid download URL.',
         close: 'Close'
     }
 };

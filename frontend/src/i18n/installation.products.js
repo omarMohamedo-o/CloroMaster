@@ -2,11 +2,11 @@ const chlorineProjects = [
     {
         id: 1,
         slug: 'alsaida-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture6.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture6.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture6.jpg',
-            '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture7.jpg',
-            '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture8.jpg'
+            '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture6.webp',
+            '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture7.webp',
+            '/images/services/Systems Installation and Commissioning/Al-Saaida Water Plant/Picture8.webp'
         ],
         title: {
             en: 'Al-Saaida Water Plant',
@@ -31,11 +31,11 @@ const chlorineProjects = [
     {
         id: 2,
         slug: 'tanawf-wastewater-plant',
-        image: '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture11.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture11.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture11.jpg',
-            '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture9.jpg',
-            '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture10.jpg'
+            '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture11.webp',
+            '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture9.webp',
+            '/images/services/Systems Installation and Commissioning/Tanawf Wastewater Plant/Picture10.webp'
 
         ],
         title: {
@@ -61,11 +61,11 @@ const chlorineProjects = [
     {
         id: 3,
         slug: 'abu-aziz-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture14.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture14.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture14.jpg',
-            '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture12.jpg',
-            '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture13.jpg'
+            '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture14.webp',
+            '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture12.webp',
+            '/images/services/Systems Installation and Commissioning/Abu Aziz Water Plant/Picture13.webp'
 
         ],
         title: {
@@ -91,11 +91,11 @@ const chlorineProjects = [
     {
         id: 4,
         slug: 'nasiriya-wastewater-plant',
-        image: '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture15.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture15.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture15.jpg',
-            '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture16.jpg',
-            '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture17.jpg'
+            '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture15.webp',
+            '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture16.webp',
+            '/images/services/Systems Installation and Commissioning/Nasiriya Wastewater Plant/Picture17.webp'
         ],
         title: {
             en: 'Nasiriya Wastewater Plant',
@@ -120,11 +120,11 @@ const chlorineProjects = [
     {
         id: 5,
         slug: 'imbaba-drinking-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture18.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture18.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture18.jpg',
-            '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture19.jpg',
-            '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture20.jpg'
+            '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture18.webp',
+            '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture19.webp',
+            '/images/services/Systems Installation and Commissioning/Imbaba Drinking Water Plant/Picture20.webp'
         ],
         title: {
             en: 'Imbaba Drinking Water Plant',
@@ -149,10 +149,10 @@ const chlorineProjects = [
     {
         id: 6,
         slug: 'palm-hills-water-tank',
-        image: '/images/services/Systems Installation and Commissioning/Palm Hills Water Tank/Picture22.jpeg',
+        image: '/images/services/Systems Installation and Commissioning/Palm Hills Water Tank/Picture22.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Palm Hills Water Tank/Picture22.jpeg',
-            '/images/services/Systems Installation and Commissioning/Palm Hills Water Tank/Picture21.jpg'
+            '/images/services/Systems Installation and Commissioning/Palm Hills Water Tank/Picture22.webp',
+            '/images/services/Systems Installation and Commissioning/Palm Hills Water Tank/Picture21.webp'
         ],
         title: {
             en: 'Palm Hills Water Tank',
@@ -176,9 +176,9 @@ const chlorineProjects = [
     {
         id: 7,
         slug: 'giza-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/Giza Water Plant/Picture22.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Giza Water Plant/Picture22.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Giza Water Plant/Picture22.jpg'
+            '/images/services/Systems Installation and Commissioning/Giza Water Plant/Picture22.webp'
         ],
         title: {
             en: 'Giza Water Plant',
@@ -206,11 +206,11 @@ const chlorineProjects = [
     {
         id: 8,
         slug: 'sheikh-zayed-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture23.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture23.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture23.jpg',
-            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture24.jpg',
-            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture25.jpg'
+            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture23.webp',
+            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture24.webp',
+            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture25.webp'
         ],
         title: {
             en: 'Sheikh Zayed Water Plant',
@@ -235,11 +235,11 @@ const chlorineProjects = [
     {
         id: 9,
         slug: 'otv-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture26.jpg',
+        image: '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture26.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture26.jpg',
-            '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture27.jpg',
-            '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture28.jpg'
+            '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture26.webp',
+            '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture27.webp',
+            '/images/services/Systems Installation and Commissioning/OTV Water Plant/Picture28.webp'
         ],
         title: {
             en: 'OTV Water Plant',
@@ -264,11 +264,11 @@ const chlorineProjects = [
     {
         id: 10,
         slug: 'minya-chlorine-systems',
-        image: '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture29.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture29.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture29.jpg',
-            '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture30.jpg',
-            '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture31.jpg'
+            '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture29.webp',
+            '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture30.webp',
+            '/images/services/Systems Installation and Commissioning/Minya – Chlorine Systems/Picture31.webp'
         ],
         title: {
             en: 'Minya – Chlorine Systems',
@@ -293,11 +293,11 @@ const chlorineProjects = [
     {
         id: 11,
         slug: 'beni-amer-new-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture34.jpg',
+        image: '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture34.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture34.jpg',
-            '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture35.jpg',
-            '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture36.jpg'
+            '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture34.webp',
+            '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture35.webp',
+            '/images/services/Systems Installation and Commissioning/Beni Amer New Water Plant/Picture36.webp'
         ],
         title: {
             en: 'Beni Amer New Water Plant',
@@ -322,12 +322,12 @@ const chlorineProjects = [
     {
         id: 12,
         slug: 'el-hawarta-filtered-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture39.jpg',
+        image: '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture39.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture39.jpg',
-            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture37.jpg',
-            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture38.jpg',
-            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture41.jpg'
+            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture39.webp',
+            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture37.webp',
+            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture38.webp',
+            '/images/services/Systems Installation and Commissioning/El-Hawarta Filtered Water Plant/Picture41.webp'
         ],
         title: {
             en: 'El-Hawarta Filtered Water Plant',

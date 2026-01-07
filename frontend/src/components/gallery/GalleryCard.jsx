@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../app/routes';
+import OptimizedImage from '../common/OptimizedImage';
 
 export default function GalleryCard({ src, name, slug, disableLink = false, onClick, hideMeta = false }) {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function GalleryCard({ src, name, slug, disableLink = false, onCl
         >
             <div className="relative h-40 overflow-hidden bg-white dark:bg-gray-700">
                 <div className="flex h-full items-center justify-center p-4">
-                    <img src={encodeURI(src)} alt={name} className="w-full h-full object-contain transform group-hover:scale-105 group-hover:-translate-y-1 transition-transform duration-500" style={{ imageRendering: 'crisp-edges' }} loading="lazy" />
+                    <OptimizedImage src={encodeURI(src)} alt={name} className="w-full h-full object-contain transform group-hover:scale-105 group-hover:-translate-y-1 transition-transform duration-500" style={{ imageRendering: 'crisp-edges' }} loading="lazy" />
                 </div>
             </div>
 

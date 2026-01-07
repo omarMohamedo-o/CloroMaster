@@ -11,8 +11,12 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: standard # Change based on your cluster
+      storage: 10Gi
+  # Use a provider-specific StorageClass. Common names:
+  # - GKE: "standard" or "standard-rwo"
+  # - EKS: "gp2" or "gp3"
+  # - AKS: "default" or "managed-csi"
+  storageClassName: standard
 ---
 # ==========================================
 # PersistentVolumeClaim for Backend Logs
@@ -27,5 +31,6 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
-  storageClassName: standard # Change based on your cluster
+      storage: 5Gi
+  # Use a provider-specific StorageClass (see comment above)
+  storageClassName: standard

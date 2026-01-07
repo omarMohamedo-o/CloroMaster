@@ -1,101 +1,93 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaPhone } from 'react-icons/fa';
-import { useLanguage } from '../../context/LanguageContext';
-import { textBlockVariant } from '../../lib/animations';
-import config from '../../config/config';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { scroller } from 'react-scroll';
 import { PATHS } from '../../app/routes';
+import { FaPhone } from 'react-icons/fa';
+import config from '../../config/config';
+import { useLanguage } from '../../context/LanguageContext';
 
-export default function ContactCTA({ title, subtitle, primary = null, secondary = null, className = 'mt-8' }) {
-    const { t } = useLanguage();
+const ContactCTA = ({ id, className = '', title, subtitle, primary = {} }) => {
     const navigate = useNavigate();
+    const { t } = useLanguage();
 
-    const titleText = title ?? (t('cta.title') || 'Get a Quote or Consultation');
-    const subtitleText = subtitle ?? (t('cta.subtitle') || 'Contact our team for project-specific enquiries, quotes, or site visits.');
+    const location = useLocation();
 
-    const renderPrimary = () => {
-        if (primary && primary.label) {
-            // tel link
-            if (primary.type === 'tel' || (primary.href && primary.href.startsWith('tel:'))) {
-                return (
-                    <a href={primary.href} className="px-6 py-3 rounded-lg text-white shadow-md bg-gradient-to-r from-brand to-brand-medium hover:from-brand-dark hover:to-brand transition-colors">
-                        {primary.label}
-                    </a>
-                );
+    const onPrimary = () => {
+        // If primary.href is provided and is an in-page anchor, prefer scrolling to the
+        // ContactSection on the HOME route. If we're not on HOME, navigate there with
+        // a `state.scrollTo` so the central ScrollHandler will scroll after navigation.
+        if (primary.href) {
+            if (primary.href.startsWith('#')) {
+                const target = primary.href.replace(/^#/, '');
+                if (location && location.pathname === PATHS.HOME) {
+                    try {
+                        scroller.scrollTo(target, { smooth: true, duration: 600, offset: -80 });
+                        return;
+                    } catch (e) {
+                        const el = document.getElementById(target) || document.getElementsByName(target)[0];
+                        if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        return;
+                    }
+                }
+
+                // Not on HOME — navigate there and let ScrollHandler do the scroll.
+                navigate(PATHS.HOME, { state: { scrollTo: target } });
+                return;
             }
 
-            // anchor link
-            if (primary.type === 'anchor' || (primary.href && typeof primary.href === 'string')) {
-                return (
-                    <a href={primary.href} className="px-6 py-3 rounded-lg text-white shadow-md bg-gradient-to-r from-brand to-brand-medium hover:from-brand-dark hover:to-brand transition-colors">
-                        {primary.label}
-                    </a>
-                );
-            }
-        }
-
-        // default: navigate to contact section
-        return (
-            <button
-                onClick={() => navigate(PATHS.HOME, { state: { scrollTo: 'contact' } })}
-                className="px-6 py-3 rounded-lg text-white shadow-md bg-gradient-to-r from-brand to-brand-medium hover:from-brand-dark hover:to-brand transition-colors"
-            >
-                {t('cta.contactForm') || 'Contact Form'}
-            </button>
-        );
-    };
-
-    const renderSecondary = () => {
-        if (secondary && secondary.label) {
-            if (secondary.type === 'tel' || (secondary.href && secondary.href.startsWith('tel:'))) {
-                return (
-                    <a href={secondary.href} className="px-5 py-3 rounded-lg border border-brand text-brand-dark hover:bg-brand-secondary transition-colors inline-flex items-center gap-2">
-                        <FaPhone />
-                        {secondary.label}
-                    </a>
-                );
-            }
-
-            if (secondary.href) {
-                return (
-                    <a href={secondary.href} className="px-5 py-3 rounded-lg border border-brand text-brand-dark hover:bg-brand-secondary transition-colors inline-flex items-center gap-2">
-                        {secondary.label}
-                    </a>
-                );
+            // external or internal route
+            try {
+                navigate(primary.href);
+                return;
+            } catch (e) {
+                window.location.href = primary.href;
+                return;
             }
         }
 
-        // default: call us
-        return (
-            <a href={`tel:${config.contact.phone.replace(/\s+/g, '')}`} className="px-5 py-3 rounded-lg border border-brand text-brand-dark hover:bg-brand-secondary transition-colors inline-flex items-center gap-2">
-                <FaPhone />
-                {t('cta.callUs') || 'Call Us'}
-            </a>
-        );
+        // Default: navigate to home and open contact section
+        if (location && location.pathname === PATHS.HOME) {
+            try { scroller.scrollTo('contact', { smooth: true, duration: 600, offset: -80 }); } catch (e) {
+                const el = document.getElementById('contact') || document.getElementsByName('contact')[0];
+                if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            return;
+        }
+
+        navigate(PATHS.HOME, { state: { scrollTo: 'contact' } });
     };
 
     return (
-        <div className={className}>
-            <motion.div
-                className="rounded-2xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={textBlockVariant}
-            >
-                <h3 className="text-2xl font-bold text-center text-gray-900 dark:text-white">
-                    {titleText}
+        <div id={id} className={`${className} mt-8`}>
+            <div className="relative z-20 mx-auto w-full max-w-6xl bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-10 sm:p-12 text-center">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                    {title || t('services.ctaTitle') || 'Ready to start a project?'}
                 </h3>
-                <p className="text-center text-gray-600 dark:text-gray-300 mt-3 max-w-2xl mx-auto">
-                    {subtitleText}
-                </p>
+                {subtitle && (
+                    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
+                        {subtitle}
+                    </p>
+                )}
 
-                <div className="flex items-center justify-center gap-4 mt-6">
-                    {renderPrimary()}
-                    {renderSecondary()}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+                    <button
+                        onClick={onPrimary}
+                        className="px-5 py-3 rounded-lg bg-gradient-to-r from-brand to-brand-secondary text-white font-semibold shadow-md hover:brightness-95 transition-colors inline-flex items-center gap-2"
+                    >
+                        {primary.label || t('cta.getStarted') || 'Get Started'}
+                    </button>
+
+                    <a
+                        href={`tel:${config.contact.phone.replace(/\s+/g, '')}`}
+                        className="px-5 py-3 rounded-lg border border-brand text-brand-dark hover:bg-brand-secondary transition-colors inline-flex items-center gap-2"
+                    >
+                        <FaPhone className="text-base" />
+                        <span className="ml-2">{primary.callLabel || t('cta.callUs') || 'Call Us'}</span>
+                    </a>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
-}
+};
+
+export default ContactCTA;

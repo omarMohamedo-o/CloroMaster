@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import servicesMaster from '../../i18n/services.master';
@@ -14,6 +14,14 @@ export default function EquipmentDetail() {
     const { t, language } = useLanguage();
     const isRTL = typeof language === 'string' && language.toLowerCase().startsWith('ar');
     const [showDatasheet, setShowDatasheet] = useState(null);
+    // Ensure the page is scrolled to top when viewing an equipment detail (fixes mobile route scroll issues)
+    useEffect(() => {
+        try {
+            window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+        } catch (e) {
+            // ignore in environments without window
+        }
+    }, [slug]);
 
     // Find product by slug in servicesMaster and keep parent service for fallback navigation
     let product = null;
@@ -64,6 +72,7 @@ export default function EquipmentDetail() {
             </div>
         );
     }
+
 
     const title = product.title?.[language] || product.title?.en || 'Product';
     const titleHighlight = product.titleHighlight?.[language] || product.titleHighlight?.en || '';
@@ -119,7 +128,19 @@ export default function EquipmentDetail() {
 
                                 <div className="pt-4">
                                     <button
-                                        onClick={() => setShowDatasheet(product.slug)}
+                                        onClick={() => {
+                                            // Prefer explicit datasheet filename if available, otherwise fall back to product.slug
+                                            const ds = product.datasheet || '';
+                                            if (ds && typeof ds === 'string') {
+                                                // extract filename and strip .pdf
+                                                const parts = ds.split('/');
+                                                const filename = parts[parts.length - 1] || ds;
+                                                const base = filename.replace(/\.pdf$/i, '');
+                                                setShowDatasheet(base);
+                                            } else {
+                                                setShowDatasheet(product.slug);
+                                            }
+                                        }}
                                         className="inline-flex items-center px-6 py-2.5 bg-brand text-white rounded-lg hover:bg-brand/90 transition-all shadow-md hover:shadow-lg text-base font-semibold"
                                     >
                                         {t('common_ui.requestDatasheet') || 'Request Datasheet'}

@@ -10,6 +10,8 @@ metadata:
     # Nginx Ingress Controller
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # Use cert-manager to provision TLS certs automatically (ensure cluster-issuer exists)
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
     # Rate Limiting
     nginx.ingress.kubernetes.io/limit-rps: "20"

@@ -15,8 +15,7 @@ spec:
   maxReplicas: 3
   metrics:
     # CPU-based scaling
-    - &commonMetrics
-      type: Resource
+    - type: Resource
       resource:
         name: cpu
         target:
@@ -24,7 +23,6 @@ spec:
           averageUtilization: 60
   behavior:
     scaleDown:
-      &commonScaleDown
       stabilizationWindowSeconds: 300 # 5 minutes
       policies:
         - type: Percent
@@ -62,10 +60,23 @@ spec:
   maxReplicas: 3
   metrics:
     # CPU-based scaling
-    - *commonMetrics
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
   behavior:
     scaleDown:
-      *commonScaleDown
+      stabilizationWindowSeconds: 300 # 5 minutes
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 60
+        - type: Pods
+          value: 1
+          periodSeconds: 60
+      selectPolicy: Min
     scaleUp:
       stabilizationWindowSeconds: 30 # 30 seconds
       policies:

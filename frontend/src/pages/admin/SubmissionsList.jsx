@@ -4,6 +4,9 @@ import { useLanguage } from '../../context/LanguageContext';
 import config from '../../config/config';
 import { PATHS } from '../../app/routes';
 import SubmissionsTable from '../../components/admin/SubmissionsTable';
+import AdminPageHeader from '../../components/admin/AdminPageHeader';
+import AdminCard from '../../components/admin/AdminCard';
+import LoadingOrError from '../../components/admin/LoadingOrError';
 
 const SubmissionsList = () => {
     const { t } = useLanguage();
@@ -77,18 +80,7 @@ const SubmissionsList = () => {
 
     const handleMarkAsRead = async (id, isRead) => {
         try {
-            const response = await fetch(
-                `${config.api.baseURL}/admin/submissions/${id}/read`,
-                {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(isRead)
-                }
-            );
-
-            if (!response.ok) throw new Error('Failed to update status');
-
-            // Refresh list
+            await import('../../services/adminSubmissions').then(m => m.markSubmissionRead(id, isRead));
             fetchSubmissions();
         } catch (err) {
             alert(err.message);
@@ -101,13 +93,7 @@ const SubmissionsList = () => {
         }
 
         try {
-            const response = await fetch(
-                `${config.api.baseURL}/admin/submissions/${id}`,
-                { method: 'DELETE' }
-            );
-
-            if (!response.ok) throw new Error('Failed to delete');
-
+            await import('../../services/adminSubmissions').then(m => m.deleteSubmission(id));
             fetchSubmissions();
         } catch (err) {
             alert(err.message);
@@ -116,7 +102,7 @@ const SubmissionsList = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <AdminHeader
+            <AdminPageHeader
                 title={t('admin.submissions')}
                 subtitle={`${pagination.total} ${t('admin.total')}`}
                 actions={[
@@ -127,7 +113,7 @@ const SubmissionsList = () => {
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Filters */}
-                <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+                <AdminCard title={t('admin.filters')} className="mb-6">
                     <div className="flex flex-col md:flex-row gap-4">
                         {/* Search */}
                         <form onSubmit={handleSearch} className="flex-1">
@@ -179,16 +165,14 @@ const SubmissionsList = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </AdminCard>
 
                 {/* Submissions Table */}
                 <div className="bg-white rounded-xl shadow-md overflow-hidden">
                     {loading ? (
-                        <div className="text-center py-12">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                        </div>
+                        <LoadingOrError loading loadingMessage={t('admin.loading')} />
                     ) : error ? (
-                        <div className="p-6 text-center text-red-600">{error}</div>
+                        <LoadingOrError error title={t('admin.error')} message={error} />
                     ) : submissions.length === 0 ? (
                         <div className="p-12 text-center text-gray-500">{t('admin.noSubmissions')}</div>
                     ) : (

@@ -21,6 +21,14 @@ export default function SubpageLayout({ title, titleHighlight, subtitle, childre
         };
     }, []);
 
+    // Inform global UI that we're rendering a subpage so global footer
+    // floating controls (like the footer scroll-top) can avoid rendering
+    // duplicate controls.
+    useEffect(() => {
+        try { document.body.dataset.hasSubpage = '1'; } catch (e) { /* ignore */ }
+        return () => { try { delete document.body.dataset.hasSubpage; } catch (e) { /* ignore */ } };
+    }, []);
+
     // Ensure titleHighlight works even when translations provide title and highlight separately
     const effectiveTitle = (() => {
         if (!titleHighlight) return title || '';

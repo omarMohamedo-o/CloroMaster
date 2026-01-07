@@ -1,0 +1,10 @@
+"""
+DEPRECATED: MailHog k8s manifest
+
+This file previously deployed MailHog to the cluster for local SMTP
+capture during development. The project has moved to using Office365
+or a production SMTP provider; MailHog is no longer deployed by default.
+
+If you need MailHog for local testing, re-create a manifest or restore
+an older version from git history. Do NOT apply this file to production.
+"""

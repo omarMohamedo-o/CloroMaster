@@ -292,7 +292,7 @@ Before going live:
 
 For SEO-related questions:
 
-- Email: <ChloroMaster@outlook.sa>
+- Email: <chloromaster365@gmail.com>
 - Technical Team: Check project documentation
 
 **Last Updated:** December 19, 2025

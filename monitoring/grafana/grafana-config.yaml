@@ -1,0 +1,120 @@
+# Grafana ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: chloromaster
+data:
+  prometheus.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus:9090
+        isDefault: true
+        editable: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-config
+  namespace: chloromaster
+data:
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: 'ChloroMaster Dashboards'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        updateIntervalSeconds: 10
+        allowUiUpdates: true
+        options:
+          path: /var/lib/grafana/dashboards
+---
+# ChloroMaster Dashboard
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-chloromaster
+  namespace: chloromaster
+data:
+  chloromaster-dashboard.json: |
+    {
+      "dashboard": {
+        "title": "ChloroMaster Application Metrics",
+        "tags": ["chloromaster", "kubernetes"],
+        "timezone": "browser",
+        "schemaVersion": 16,
+        "version": 1,
+        "refresh": "30s",
+        "panels": [
+          {
+            "id": 1,
+            "title": "Pod CPU Usage",
+            "type": "graph",
+            "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+            "targets": [
+              {
+                "expr": "rate(container_cpu_usage_seconds_total{namespace=\"chloromaster\"}[5m])",
+                "legendFormat": "{{pod}}"
+              }
+            ]
+          },
+          {
+            "id": 2,
+            "title": "Pod Memory Usage",
+            "type": "graph",
+            "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+            "targets": [
+              {
+                "expr": "container_memory_usage_bytes{namespace=\"chloromaster\"} / 1024 / 1024",
+                "legendFormat": "{{pod}}"
+              }
+            ]
+          },
+          {
+            "id": 3,
+            "title": "HTTP Request Rate",
+            "type": "graph",
+            "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8},
+            "targets": [
+              {
+                "expr": "rate(http_requests_total{namespace=\"chloromaster\"}[5m])",
+                "legendFormat": "{{method}} {{path}}"
+              }
+            ]
+          },
+          {
+            "id": 4,
+            "title": "Pod Status",
+            "type": "stat",
+            "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8},
+            "targets": [
+              {
+                "expr": "sum(kube_pod_status_phase{namespace=\"chloromaster\"}) by (phase)",
+                "legendFormat": "{{phase}}"
+              }
+            ]
+          },
+          {
+            "id": 5,
+            "title": "Network I/O",
+            "type": "graph",
+            "gridPos": {"x": 0, "y": 16, "w": 24, "h": 8},
+            "targets": [
+              {
+                "expr": "rate(container_network_receive_bytes_total{namespace=\"chloromaster\"}[5m])",
+                "legendFormat": "RX {{pod}}"
+              },
+              {
+                "expr": "rate(container_network_transmit_bytes_total{namespace=\"chloromaster\"}[5m])",
+                "legendFormat": "TX {{pod}}"
+              }
+            ]
+          }
+        ]
+      }
+    }

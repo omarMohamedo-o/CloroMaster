@@ -8,6 +8,7 @@ import { PATHS } from '../../app/routes';
 import { scroller } from 'react-scroll';
 import config from '../../config/config';
 import { useLanguage } from '../../context/LanguageContext';
+import OptimizedImage from '../common/OptimizedImage';
 
 export default function Footer() {
     const { t, language } = useLanguage();
@@ -33,6 +34,12 @@ export default function Footer() {
         const docListenerOptions = { passive: true, capture: true };
 
         const handleScroll = () => {
+            // If a subpage is active, that layout renders its own UpArrowButton
+            // and we should avoid showing the footer's floating control to prevent duplicates.
+            if (document.body && document.body.dataset && document.body.dataset.hasSubpage) {
+                setShowScrollTop(false);
+                return;
+            }
             // Get scroll position from all possible sources
             const scrollY = Math.max(
                 window.pageYOffset || 0,
@@ -104,7 +111,7 @@ export default function Footer() {
                     <div>
                         <div className="flex items-start justify-start mb-3">
                             <button onClick={() => goHome()} aria-label="Home" className="p-0 bg-transparent border-0 cursor-pointer">
-                                <img src="/images/chloromaster-logo.png" alt={config.app.name} className="w-[120px] md:w-[140px] lg:w-[160px] h-auto object-contain" />
+                                <OptimizedImage src="/images/chloromaster-logo.png" alt={config.app.name} className="w-[120px] md:w-[140px] lg:w-[160px] h-auto object-contain" />
                             </button>
                         </div>
 

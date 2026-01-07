@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import clientsAssets from '../i18n/clients.assets';
 import SectionHeader from '../components/common/SectionHeader';
 import { serviceCardsContainer, staggerItem } from '../lib/animations';
+import OptimizedImage from '../components/common/OptimizedImage';
 
 export default function Clients() {
     const { t } = useLanguage();
@@ -40,7 +41,7 @@ export default function Clients() {
                 />
 
                 <motion.div
-                    className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto"
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-6xl mx-auto justify-items-center"
                     variants={serviceCardsContainer}
                     initial="hidden"
                     whileInView="visible"
@@ -52,7 +53,7 @@ export default function Clients() {
                             href={client.website}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 dark:border-gray-700 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1 w-full sm:w-[calc(50%-0.75rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(25%-1.125rem)] min-w-[180px] max-w-[250px]"
+                            className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl border border-gray-100 dark:border-gray-700 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1 w-full max-w-[260px]"
                             variants={staggerItem}
                             custom={index}
                             style={{ flex: '1 1 auto', willChange: 'transform' }}
@@ -60,7 +61,7 @@ export default function Clients() {
                             {/* Client Logo — use image's original background (no forced white) */}
                             <div className="relative z-10 w-full h-28 flex items-center justify-center">
                                 {client.logo ? (
-                                    <img
+                                    <OptimizedImage
                                         src={client.logo}
                                         alt={client.alt}
                                         className="max-w-full max-h-full object-contain transform transition-transform duration-300 group-hover:scale-110"
