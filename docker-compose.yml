@@ -74,6 +74,8 @@ services:
     restart: unless-stopped
     networks:
       - chloromaster-network
+    env_file:
+      - .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5000
@@ -95,6 +97,7 @@ services:
       - Graph__ClientSecret=${Graph__ClientSecret}
       - Graph__SenderEmail=${Graph__SenderEmail}
       - FrontendDataPath=/frontend-data
+      - ALLOW_DATASHEET_WITHOUT_EMAIL=true
     volumes:
       - backend_data:/app/data:rw
       - backend_logs:/app/logs:rw
