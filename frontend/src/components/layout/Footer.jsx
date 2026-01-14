@@ -14,6 +14,7 @@ export default function Footer() {
     const { t, language } = useLanguage();
     const isRTL = typeof language === 'string' && language.toLowerCase().startsWith('ar');
     const navigate = useNavigate();
+    // Show the scroll-top control only after the user scrolls down a bit.
     const [showScrollTop, setShowScrollTop] = useState(false);
 
     // Scroll-to-top - simple and direct
@@ -33,29 +34,32 @@ export default function Footer() {
         const listenerOptions = { passive: true };
         const docListenerOptions = { passive: true, capture: true };
 
-        const handleScroll = () => {
-            // If a subpage is active, that layout renders its own UpArrowButton
-            // and we should avoid showing the footer's floating control to prevent duplicates.
-            if (document.body && document.body.dataset && document.body.dataset.hasSubpage) {
-                setShowScrollTop(false);
-                return;
+        const container = document.querySelector('main') || document.querySelector('#cm-page-wrapper') || document.querySelector('.cm-subpage') || document.scrollingElement || window;
+
+        const getContainerScroll = () => {
+            try {
+                if (!container || container === window) return 0;
+                return container.scrollTop || 0;
+            } catch (e) {
+                return 0;
             }
-            // Get scroll position from all possible sources
-            const scrollY = Math.max(
-                window.pageYOffset || 0,
-                window.scrollY || 0,
-                document.documentElement?.scrollTop || 0,
-                document.body?.scrollTop || 0
-            );
-
-            // Determine whether the page is scrollable at all (content taller than viewport)
-            const maxScroll = Math.max((document.documentElement?.scrollHeight || 0) - (window.innerHeight || 0), 0);
-
-            // Show button if user scrolled a bit OR the page is scrollable (so it's available on first load)
-            setShowScrollTop(scrollY > 20 || maxScroll > 0);
         };
 
-        // Listen on window and document to catch all scroll events
+        const getWindowScroll = () => Math.max(window.pageYOffset || 0, window.scrollY || 0, document.documentElement?.scrollTop || 0, document.body?.scrollTop || 0);
+
+        const handleScroll = () => {
+            // Take the maximum of window scroll and container scroll to cover all cases
+            const scrollY = Math.max(getWindowScroll(), getContainerScroll());
+            setShowScrollTop(scrollY > 20);
+        };
+
+        // Attach listener to the main scroll container (if any) and fallback to window/document
+        try {
+            if (container && container.addEventListener && container !== window) {
+                container.addEventListener('scroll', handleScroll, listenerOptions);
+            }
+        } catch (e) { /* ignore */ }
+        // Always attach to window/document as well to catch global scrolls
         window.addEventListener('scroll', handleScroll, listenerOptions);
         document.addEventListener('scroll', handleScroll, docListenerOptions);
 
@@ -64,9 +68,12 @@ export default function Footer() {
         handleScroll();
         const retry1 = setTimeout(handleScroll, 50);
         const retry2 = setTimeout(handleScroll, 500);
-        const interval = setInterval(handleScroll, 1000);
+        const interval = setInterval(handleScroll, 250);
 
         return () => {
+            try {
+                if (container && container.removeEventListener && container !== window) container.removeEventListener('scroll', handleScroll);
+            } catch (e) { /* ignore */ }
             window.removeEventListener('scroll', handleScroll, listenerOptions);
             document.removeEventListener('scroll', handleScroll, docListenerOptions);
             window.removeEventListener('load', handleScroll, listenerOptions);

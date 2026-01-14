@@ -32,20 +32,21 @@ export default function EquipmentDetail() {
         if (!input || !p) return false;
         try {
             const raw = decodeURIComponent(String(input));
+            // Exact match has highest priority
             if (String(p.slug || '') === String(raw)) return true;
         } catch (e) {
             // ignore decode errors
         }
-        // normalized comparisons
+        // normalized comparisons - only exact match to avoid false positives
         const iNorm = normalize(input);
         const pNorm = normalize(p.slug || '');
-        if (iNorm && pNorm && (iNorm === pNorm || iNorm.includes(pNorm) || pNorm.includes(iNorm))) return true;
+        if (iNorm && pNorm && iNorm === pNorm) return true;
 
-        // also compare against titles (english and arabic) normalized
+        // also compare against titles (english and arabic) normalized - exact match only
         const tEn = normalize(p.title?.en || '');
         const tAr = normalize(p.title?.ar || '');
-        if (iNorm && (tEn === iNorm || tEn.includes(iNorm) || iNorm.includes(tEn))) return true;
-        if (iNorm && (tAr === iNorm || tAr.includes(iNorm) || iNorm.includes(tAr))) return true;
+        if (iNorm && tEn && iNorm === tEn) return true;
+        if (iNorm && tAr && iNorm === tAr) return true;
 
         return false;
     };

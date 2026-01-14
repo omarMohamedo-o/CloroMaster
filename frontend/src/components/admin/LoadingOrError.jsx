@@ -5,8 +5,8 @@ export default function LoadingOrError({ loading, error, title, message, loading
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">{loadingMessage || 'Loading...'}</p>
+                    <img src="/images/chloromaster-logo.png" alt="ChloroMaster" className="w-32 md:w-40 h-auto mx-auto mb-4 object-contain float-slow" />
+                    <span className="sr-only" aria-live="polite">{loadingMessage || 'Loading...'}</span>
                 </div>
             </div>
         );

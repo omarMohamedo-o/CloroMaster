@@ -206,10 +206,10 @@ const chlorineProjects = [
     {
         id: 8,
         slug: 'sheikh-zayed-water-plant',
-        image: '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture23.webp',
+        image: '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture24.webp',
         images: [
-            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture23.webp',
             '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture24.webp',
+            '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture23.webp',
             '/images/services/Systems Installation and Commissioning/Sheikh Zayed Water Plant/Picture25.webp'
         ],
         title: {
