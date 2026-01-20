@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  redis:
+    image: chloromaster/redis:latest
+    restart: unless-stopped
+
+  backend:
+    image: chloromaster/backend:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - backend_data:/app/data:rw
+      - backend_logs:/app/logs:rw
+    depends_on:
+      - redis
+
+  frontend:
+    image: chloromaster/frontend:latest
+    restart: unless-stopped
+
+  nginx:
+    image: 0marmohamed/chloromaster-nginx:prod
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/ssl/:/etc/nginx/ssl/:ro
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  backend_data:
+  backend_logs:

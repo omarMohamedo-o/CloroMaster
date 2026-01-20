@@ -45,3 +45,13 @@ UserSecrets/
 # Backup files
 *.bak
 *.backup
+
+# Terraform state (do NOT commit state files)
+/infrastructure/terraform/terraform.tfstate
+/infrastructure/terraform/terraform.tfstate.backup
+*.tfstate
+*.tfstate.backup
+/.terraform/
+# Terraform variable files containing secrets
+/infrastructure/terraform/terraform.tfvars
+*.tfvars

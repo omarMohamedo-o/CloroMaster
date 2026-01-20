@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowUp } from 'react-icons/fa';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
@@ -24,7 +25,7 @@ export default function UpArrowButton({ parentRoute = null, className = '' }) {
         triggerExitAndNavigate(navigate, resolved);
     };
 
-    return (
+    const content = (
         <AnimatePresence>
             {show && (
                 <motion.button
@@ -36,7 +37,8 @@ export default function UpArrowButton({ parentRoute = null, className = '' }) {
                     onClick={handleClick}
                     aria-label={t?.('common_ui.back') || 'Back'}
                     title={t?.('common_ui.back') || 'Back'}
-                    className={`fixed bottom-4 z-[9999] p-3 rounded-lg bg-brand text-white shadow-lg hover:opacity-95 focus:outline-none ${className}`}
+                    // use a very high z-index and position fixed; render via portal to avoid parent stacking contexts
+                    className={`fixed bottom-4 z-[99999] p-3 rounded-lg bg-brand text-white shadow-lg hover:opacity-95 focus:outline-none ${className}`}
                     style={{ right: isRTL ? 'auto' : 16, left: isRTL ? 16 : 'auto' }}
                 >
                     <FaArrowUp size={20} />
@@ -44,4 +46,11 @@ export default function UpArrowButton({ parentRoute = null, className = '' }) {
             )}
         </AnimatePresence>
     );
+
+    // Render into document.body to escape any parent stacking contexts (transforms, z-index, etc.)
+    if (typeof document !== 'undefined' && document.body) {
+        return createPortal(content, document.body);
+    }
+
+    return content;
 }

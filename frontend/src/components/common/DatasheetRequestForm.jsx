@@ -11,6 +11,22 @@ const sanitizeSlug = (value) => {
     return /^[A-Za-z0-9 ._()-]+$/.test(trimmed) ? trimmed : null;
 };
 
+const isSafeDownloadUrl = (rawUrl) => {
+    try {
+        const parsed = new URL(rawUrl, window.location.href);
+        // Only allow http/https
+        if (!['http:', 'https:'].includes(parsed.protocol)) return null;
+        // Must be same origin as the app
+        if (parsed.origin !== window.location.origin) return null;
+        // Prevent path traversal
+        if (parsed.pathname.includes('..')) return null;
+        // Return only the path+query+hash so we never use an external origin directly
+        return `${parsed.pathname}${parsed.search || ''}${parsed.hash || ''}`;
+    } catch (e) {
+        return null;
+    }
+};
+
 export default function DatasheetRequestForm({ slug, _title, _onClose }) {
     const { t } = useLanguage();
     // helper to avoid showing raw key strings when translation is missing
@@ -99,49 +115,40 @@ export default function DatasheetRequestForm({ slug, _title, _onClose }) {
 
             // Download the datasheet using the provided token
             if (data.downloadUrl) {
-                try {
-                    const parsed = new URL(data.downloadUrl, window.location.href);
-                    if (parsed.origin === window.location.origin) {
-                        const safeHref = parsed.href;
-                        // If we're on mobile, navigate the current tab (more reliable). On desktop,
-                        // prefer the popup-first approach so the user stays on the page.
-                        if (isMobile) {
-                            // Navigate same tab — mobile browsers typically allow this user-initiated navigation.
-                            window.location.assign(safeHref);
-                        } else {
-                            // Desktop: if we opened a popup earlier, navigate it now (preserves user gesture).
-                            if (popup) {
-                                try {
-                                    popup.location.href = safeHref;
-                                } catch (err) {
-                                    try { popup.close(); } catch (e) { void 0; }
-                                    const fallbackWin = window.open(safeHref, '_blank', 'noopener');
-                                    if (!fallbackWin) window.location.assign(safeHref);
-                                }
-                            } else {
-                                // Popup was blocked — try opening now (may be blocked). As a last resort navigate current tab.
-                                const newWin = window.open(safeHref, '_blank', 'noopener');
-                                if (!newWin) window.location.assign(safeHref);
-                            }
-                        }
-
-                        // Mark as submitted after successful navigation
-                        setSubmitted(true);
-                        setSubmitting(false);
-
-                        // Auto-close modal after opening starts (give popup time to load)
-                        if (_onClose) {
-                            try { setTimeout(_onClose, 800); } catch (e) { void 0; }
-                        }
-                    } else {
-                        if (popup) try { popup.close(); } catch (e) { void 0; }
-                        setErrors({ form: t ? t('common_ui.datasheetInvalidUrl') : 'Received invalid download URL.' });
-                        setSubmitting(false);
-                    }
-                } catch (err) {
+                const safePath = isSafeDownloadUrl(data.downloadUrl);
+                if (!safePath) {
                     if (popup) try { popup.close(); } catch (e) { void 0; }
                     setErrors({ form: t ? t('common_ui.datasheetInvalidUrl') : 'Received invalid download URL.' });
                     setSubmitting(false);
+                } else {
+                    const safeHref = window.location.origin + safePath;
+                    // If we're on mobile, navigate the current tab (more reliable). On desktop,
+                    // prefer the popup-first approach so the user stays on the page.
+                    if (isMobile) {
+                        window.location.assign(safeHref);
+                    } else {
+                        if (popup) {
+                            try {
+                                popup.location.href = safeHref;
+                            } catch (err) {
+                                try { popup.close(); } catch (e) { void 0; }
+                                const fallbackWin = window.open(safeHref, '_blank', 'noopener');
+                                if (!fallbackWin) window.location.assign(safeHref);
+                            }
+                        } else {
+                            const newWin = window.open(safeHref, '_blank', 'noopener');
+                            if (!newWin) window.location.assign(safeHref);
+                        }
+                    }
+
+                    // Mark as submitted after successful navigation
+                    setSubmitted(true);
+                    setSubmitting(false);
+
+                    // Auto-close modal after opening starts (give popup time to load)
+                    if (_onClose) {
+                        try { setTimeout(_onClose, 800); } catch (e) { void 0; }
+                    }
                 }
             } else {
                 // No download URL in response

@@ -30,6 +30,9 @@ services:
       - chloromaster-network
     environment:
       - NODE_ENV=production
+    read_only: true
+    tmpfs:
+      - /run:size=2M,mode=1777
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80/"]
       interval: 30s
@@ -74,6 +77,8 @@ services:
     restart: unless-stopped
     networks:
       - chloromaster-network
+    env_file:
+      - .env
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5000
@@ -95,6 +100,7 @@ services:
       - Graph__ClientSecret=${Graph__ClientSecret}
       - Graph__SenderEmail=${Graph__SenderEmail}
       - FrontendDataPath=/frontend-data
+      - ALLOW_DATASHEET_WITHOUT_EMAIL=true
     volumes:
       - backend_data:/app/data:rw
       - backend_logs:/app/logs:rw
@@ -133,7 +139,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    image: chloromaster/nginx:latest
+    image: 0marmohamed/chloromaster-nginx:prod
     container_name: chloromaster-nginx
     restart: unless-stopped
     ports:
@@ -141,6 +147,11 @@ services:
       - "443:443"
     networks:
       - chloromaster-network
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+      - ./nginx/ssl/:/etc/nginx/ssl/:ro
+      - ./backend/storage/datasheets:/usr/share/nginx/files/datasheets:ro
     depends_on:
       frontend:
         condition: service_healthy
@@ -156,7 +167,7 @@ services:
       start_period: 30s
     security_opt:
       - no-new-privileges:true
-    read_only: false
+    read_only: true
     tmpfs:
       - /var/run:size=2M,mode=1777
       - /var/cache/nginx:size=256M,mode=1777

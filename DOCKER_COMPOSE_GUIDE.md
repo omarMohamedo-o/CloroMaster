@@ -368,3 +368,39 @@ If you have the old `backend/docker-compose.yml`:
 4. **Monitor website statistics** with Grafana (use `--profile monitoring`)
 5. **Use Kubernetes** for production deployments with auto-scaling
 6. **Test locally** with docker compose before pushing to Kubernetes
+
+---
+
+## Automated Server Deployment
+
+Use the helper script in `deploy/deploy.sh` to push the repo to a remote server, install Docker if missing, create a systemd service, and start the stack.
+
+Steps:
+
+- Make the script executable:
+
+```bash
+chmod +x deploy/deploy.sh
+```
+
+- Copy your production env and edit secrets on the server:
+
+```bash
+# Copy template to server and then edit
+./deploy/deploy.sh ubuntu@YOUR_SERVER_IP ~/.ssh/id_rsa /home/ubuntu/chloromaster
+ssh -i ~/.ssh/id_rsa ubuntu@YOUR_SERVER_IP 'nano /home/ubuntu/chloromaster/.env'
+```
+
+- The script will also create `/etc/systemd/system/chloromaster.service` on the server (you can review `deploy/chloromaster.service` locally) and enable it at boot.
+
+- To inspect logs after deployment:
+
+```bash
+ssh -i ~/.ssh/id_rsa ubuntu@YOUR_SERVER_IP 'docker compose -f /home/ubuntu/chloromaster/docker-compose.yml logs -f'
+```
+
+Notes:
+
+- The script tries to detect and install `docker` and the `docker compose` plugin on Debian/Ubuntu systems. Modify it if your server OS differs.
+- Edit `/home/ubuntu/chloromaster/.env` on the server and fill in database passwords, Cloudflare credentials, and any secrets before starting production traffic.
+- For Cloudflare TLS (Full (strict)) use your origin certificate and follow `./scripts/install_cloudflare_origin_cert.sh` to install cert/key on the server.

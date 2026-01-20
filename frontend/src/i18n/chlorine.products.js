@@ -3,7 +3,7 @@ const chlorineProducts = [
         id: 1,
         slug: 'drum-lifting-beam',
         image: '/images/services/Chlorine System Solutions/Chlorine Drum Lifting Beam.webp',
-        datasheet: '/files/datasheets/chlorine-drum-lifting-beam.pdf',
+        datasheet: 'ChloroMaster Chlorine Drum Lifting Beam',
         title: {
             en: 'Chlorine Drum Lifting Beam',
             ar: 'عارضة رفع أسطوانات الكلور'
@@ -21,7 +21,7 @@ const chlorineProducts = [
         id: 2,
         slug: 'drum-trunnion',
         image: '/images/services/Chlorine System Solutions/Chlorine Drum Trunnion.webp',
-        datasheet: '/files/datasheets/chlorine-drum-trunnion.pdf',
+        datasheet: 'ChloroMaster Chlorine Drum Trunnion',
         title: {
             en: 'Chlorine Drum Trunnion',
             ar: 'قواعد تثبيت أسطوانات الكلور (1 طن)'
@@ -39,7 +39,7 @@ const chlorineProducts = [
         id: 3,
         slug: 'drum-scale-frame-digital-load-cell',
         image: '/images/services/Chlorine System Solutions/ChloroMaster DRUM SCALE FRAME WITH DIGITAL LOAD CELL   (D.Sc 05).webp',
-        datasheet: '/files/datasheets/ChloroMaster DRUM SCALE FRAME WITH DIGITAL LOAD CELL   (D.Sc 05).pdf',
+        datasheet: 'ChloroMaster DRUM SCALE FRAME WITH DIGITAL LOAD CELL (D.Sc 05)',
         title: {
             en: 'Drum Scale Frame with Digital Load Cell',
             ar: 'إطار وزن أسطوانات الكلور بخلايا تحميل رقمية'
@@ -57,7 +57,7 @@ const chlorineProducts = [
         id: 4,
         slug: 'chlorine-line-valve-monel-k400',
         image: '/images/services/Chlorine System Solutions/Chlorine Line Valve Monel K400.webp',
-        datasheet: '/files/datasheets/chlorine-line-valve-monel-k400.pdf',
+        datasheet: 'ChloroMaster Chlorine Line Valve Monel k400',
         title: {
             en: 'Chlorine Line Valve – Monel K400',
             ar: 'محبس خط كلور مونيل K400'
@@ -75,7 +75,7 @@ const chlorineProducts = [
         id: 5,
         slug: 'chlorine-flexible-connection-3-4',
         image: '/images/services/Chlorine System Solutions/Chlorine-Flexible Connection.webp',
-        datasheet: '/files/datasheets/chlorine-flexible-connection-3-4.pdf',
+        datasheet: 'ChloroMaster Chlorine Flexible Connection 3-4',
         title: {
             en: 'Chlorine Flexible Connection ¾"',
             ar: 'وصلة مرنة لغاز الكلور ¾ بوصة'
@@ -93,7 +93,7 @@ const chlorineProducts = [
         id: 6,
         slug: 'diaphragm-pressure-gauge-with-contact',
         image: '/images/services/Chlorine System Solutions/Diaphragm Pressure Gauge with contact.webp',
-        datasheet: '/files/datasheets/diaphragm-pressure-gauge-with-contact.pdf',
+        datasheet: 'ChloroMaster Diaphragm Pressure Gauge With Contact',
         title: {
             en: 'Diaphragm Pressure Gauge with Contact',
             ar: 'عداد ضغط غشائي مزود بجهات اتصال'
@@ -111,7 +111,7 @@ const chlorineProducts = [
         id: 7,
         slug: 'rupture-disc',
         image: '/images/services/Chlorine System Solutions/ChloroMaster Rupture Disc (R.D 05).webp',
-        datasheet: '/files/datasheets/ChloroMaster Rupture Disc (R.D 05).pdf',
+        datasheet: 'ChloroMaster Rupture Disc (R.D 05)',
         title: {
             en: 'Rupture Disc',
             ar: 'قرص انفجار'
@@ -129,7 +129,7 @@ const chlorineProducts = [
         id: 8,
         slug: 'expansion-tube-with-rupture-disc',
         image: '/images/services/Chlorine System Solutions/Expansion-tube-with-rupture-disc.webp',
-        datasheet: '/files/datasheets/expansion-tube-with-rupture-disc.pdf',
+        datasheet: 'ChloroMaster Expansion Tube with Rupture Disc',
         title: {
             en: 'Expansion Tube with Rupture Disc',
             ar: 'أنبوب تمدد مزود بقرص انفجار'
@@ -147,7 +147,7 @@ const chlorineProducts = [
         id: 9,
         slug: 'emergency-kit',
         image: '/images/services/Chlorine System Solutions/Emergency kit.webp',
-        datasheet: '/files/datasheets/emergency-kit.pdf',
+        datasheet: 'ChloroMaster Emergency Kit',
         title: {
             en: 'Chlorine Emergency Kit',
             ar: 'عدة طوارئ الكلور'
@@ -165,7 +165,7 @@ const chlorineProducts = [
         id: 10,
         slug: 'safety-shower-eyewash',
         image: '/images/services/Chlorine System Solutions/EMERGENCY-SAFETY-SHOWER-AND-EYE-WASH.webp',
-        datasheet: '/files/datasheets/safety-shower-eyewash.pdf',
+        datasheet: 'ChloroMaster Safety Shower Eyewash',
         title: {
             en: 'Emergency Safety Shower & Eyewash',
             ar: 'دش طوارئ وغسيل عين'
@@ -183,7 +183,7 @@ const chlorineProducts = [
         id: 11,
         slug: 'neutralization-system-wet-scrubber',
         image: '/images/services/Chlorine System Solutions/Neutralization-System-(Wet-scrubber).webp',
-        datasheet: '/files/datasheets/neutralization-system.pdf',
+        datasheet: 'ChloroMaster Neutralization System',
         title: {
             en: 'Chlorine Neutralization System',
             ar: 'منظومة معادلة غاز الكلور'
@@ -201,7 +201,7 @@ const chlorineProducts = [
         id: 12,
         slug: 'nitrogen-flushing-system',
         image: '/images/services/Chlorine System Solutions/Nitrogen-flushing-system.webp',
-        datasheet: '/files/datasheets/nitrogen-flushing-system.pdf',
+        datasheet: 'ChloroMaster Nitrogen Flushing System',
         title: {
             en: 'Nitrogen Flushing System',
             ar: 'منظومة التطهير بالنيتروجين'
@@ -219,7 +219,7 @@ const chlorineProducts = [
         id: 13,
         slug: 'chlorine-threaded-ball-valve-3pcs',
         image: '/images/services/Chlorine System Solutions/Chlorine-Threaded-ball-valve-3PCS.webp',
-        datasheet: '/files/datasheets/line-ball-valve-s-s-316-l.pdf',
+        datasheet: 'ChloroMaster Line Ball Valve S.S 316 L',
         title: {
             en: 'Chlorine Threaded Ball Valve 3PCS',
             ar: 'محبس كروي ملولب للكلور 3 قطع'
@@ -237,7 +237,7 @@ const chlorineProducts = [
         id: 14,
         slug: 'gas-container-change-over-unit',
         image: '/images/services/Chlorine System Solutions/Gas Container Change Over Unit.webp',
-        datasheet: '/files/datasheets/change-over-unit.pdf',
+        datasheet: 'ChloroMaster Change Over Unit (Ch.U 05)',
         title: {
             en: 'Gas Container Change Over Unit',
             ar: 'وحدة تبديل أسطوانات الغاز'
@@ -255,7 +255,7 @@ const chlorineProducts = [
         id: 15,
         slug: 'liquid-chlorine-trap-and-gas-filter',
         image: '/images/services/Chlorine System Solutions/liquid-chlorine-trap-and-chlorine-gas-filter.webp',
-        datasheet: '/files/datasheets/liquid-trap.pdf',
+        datasheet: 'ChloroMaster Liquid Trap (L.T 05)',
         title: {
             en: 'Liquid Chlorine Trap and Chlorine Gas Filter',
             ar: 'مصيدة الكلور السائل وفلتر غاز الكلور'
@@ -273,7 +273,7 @@ const chlorineProducts = [
         id: 16,
         slug: 'auxiliary-and-header-valve',
         image: '/images/services/Chlorine System Solutions/Auxiliary & header Valve.webp',
-        datasheet: '/files/datasheets/chlorine-auxiliary-header-valve.pdf',
+        datasheet: 'ChloroMaster Chlorine Auxiliary Header Valve',
         title: {
             en: 'Auxiliary & Header Valve',
             ar: 'محبس مساعد ومحبس رأسي'
@@ -285,6 +285,42 @@ const chlorineProducts = [
         usage: {
             en: 'Specialized valves for manifold headers and auxiliary lines in chlorine distribution systems.',
             ar: 'محابس متخصصة للخطوط الرأسية والمساعدة في منظومة توزيع الكلور.'
+        }
+    },
+    {
+        id: 17,
+        slug: 'Chlorine Line ball Valve',
+        image: '/images/services/Chlorine System Solutions/ChloroMaster Line ball Valve S.S 316 L (L.bV 05).webp',
+        datasheet: 'ChloroMaster Line ball Valve C.S',
+        title: {
+            en: 'Chlorine Line ball Valve',
+            ar: 'محبس خط مقاوم لغاز الكلور'
+        },
+        titleHighlight: {
+            en: 'Chlorine Line ball Valve',
+            ar: 'محبس خط'
+        },
+        usage: {
+            en: 'Precision ball valve is specifically suitable for safe handling and control of chlorine gas service.',
+            ar: '.محبس كروي مصمم خصيصًا للتعامل الآمن مع غاز الكلور والتحكم الكامل في خطوطه'
+        }
+    },
+    {
+        id: 18,
+        slug: 'Neutralization Media',
+        image: '/images/services/Chlorine System Solutions/ChloroMaster Neutralization Media (N.M 05).webp',
+        datasheet: 'ChloroMaster Neutralization Media (N.M 05)',
+        title: {
+            en: 'Neutralization Media',
+            ar: 'مديا برج التعادل'
+        },
+        titleHighlight: {
+            en: 'Neutralization Media',
+            ar: 'مديا برج التعادل'
+        },
+        usage: {
+            en: 'Special media designed to extend the contact time of chlorine gas with caustic soda in the neutralization tower, ensuring complete neutralization before discharge.',
+            ar: '.وسط مخصص لزيادة زمن تلامس غاز الكلور مع الصودا الكاوية داخل برج المعادلة، لضمان معادلته بالكامل قبل خروجه بأمان'
         }
     }
 ];

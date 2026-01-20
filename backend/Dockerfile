@@ -29,31 +29,13 @@ RUN dotnet publish ChloroMaster.API.csproj \
     /p:PublishSingleFile=false
 
 # ==========================================
-# Frontend Build Stage
-# ==========================================
-FROM node:20-alpine AS frontend-build
-
-WORKDIR /app
-
-# Copy frontend package files and install dependencies
-COPY frontend/package*.json ./
-# Use `npm install` here to avoid build failures when `package-lock.json` and
-# `package.json` are slightly out of sync in the repo. This keeps the container
-# build smooth; keep the repository lockfile in sync during development.
-RUN npm install --no-audit --no-fund
-
-# Copy frontend source files and build the application
-COPY frontend/ .
-RUN npm run build    # produces build/ (production)
-
-# ==========================================
-# Final Stage: Combine Backend and Frontend
+# Final Stage: Production Runtime (Backend Only)
 # ==========================================
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy AS final
 
 # Metadata
 LABEL maintainer="ChloroMaster Engineering" \
-    description="Production .NET 8 API with Frontend" \
+    description="Production .NET 8 API Backend Only" \
     version="2.0"
 
 # Runtime optimizations
@@ -77,12 +59,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     mkdir -p /app/data /app/logs /app/storage/datasheets && \
     chown -R appuser:appgroup /app
 
-# Copy published app, scripts, and frontend build
+# Copy published app, scripts, and storage
 COPY --from=build --chown=appuser:appgroup /app/publish .
 COPY --chown=appuser:appgroup backend/migrations /app/migrations
 COPY --chown=appuser:appgroup backend/scripts /app/scripts
 COPY --chown=appuser:appgroup backend/storage/datasheets /app/storage/datasheets
-COPY --from=frontend-build --chown=appuser:appgroup /app/build ./wwwroot
 
 # Set script permissions
 RUN chmod +x /app/scripts/*.sh

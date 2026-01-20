@@ -12,12 +12,12 @@ kubectl create secret generic production-smtp-secret \
   --namespace chloromaster \
   --from-literal=Smtp__Host=smtp.sendgrid.net \
   --from-literal=Smtp__Port=587 \
-  --from-literal=Smtp__Username=apikey \
-  --from-literal=Smtp__Password='<SENDGRID_API_KEY>' \
+  --from-literal=Smtp__Username=info@chloromaster.com \
+  --from-literal=Smtp__Password='<ZOHO_SMTP_PASSWORD_OR_APP_PWD>' \
   --from-literal=Smtp__UseSsl=true \
   --from-literal=Smtp__FromName='ChloroMaster' \
-  --from-literal=Smtp__FromEmail='chloromaster365@gmail.com' \
-  --from-literal=Smtp__AdminEmail='chloromaster365@gmail.com'
+  --from-literal=Smtp__FromEmail='info@chloromaster.com' \
+  --from-literal=Smtp__AdminEmail='info@chloromaster.com'
 ```
 
 1. Update `k8s/04-backend-deployment.yaml` (or your environment overlay) to reference `production-smtp-secret` instead of `chloromaster-secrets`.

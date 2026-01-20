@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import BackButton from '../common/BackButton';
-import UpArrowButton from '../common/UpArrowButton';
 
 export default function SubpageLayout({ title, titleHighlight, subtitle, children, headerChildren }) {
     useLanguage();
@@ -82,8 +81,7 @@ export default function SubpageLayout({ title, titleHighlight, subtitle, childre
                 <div>
                     {children}
                 </div>
-                {/* Up arrow navigates to parent using the same resolver and animation as BackButton */}
-                <UpArrowButton />
+                {/* Up arrow handled globally in the Footer to provide a single consistent control */}
             </div>
         </div>
     );

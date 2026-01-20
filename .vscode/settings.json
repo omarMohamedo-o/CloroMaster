@@ -1,3 +1,5 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "snyk.advanced.organization": "537f42d9-2818-465c-937e-6253502b5d98",
+    "snyk.advanced.autoSelectOrganization": true
 }

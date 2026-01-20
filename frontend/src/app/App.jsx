@@ -12,8 +12,11 @@ function LoadingFallback() {
     // Always call hooks at the top level
     const { t } = useLanguage();
     return (
-        <div className="h-screen flex items-center justify-center">
-            <div className="text-brand text-xl">{t('common.loading')}</div>
+        <div className="h-screen flex items-center justify-center bg-white">
+            <div className="text-center">
+                <img src="/images/chloromaster-logo.png" alt="ChloroMaster" className="w-48 md:w-64 mx-auto mb-6 object-contain float-slow" />
+                <span className="sr-only" aria-live="polite">{t('common.loading')}</span>
+            </div>
         </div>
     );
 }
