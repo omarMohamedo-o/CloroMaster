@@ -55,3 +55,4 @@ UserSecrets/
 # Terraform variable files containing secrets
 /infrastructure/terraform/terraform.tfvars
 *.tfvars
+nginx/ssl/
