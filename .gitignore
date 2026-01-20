@@ -56,3 +56,4 @@ UserSecrets/
 /infrastructure/terraform/terraform.tfvars
 *.tfvars
 nginx/ssl/
+infrastructure/terraform/.terraform
