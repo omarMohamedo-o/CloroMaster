@@ -1,0 +1,21 @@
+repos:
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.3.0
+    hooks:
+      - id: detect-secrets-hook
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.2.0
+    hooks:
+      - id: mypy
+# Note: add language-specific hooks as needed (eslint, prettier). To generate
+# a detect-secrets baseline run `detect-secrets scan > .secrets.baseline` locally
+# and commit the baseline (do NOT add secrets to the baseline).
