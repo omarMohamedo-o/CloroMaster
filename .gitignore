@@ -72,3 +72,17 @@ UserSecrets/
 # Backup files
 *.bak
 *.backup
+
+# Terraform state and secrets
+# Ignore Terraform local state, backups, and working directories
+**/terraform.tfstate
+**/terraform.tfstate.backup
+**/.terraform/
+
+# Terraform variable files (may contain secrets)
+*.tfvars
+*.tfvars.json
+
+# Infrastructure-specific sensitive files
+/infrastructure/terraform/*.tfstate*
+/infrastructure/terraform/*.tfvars*
